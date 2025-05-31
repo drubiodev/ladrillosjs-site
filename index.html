@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>LadrillosJS - Lightweight Web Component Framework</title>
+    <link
+      rel="icon"
+      type="image/png"
+      href="https://raw.githubusercontent.com/drubiodev/LadrillosJS/refs/heads/main/LadrillosJS.png"
+    />
+    <script type="module">
+      import { registerComponents } from "ladrillosjs";
+      registerComponents([
+        { name: "site-header", path: "./components/site-header.html" },
+        { name: "feature-card", path: "./components/feature-card.html" },
+      ]);
+    </script>
+  </head>
+  <body>
+    <site-header></site-header>
+
+    <section class="hero">
+      <div class="container">
+        <h1>Build Modular Web Apps</h1>
+        <p>
+          A lightweight web component framework that leverages pure JavaScript
+          to create reusable, reactive components without any build tools.
+        </p>
+        <div class="hero-buttons">
+          <a href="#getting-started" class="btn btn-primary">
+            Get Started
+            <svg
+              width="20"
+              height="20"
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+              stroke-width="2"
+            >
+              <path d="M5 12h14M12 5l7 7-7 7" />
+            </svg>
+          </a>
+          <a
+            href="https://github.com/drubiodev/LadrillosJS/tree/main/samples"
+            class="btn btn-secondary"
+          >
+            View Examples
+          </a>
+        </div>
+      </div>
+    </section>
+
+    <feature-card icon="🚀">
+      <h3 slot="header">Zero Dependencies</h3>
+      <p>
+        Pure JavaScript with no external dependencies or build tools required
+      </p>
+    </feature-card>
+
+    <feature-card icon="📦">
+      <h3 slot="header">Single-File Components</h3>
+      <p>HTML, CSS, and JavaScript all in one file for true modularity</p>
+    </feature-card>
+  </body>
+</html>
