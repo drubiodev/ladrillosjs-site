@@ -1,0 +1,96 @@
+<style>
+  .examples {
+    padding: 5rem 1rem;
+    background: var(--bg-light);
+  }
+
+  .example-tabs {
+    display: flex;
+    gap: 1rem;
+    margin-bottom: 2rem;
+    flex-wrap: wrap;
+  }
+
+  .tab {
+    padding: 0.75rem 1.5rem;
+    background: var(--bg);
+    border: 2px solid var(--border);
+    border-radius: 8px;
+    cursor: pointer;
+    font-weight: 600;
+    transition: all 0.2s;
+  }
+
+  .tab.active {
+    background: var(--primary);
+    color: white;
+    border-color: var(--primary);
+  }
+
+  .example-content {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 2rem;
+    align-items: start;
+  }
+
+  .code-block {
+    border-radius: var(--radius);
+    box-shadow: var(--shadow);
+  }
+
+  .preview {
+    background: white;
+    border: 2px solid var(--border);
+    border-radius: var(--radius);
+    padding: 2rem;
+    min-height: 300px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    box-shadow: var(--shadow);
+  }
+</style>
+
+<section id="examples" class="examples">
+  <div class="container">
+    <h2 class="section-title">See It In Action</h2>
+    <div class="example-tabs">
+      <div class="tab active" onclick="showExample('counter')">Counter</div>
+      <div class="tab" onclick="showExample('todo')">Todo List</div>
+      <div class="tab" onclick="showExample('binding')">Data Binding</div>
+    </div>
+
+    <div id="counter-example" class="example-content">
+      <div class="code-block">
+        <code-block filename="counter.html">
+          <template>
+            <div class="demo-counter">
+              <h2>Count: <span id="count">{count}</span></h2>
+              <button onclick="increment">+</button>
+              <button onclick="decrement">-</button>
+              <button onclick="reset">Reset</button>
+            </div>
+
+            <script>
+              let count = 0;
+              const increment = () => {
+                count++;
+              };
+              const decrement = () => {
+                count--;
+              };
+              const reset = () => {
+                count = 0;
+              };
+            </script>
+          </template>
+        </code-block>
+      </div>
+
+      <div class="preview">
+        <counter-example></counter-example>
+      </div>
+    </div>
+  </div>
+</section>

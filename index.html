@@ -4,6 +4,7 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>LadrillosJS - Lightweight Web Component Framework</title>
+    <link rel="stylesheet" href="./styles/site.css" />
     <link
       rel="icon"
       type="image/png"
@@ -13,54 +14,51 @@
       import { registerComponents } from "ladrillosjs";
       registerComponents([
         { name: "site-header", path: "./components/site-header.html" },
+        { name: "hero-section", path: "./components/hero-section.html" },
         { name: "feature-card", path: "./components/feature-card.html" },
+        { name: "examples-section", path: "./components/examples.html" },
+        { name: "code-block", path: "./components/codeblock.html" },
+        { name: "alert-banner", path: "./components/alert-banner.html" },
+        { name: "counter-example", path: "./components/samples/counter.html" },
       ]);
     </script>
   </head>
   <body>
+    <alert-banner data-timeout="2"></alert-banner>
+    <!-- Header -->
     <site-header></site-header>
-
-    <section class="hero">
+    <!-- Hero -->
+    <hero-section></hero-section>
+    <!-- Features -->
+    <section id="features" class="features">
       <div class="container">
-        <h1>Build Modular Web Apps</h1>
-        <p>
-          A lightweight web component framework that leverages pure JavaScript
-          to create reusable, reactive components without any build tools.
-        </p>
-        <div class="hero-buttons">
-          <a href="#getting-started" class="btn btn-primary">
-            Get Started
-            <svg
-              width="20"
-              height="20"
-              viewBox="0 0 24 24"
-              fill="none"
-              stroke="currentColor"
-              stroke-width="2"
-            >
-              <path d="M5 12h14M12 5l7 7-7 7" />
-            </svg>
-          </a>
-          <a
-            href="https://github.com/drubiodev/LadrillosJS/tree/main/samples"
-            class="btn btn-secondary"
-          >
-            View Examples
-          </a>
+        <h2 class="section-title">Why LadrillosJS?</h2>
+        <div class="features-grid">
+          <feature-card icon="📦">
+            <h3 slot="header">Single-File Components</h3>
+            <p>HTML, CSS, and JavaScript all in one file for true modularity</p>
+          </feature-card>
+
+          <feature-card icon="⚡">
+            <h3>Reactive State</h3>
+            <p>Automatic re-rendering when component state changes</p>
+          </feature-card>
+
+          <feature-card icon="🎯">
+            <h3>Event System</h3>
+            <p>
+              Built-in event emission and listening for component communication
+            </p>
+          </feature-card>
+
+          <feature-card icon="🔄">
+            <h3>Two-Way Data Binding</h3>
+            <p>Seamless data binding for forms and interactive elements</p>
+          </feature-card>
         </div>
       </div>
     </section>
-
-    <feature-card icon="🚀">
-      <h3 slot="header">Zero Dependencies</h3>
-      <p>
-        Pure JavaScript with no external dependencies or build tools required
-      </p>
-    </feature-card>
-
-    <feature-card icon="📦">
-      <h3 slot="header">Single-File Components</h3>
-      <p>HTML, CSS, and JavaScript all in one file for true modularity</p>
-    </feature-card>
+    <!-- Examples -->
+    <examples-section></examples-section>
   </body>
 </html>
