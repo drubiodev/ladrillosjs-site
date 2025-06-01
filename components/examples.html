@@ -56,12 +56,22 @@
   <div class="container">
     <h2 class="section-title">See It In Action</h2>
     <div class="example-tabs">
-      <div class="tab active" onclick="showExample('counter')">Counter</div>
-      <div class="tab" onclick="showExample('todo')">Todo List</div>
-      <div class="tab" onclick="showExample('binding')">Data Binding</div>
+      <div id="counter-btn" class="tab active" onclick="showExample('counter')">
+        Counter
+      </div>
+      <div id="todo-btn" class="tab" onclick="showExample('todo')">
+        Todo List
+      </div>
+      <div id="binding-btn" class="tab" onclick="showExample('binding')">
+        Data Binding
+      </div>
     </div>
 
-    <div id="counter-example" class="example-content">
+    <div
+      data-if="activeTab === 'counter'"
+      id="counter-example"
+      class="example-content"
+    >
       <div class="code-block">
         <code-block filename="counter.html">
           <template>
@@ -92,5 +102,83 @@
         <counter-example></counter-example>
       </div>
     </div>
+
+    <div
+      data-if="activeTab === 'todo'"
+      id="todo-example"
+      class="example-content"
+    >
+      <div class="code-block">
+        <code-block filename="todo-list.html">
+          <template>
+            <div class="todo-list-container">
+              <div class="todo-list-input-group">
+                <input
+                  type="text"
+                  placeholder="Add a new todo"
+                  data-bind="text"
+                  onkeyup="tapEnter"
+                />
+                <button onclick="addTodo">Add</button>
+              </div>
+              <slot></slot>
+            </div>
+
+            <script>
+              const tapEnter = (event) => {
+                if (event.key === "Enter") {
+                  addTodo();
+                }
+              };
+
+              const addTodo = () => {
+                let text = text.trim();
+                if (!text) return;
+
+                const todoItem = document.createElement("todo-item");
+                todoItem.setAttribute("text", text);
+                this.appendChild(todoItem);
+                text = "";
+              };
+            </script>
+          </template>
+        </code-block>
+        <code-block filename="todo-item.html">
+          <template></template>
+        </code-block>
+      </div>
+
+      <div class="preview">
+        <todo-list-example></todo-list-example>
+      </div>
+    </div>
+
+    <div
+      data-if="activeTab === 'binding'"
+      id="binding-example"
+      class="example-content"
+    >
+      <div class="code-block">
+        <code-block filename="binding.html"> </code-block>
+      </div>
+
+      <div class="preview">
+        <counter-example></counter-example>
+      </div>
+    </div>
   </div>
 </section>
+
+<script>
+  let activeTab = "counter";
+  function showExample(example) {
+    activeTab = example;
+    const btns = this.querySelectorAll(".tab");
+    btns.forEach((btn) => {
+      btn.classList.remove("active");
+    });
+    const tabBtn = this.querySelector(`#${example}-btn`);
+
+    tabBtn.classList.add("active");
+  }
+</script>
