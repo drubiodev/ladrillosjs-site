@@ -28,6 +28,10 @@ body {
   overflow-x: hidden;
 }
 
+.loading {
+  display: none;
+}
+
 /* Features */
 .features {
   padding: 5rem 0;

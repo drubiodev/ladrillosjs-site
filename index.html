@@ -12,7 +12,7 @@
     />
     <script type="module">
       import { registerComponents } from "ladrillosjs";
-      registerComponents([
+      await registerComponents([
         { name: "site-header", path: "./components/site-header.html" },
         { name: "hero-section", path: "./components/hero-section.html" },
         { name: "feature-card", path: "./components/feature-card.html" },
@@ -29,9 +29,10 @@
           path: "./components/samples/todo-item.html",
         },
       ]);
+      document.body.classList.remove("loading");
     </script>
   </head>
-  <body>
+  <body class="loading">
     <alert-banner data-timeout="2"></alert-banner>
     <!-- Header -->
     <site-header></site-header>
