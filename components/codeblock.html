@@ -18,25 +18,65 @@
     max-width: 800px;
   }
 
-  .code-header {
+  .tabs-header {
     background: #21252b;
-    color: #ffffff;
-    padding: 0.5em 1em;
-    font-size: 0.875em;
     border-bottom: 1px solid #3a3f4b;
-    position: relative; /* allow absolutely‑positioned button */
+    display: flex;
+    align-items: center;
+  }
+
+  .tab-buttons {
+    display: flex;
+    flex: 1;
+  }
+
+  .tab-button {
+    background: none;
+    border: none;
+    color: #abb2bf;
+    padding: 0.75em 1em;
+    cursor: pointer;
+    font-size: 0.875em;
+    font-family: inherit;
+    transition: all 0.2s ease;
+    border-bottom: 2px solid transparent;
+  }
+
+  .tab-button:hover {
+    background: rgba(255, 255, 255, 0.05);
+    color: #ffffff;
+  }
+
+  .tab-button.active {
+    color: #61dafb;
+    border-bottom-color: #61dafb;
+    background: rgba(97, 218, 251, 0.1);
   }
 
   .copy-button {
-    position: absolute;
-    right: 1em;
-    top: 50%;
-    transform: translateY(-50%);
     background: none;
     border: none;
     color: #61dafb;
     cursor: pointer;
     font-size: 0.875em;
+    padding: 0.75em 1em;
+    transition: color 0.2s ease;
+  }
+
+  .copy-button:hover {
+    color: #ffffff;
+  }
+
+  .code-content {
+    position: relative;
+  }
+
+  .code-panel {
+    display: none;
+  }
+
+  .code-panel.active {
+    display: block;
   }
 
   pre {
@@ -44,32 +84,140 @@
     padding: 1em;
     overflow: auto;
   }
+
+  code {
+    font-family: inherit;
+  }
 </style>
 
 <div class="code-container">
-  <div class="code-header">
-    {filename}
-    <button class="copy-button" onclick="copyCode">Copy</button>
+  <div class="tabs-header">
+    <div class="tab-buttons" id="tab-buttons"></div>
+    <button class="copy-button" onclick="copyActiveCode">Copy</button>
   </div>
-  <pre><code id="code" class="language-html"></code></pre>
+  <div class="code-content" id="code-content"></div>
 </div>
 
-<slot></slot>
+<div style="display: none">
+  <slot></slot>
+</div>
 
 <script>
-  const codeElement = this.querySelector("pre code");
-  const innerRe = /(?<=<template\b[^>]*>)[\s\S]*?(?=<\/template>)/gi;
-  const html = this.innerHTML.match(innerRe);
-  codeElement.textContent = html;
-  hljs.highlightElement(codeElement);
+  let activeTabIndex = 0;
+  let codeBlocks = [];
 
-  const slotEl = this.querySelector("slot");
-  if (slotEl) slotEl.remove();
+  const init = () => {
+    const slotContent = this.querySelector("slot");
+    const assignedElements = slotContent.assignedElements();
 
-  const copyCode = () => {
+    const templates = assignedElements.filter(
+      (el) =>
+        el.tagName.toLowerCase() === "template" &&
+        el.hasAttribute("data-filename")
+    );
+
+    if (templates.length === 0) {
+      // Fallback to old single-file behavior
+      const innerRe = /(?<=<template\b[^>]*>)[\s\S]*?(?=<\/template>)/gi;
+      const html = this.innerHTML.match(innerRe);
+      const filename = this.getAttribute("filename") || "code.html";
+
+      codeBlocks = [
+        {
+          file: filename,
+          content: html ? html[0] : "",
+          language: getLanguageFromFilename(filename),
+        },
+      ];
+    } else {
+      // New multi-file behavior
+      codeBlocks = Array.from(templates).map((template) => {
+        const filename = template.getAttribute("data-filename");
+        console.log(`Processing file: ${filename}`);
+        const content = template.innerHTML.trim();
+        return {
+          file: filename,
+          content: content,
+          language: getLanguageFromFilename(filename),
+        };
+      });
+    }
+
+    renderTabs();
+    renderCodePanels();
+    setActiveTab(0);
+
+    // Clean up slot content
+    if (slotContent) slotContent.remove();
+    templates.forEach((template) => template.remove());
+  };
+
+  const getLanguageFromFilename = (fileName) => {
+    const ext = fileName.split(".").pop().toLowerCase();
+    const languageMap = {
+      html: "html",
+      css: "css",
+      js: "javascript",
+      ts: "typescript",
+      json: "json",
+      xml: "xml",
+      md: "markdown",
+    };
+    return languageMap[ext] || "html";
+  };
+
+  const renderTabs = () => {
+    const tabButtonsContainer = this.querySelector("#tab-buttons");
+    tabButtonsContainer.innerHTML = "";
+
+    codeBlocks.forEach((block, index) => {
+      const button = document.createElement("button");
+      button.className = "tab-button";
+      button.textContent = block.file;
+      button.onclick = () => setActiveTab(index);
+      tabButtonsContainer.appendChild(button);
+    });
+  };
+
+  const renderCodePanels = () => {
+    const codeContent = this.querySelector("#code-content");
+    codeContent.innerHTML = "";
+
+    codeBlocks.forEach((block, index) => {
+      const panel = document.createElement("div");
+      panel.className = "code-panel";
+      panel.innerHTML = `<pre><code class="language-${block.language}"></code></pre>`;
+
+      const codeElement = panel.querySelector("code");
+      codeElement.textContent = block.content;
+      hljs.highlightElement(codeElement);
+
+      codeContent.appendChild(panel);
+    });
+  };
+
+  const setActiveTab = (index) => {
+    activeTabIndex = index;
+
+    // Update tab buttons
+    const tabButtons = this.querySelectorAll(".tab-button");
+    tabButtons.forEach((button, i) => {
+      button.classList.toggle("active", i === index);
+    });
+
+    // Update code panels
+    const codePanels = this.querySelectorAll(".code-panel");
+    codePanels.forEach((panel, i) => {
+      panel.classList.toggle("active", i === index);
+    });
+  };
+
+  const copyActiveCode = () => {
+    const activeCode = codeBlocks[activeTabIndex].content;
+
     if (navigator.clipboard && navigator.clipboard.writeText) {
       return navigator.clipboard
-        .writeText(html)
+        .writeText(activeCode)
         .then(() =>
           this.emit("copied", { message: "Code copied to clipboard!" })
         )
@@ -78,7 +226,7 @@
 
     // iOS / fallback for older browsers
     const textarea = document.createElement("textarea");
-    textarea.value = text;
+    textarea.value = activeCode;
     textarea.setAttribute("readonly", "");
     textarea.style.position = "absolute";
     textarea.style.left = "-9999px";
@@ -94,4 +242,11 @@
 
     document.body.removeChild(textarea);
   };
+
+  // Initialize when the component is ready
+  if (document.readyState === "loading") {
+    document.addEventListener("DOMContentLoaded", init);
+  } else {
+    init();
+  }
 </script>
