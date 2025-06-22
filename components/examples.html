@@ -52,121 +52,141 @@
   }
 </style>
 
-<section id="examples" class="examples">
-  <div class="container">
-    <h2 class="section-title">See It In Action</h2>
-    <div class="example-tabs">
-      <div id="counter-btn" class="tab active" onclick="showExample('counter')">
-        Counter
-      </div>
-      <div id="todo-btn" class="tab" onclick="showExample('todo')">
-        Todo List
-      </div>
-      <div id="binding-btn" class="tab" onclick="showExample('binding')">
-        Data Binding
-      </div>
+<div class="container">
+  <h2 class="section-title">See It In Action</h2>
+  <div class="example-tabs">
+    <div id="counter-btn" class="tab active" onclick="showExample('counter')">
+      Counter
     </div>
-
-    <div
-      data-if="activeTab === 'counter'"
-      id="counter-example"
-      class="example-content"
-    >
-      <div class="code-block">
-        <code-block filename="counter.html">
-          <template>
-            <div class="demo-counter">
-              <h2>Count: <span id="count">{count}</span></h2>
-              <button onclick="increment">+</button>
-              <button onclick="decrement">-</button>
-              <button onclick="reset">Reset</button>
-            </div>
-
-            <script>
-              let count = 0;
-              const increment = () => {
-                count++;
-              };
-              const decrement = () => {
-                count--;
-              };
-              const reset = () => {
-                count = 0;
-              };
-            </script>
-          </template>
-        </code-block>
-      </div>
-
-      <div class="preview">
-        <counter-example></counter-example>
-      </div>
-    </div>
-
-    <div
-      data-if="activeTab === 'todo'"
-      id="todo-example"
-      class="example-content"
-    >
-      <div class="code-block">
-        <code-block>
-          <template data-filename="todo-list.html">
-            <div class="todo-list-container">
-              <div class="todo-list-input-group">
-                <input
-                  type="text"
-                  placeholder="Add a new todo"
-                  data-bind="text"
-                  onkeyup="tapEnter"
-                />
-                <button onclick="addTodo">Add</button>
-              </div>
-              <slot></slot>
-            </div>
-
-            <script>
-              const tapEnter = (event) => {
-                if (event.key === "Enter") {
-                  addTodo();
-                }
-              };
-
-              const addTodo = () => {
-                let text = text.trim();
-                if (!text) return;
-
-                const todoItem = document.createElement("todo-item");
-                todoItem.setAttribute("text", text);
-                this.appendChild(todoItem);
-                text = "";
-              };
-            </script>
-          </template>
-
-          <template data-filename="todo-item.html"> hi </template>
-        </code-block>
-      </div>
-
-      <div class="preview">
-        <todo-list-example></todo-list-example>
-      </div>
-    </div>
-
-    <div
-      data-if="activeTab === 'binding'"
-      id="binding-example"
-      class="example-content"
-    >
-      <div class="code-block">
-        <code-block filename="binding.html"> </code-block>
-      </div>
-
-      <div class="preview">
-        <counter-example></counter-example>
-      </div>
+    <div id="todo-btn" class="tab" onclick="showExample('todo')">Todo List</div>
+    <div id="binding-btn" class="tab" onclick="showExample('binding')">
+      Data Binding
     </div>
   </div>
-</section>
+
+  <div
+    data-if="activeTab === 'counter'"
+    id="counter-example"
+    class="example-content"
+  >
+    <div class="code-block">
+      <code-block filename="counter.html">
+        <template>
+          <div class="demo-counter">
+            <h2>Count: <span id="count">{count}</span></h2>
+            <button onclick="increment">+</button>
+            <button onclick="decrement">-</button>
+            <button onclick="reset">Reset</button>
+          </div>
+
+          <script>
+            let count = 0;
+            const increment = () => {
+              count++;
+            };
+            const decrement = () => {
+              count--;
+            };
+            const reset = () => {
+              count = 0;
+            };
+          </script>
+        </template>
+      </code-block>
+    </div>
+
+    <div class="preview">
+      <counter-example></counter-example>
+    </div>
+  </div>
+
+  <div data-if="activeTab === 'todo'" id="todo-example" class="example-content">
+    <div class="code-block">
+      <code-block>
+        <template data-filename="todo-list.html">
+          <div class="todo-list-container">
+            <div class="todo-list-input-group">
+              <input
+                type="text"
+                placeholder="Add a new todo"
+                data-bind="text"
+                onkeyup="tapEnter"
+              />
+              <button onclick="addTodo">Add</button>
+            </div>
+            <slot></slot>
+          </div>
+
+          <script>
+            const tapEnter = (event) => {
+              if (event.key === "Enter") {
+                addTodo();
+              }
+            };
+
+            const addTodo = () => {
+              let text = text.trim();
+              if (!text) return;
+
+              const todoItem = document.createElement("todo-item");
+              todoItem.setAttribute("text", text);
+              this.appendChild(todoItem);
+              text = "";
+            };
+          </script>
+        </template>
+
+        <template data-filename="todo-item.html">
+          <div class="todo-item">
+            <span>{text}</span>
+            <button onclick="removeTodo">Delete</button>
+          </div>
+
+          <script>
+            const removeTodo = () => {
+              this.remove();
+            };
+          </script>
+        </template>
+      </code-block>
+    </div>
+
+    <div class="preview">
+      <todo-list-example></todo-list-example>
+    </div>
+  </div>
+
+  <div
+    data-if="activeTab === 'binding'"
+    id="binding-example"
+    class="example-content"
+  >
+    <div class="code-block">
+      <code-block filename="binding.html">
+        <template>
+          <label for="name">Name:</label>
+          <input type="text" id="name" data-bind="name" />
+
+          <label for="age">Age:</label>
+          <input type="number" id="age" data-bind="age" />
+
+          <div>
+            <span>Name:</span>
+            <span>{name}</span>
+          </div>
+          <div>
+            <span>Age:</span>
+            <span>{age}</span>
+          </div>
+        </template>
+      </code-block>
+    </div>
+
+    <div class="preview">
+      <binding-example></binding-example>
+    </div>
+  </div>
+</div>
 
 <script>
   let activeTab = "counter";

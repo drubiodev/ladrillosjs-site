@@ -109,7 +109,7 @@
   const init = () => {
     const slotContent = this.querySelector("slot");
     const assignedElements = slotContent.assignedElements();
-
+    console.log(assignedElements);
     const templates = assignedElements.filter(
       (el) =>
         el.tagName.toLowerCase() === "template" &&
@@ -121,7 +121,6 @@
       const innerRe = /(?<=<template\b[^>]*>)[\s\S]*?(?=<\/template>)/gi;
       const html = this.innerHTML.match(innerRe);
       const filename = this.getAttribute("filename") || "code.html";
-
       codeBlocks = [
         {
           file: filename,
@@ -133,8 +132,8 @@
       // New multi-file behavior
       codeBlocks = Array.from(templates).map((template) => {
         const filename = template.getAttribute("data-filename");
-        console.log(`Processing file: ${filename}`);
         const content = template.innerHTML.trim();
+
         return {
           file: filename,
           content: content,
@@ -146,10 +145,6 @@
     renderTabs();
     renderCodePanels();
     setActiveTab(0);
-
-    // Clean up slot content
-    if (slotContent) slotContent.remove();
-    templates.forEach((template) => template.remove());
   };
 
   const getLanguageFromFilename = (fileName) => {

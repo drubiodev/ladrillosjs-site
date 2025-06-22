@@ -1,0 +1,119 @@
+<div class="demo-binding">
+  <div class="form-section">
+    <div class="form-group">
+      <label for="name">Name:</label>
+      <input type="text" id="name" data-bind="name" />
+    </div>
+
+    <div class="form-group">
+      <label for="age">Age:</label>
+      <input type="number" id="age" data-bind="age" />
+    </div>
+  </div>
+
+  <div class="output-section">
+    <div class="output-item">
+      <span class="output-label">Name:</span>
+      <span class="output-value">{name}</span>
+    </div>
+    <div class="output-item">
+      <span class="output-label">Age:</span>
+      <span class="output-value">{age}</span>
+    </div>
+  </div>
+</div>
+
+<style>
+  .form-section {
+    margin-bottom: 2rem;
+  }
+
+  .form-group {
+    margin-bottom: 1.5rem;
+  }
+
+  .demo-binding label {
+    display: block;
+    font-size: 0.875rem;
+    font-weight: 500;
+    color: #374151;
+    margin-bottom: 0.5rem;
+    letter-spacing: 0.025em;
+  }
+
+  .demo-binding input {
+    width: 100%;
+    padding: 0.75rem 1rem;
+    border: 1px solid #e5e7eb;
+    border-radius: 0.5rem;
+    font-size: 1rem;
+    color: #1f2937;
+    background: #ffffff;
+    transition: all 0.15s ease;
+    box-sizing: border-box;
+  }
+
+  .demo-binding input:focus {
+    outline: none;
+    border-color: #2563eb;
+    box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.1);
+  }
+
+  .demo-binding input:hover {
+    border-color: #d1d5db;
+  }
+
+  .output-section {
+    padding-top: 1.5rem;
+    border-top: 1px solid #f3f4f6;
+  }
+
+  .output-item {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0.75rem 0;
+    border-bottom: 1px solid #f9fafb;
+  }
+
+  .output-item:last-child {
+    border-bottom: none;
+  }
+
+  .output-label {
+    font-size: 0.875rem;
+    font-weight: 500;
+    color: #6b7280;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+  }
+
+  .output-value {
+    font-size: 1rem;
+    font-weight: 600;
+    color: #2563eb;
+    min-height: 1.5rem;
+    display: flex;
+    align-items: center;
+  }
+
+  .output-value:empty::before {
+    content: "—";
+    color: #d1d5db;
+    font-weight: 400;
+  }
+
+  /* Responsive design */
+  @media (max-width: 480px) {
+    .demo-binding {
+      margin: 1rem;
+      padding: 1.5rem;
+    }
+
+    .output-item {
+      flex-direction: column;
+      align-items: flex-start;
+      gap: 0.25rem;
+    }
+  }
+</style>
