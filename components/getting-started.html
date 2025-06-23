@@ -1,0 +1,213 @@
+  <div class="container">
+    <div class="getting-started-content">
+      <div class="installation-section">
+        <h3>Installation</h3>
+        
+        <div class="install-methods">
+          <div class="install-method">
+            <h4><span class="icon">📦</span> NPM</h4>
+            <code>npm install ladrillosjs</code>
+          </div>
+          
+          <div class="install-method">
+            <h4><span class="icon">🌐</span> CDN</h4>
+            <code>&lt;script src="https://cdn.jsdelivr.net/npm/ladrillosjs"&gt;&lt;/script&gt;</code>
+          </div>
+        </div>
+      </div>
+
+      <div class="first-component-section">
+        <h3>Your First Component</h3>
+        <p class="description">
+          A component in LadrillosJS is a reusable custom HTML element that bundles 
+          its own template, logic, and styles into a single file.
+        </p>
+
+        <div class="steps">
+          <div class="step">
+            <div class="step-header">
+              <span class="step-number">1</span>
+              <h4>Create a Component File</h4>
+            </div>
+            <p>Create <code>hello-world.html</code>:</p>
+            <code-block filename="hello-world.html">
+             <template>
+              <p>Hello {name}</p>
+
+              <script>
+                const name = "World";
+              </script>
+             </template>
+            </code-block>
+          </div>
+
+          <div class="step">
+            <div class="step-header">
+              <span class="step-number">2</span>
+              <h4>Register and Use the Component</h4>
+            </div>
+            <code-block filename="index.html">
+              <template>
+                <script>                 
+                  import { registerComponent } from "ladrillosjs";
+                  registerComponent("hello-world", "./hello-world.html");
+                </script>
+              </template>
+            </code-block>
+          </div>
+        </div>
+
+        <div class="next-steps">
+          <h4>🚀 What's Next?</h4>
+          <p>Try the <a href="#examples">interactive examples</a> below to see more features in action!</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<style>
+  .getting-started {
+    padding: 5rem 0;
+    background: var(--bg-light);
+  }
+
+  .getting-started-content {
+    max-width: 900px;
+    margin: 0 auto;
+  }
+
+  .installation-section,
+  .first-component-section {
+    margin-bottom: 4rem;
+  }
+
+  .getting-started h3 {
+    font-size: 2rem;
+    font-weight: 700;
+    margin-bottom: 1.5rem;
+    color: var(--secondary);
+  }
+
+  .getting-started h4 {
+    font-size: 1.3rem;
+    font-weight: 600;
+    margin-bottom: 1rem;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+  }
+
+  .description {
+    font-size: 1.1rem;
+    color: var(--text-light);
+    margin-bottom: 2rem;
+    line-height: 1.7;
+  }
+
+  .install-methods {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 2rem;
+  }
+
+  .install-method {
+    background: white;
+    padding: 1.5rem;
+    border-radius: var(--radius);
+    box-shadow: var(--shadow);
+  }
+
+  .icon {
+    font-size: 1.2rem;
+  }
+
+  .steps {
+    display: flex;
+    flex-direction: column;
+    gap: 3rem;
+  }
+
+  .step {
+    background: white;
+    padding: 2rem;
+    border-radius: var(--radius);
+    box-shadow: var(--shadow);
+  }
+
+  .step-header {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    margin-bottom: 1rem;
+  }
+
+  .step-number {
+    background: var(--primary);
+    color: white;
+    width: 2rem;
+    height: 2rem;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: 700;
+    font-size: 0.9rem;
+  }
+
+  .step p {
+    margin-bottom: 1rem;
+    color: var(--text-light);
+  }
+
+  code {
+    background: #eee;
+    padding: 0.2rem 0.4rem;
+    border-radius: 4px;
+    font-family: 'Courier New', monospace;
+    font-size: 0.9rem;
+  }
+
+  .next-steps {
+    margin-top: 3rem;
+    padding: 1.5rem;
+    background: linear-gradient(135deg, var(--primary), var(--primary-dark));
+    color: white;
+    border-radius: var(--radius);
+    text-align: center;
+  }
+
+  .next-steps h4 {
+    margin-bottom: 0.5rem;
+    justify-content: center;
+  }
+
+  .next-steps a {
+    color: white;
+    text-decoration: underline;
+  }
+
+  .next-steps a:hover {
+    text-decoration: none;
+  }
+
+  @media (max-width: 768px) {
+    .getting-started {
+      padding: 3rem 0;
+    }
+
+    .install-methods {
+      grid-template-columns: 1fr;
+    }
+    
+    .step {
+      padding: 1.5rem;
+    }
+    
+    .step-header {
+      flex-direction: column;
+      align-items: flex-start;
+      gap: 0.5rem;
+    }
+  }
+</style>
