@@ -10,9 +10,9 @@
       type="image/png"
       href="https://raw.githubusercontent.com/drubiodev/LadrillosJS/refs/heads/main/LadrillosJS.png"
     />
+    <script src="https://cdn.jsdelivr.net/npm/ladrillosjs"></script>
     <script type="module">
-      import { registerComponents } from "ladrillosjs";
-      await registerComponents([
+      await ladrillosjs.registerComponents([
         { name: "site-header", path: "./components/site-header.html" },
         { name: "hero-section", path: "./components/hero-section.html" },
         { name: "feature-card", path: "./components/feature-card.html" },
