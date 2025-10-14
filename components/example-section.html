@@ -172,17 +172,17 @@
   <div class="container">
     <h2 class="section-title">See It In Action</h2>
     <div class="example-tabs">
-      <button class="example-tab active" data-example="reactive">
+      <button class="example-tab {activeTab === 'reactive' ? 'active' : ''}" onclick="setActiveTab('reactive')">
         Reactive State
       </button>
-      <button class="example-tab" data-example="binding">Data Binding</button>
-      <button class="example-tab" data-example="events">Event System</button>
-      <button class="example-tab" data-example="conditional">
+      <button class="example-tab {activeTab === 'binding' ? 'active' : ''}" onclick="setActiveTab('binding')">Data Binding</button>
+      <button class="example-tab {activeTab === 'events' ? 'active' : ''}" onclick="setActiveTab('events')">Event System</button>
+      <button class="example-tab {activeTab === 'conditional' ? 'active' : ''}" onclick="setActiveTab('conditional')">
         Conditional Rendering
       </button>
     </div>
-
-    <div class="example-content active" data-example-content="reactive">
+    <!-- Reactive State-->
+    <div class="example-content active" $if="activeTab === 'reactive'">
       <div class="example-grid">
         <div class="example-code">
           <code-block filename="counter.html">
@@ -225,10 +225,193 @@
         </div>
       </div>
     </div>
+    <!-- Data Binding -->
+    <div class="example-content active" $if="activeTab === 'binding'">
+      <div class="example-grid">
+        <div class="example-code">
+          <code-block filename="form.html">
+            <template>
+              <div>
+                <h2>Hello, {name}!</h2>
+                <input type="text" $bind="name" placeholder="Your name" />
+
+                <p>Email: {email}</p>
+                <input $bind="email" />
+
+                <label>
+                  <input type="checkbox" $bind="subscribe" />
+                  Subscribe: {subscribe}
+                </label>
+              </div>
+
+              <script>
+                let name = "World";
+                let email = "";
+                let subscribe = false;
+              </script>
+            </template>
+          </code-block>
+        </div>
+        <div class="example-description">
+          <h3>Two-Way Data Binding</h3>
+          <p>
+            Use the <code>$bind</code> attribute for automatic synchronization
+            between inputs and state. Works with text inputs, checkboxes,
+            selects, and textareas.
+          </p>
+          <ul class="feature-list">
+            <li>✓ No manual event handlers</li>
+            <li>✓ Instant synchronization</li>
+            <li>✓ Works with all form elements</li>
+            <li>✓ Clean, declarative syntax</li>
+          </ul>
+          <two-way-binding-sample></two-way-binding-sample>
+        </div>
+      </div>
+    </div>
+    <!-- Event System -->
+    <div class="example-content active" $if="activeTab === 'events'">
+      <div class="example-grid">
+        <div class="example-code">
+          <code-block filename="login-form.html">
+            <template>
+              <button onclick="login()">Login</button>
+
+              <script>
+                const login = () => {
+                  // Emit event to other components
+                  $emit("user-logged-in", {
+                    userId: 123,
+                    username: "john",
+                  });
+                };
+              </script>
+            </template>
+          </code-block>
+          <code-block filename="header.html">
+            <template>
+              <header>
+                <span $if="{isLoggedIn}"> Welcome, {username}! </span>
+              </header>
+
+              <script>
+                let isLoggedIn = false;
+                let username = "";
+
+                // Listen for events
+                $listen("user-logged-in", (user) => {
+                  isLoggedIn = true;
+                  username = user.username;
+                });
+              </script>
+            </template>
+          </code-block>
+        </div>
+        <div class="example-description">
+          <h3>Global Event Bus</h3>
+          <p>
+            Communicate between components without prop drilling. Emit events
+            from one component and listen in others.
+          </p>
+          <ul class="feature-list">
+            <li>✓ Cross-component communication</li>
+            <li>✓ Decoupled architecture</li>
+            <li>✓ Type-safe event data</li>
+            <li>✓ Automatic cleanup</li>
+          </ul>
+          <event-system-sample></event-system-sample>
+        </div>
+      </div>
+    </div>
+    <!-- Conditional Rendering -->
+    <div class="example-content active" $if="activeTab === 'conditional'">
+      <div class="example-grid">
+        <div class="example-code">
+          <code-block filename="cart.html">
+            <template>
+             <div class="cart-container">
+                <h1>Shopping Cart</h1>
+                <button onclick="addToCart()">🛒 Add To Cart</button>
+
+                <p class="empty-message" $if="{items.length === 0}">Your cart is empty</p>
+
+                <div $else-if="{items.length < 5}">
+                  <p class="cart-status">You have {items.length} items</p>
+                </div>
+
+                <div $else>
+                  <p class="cart-full">Cart is full! ({items.length})</p>
+                </div>
+
+                <ul>
+                  <li $for="item in items">{item.name}</li>
+                </ul>
+              </div>
+
+              <script>
+                let items = [];
+                let counter = 1;
+
+                const addToCart = () => {
+                  if (items.length <= 4) {
+                    items.push({
+                      name: `Item ${counter++}`,
+                      qty: Math.floor(Math.random() * 10),
+                    });
+                  } else {
+                    alert("Cart is full! Cannot add more items.");
+                  }
+                };
+              </script>
+            </template>
+        </div>
+        <div class="example-description">
+          <h3>Conditional & List Rendering</h3>
+          <p>
+            Control what gets rendered with intuitive directives. Chain
+            conditions with <code>$if</code>, <code>$else-if</code>, and
+            <code>$else</code>.
+          </p>
+          <ul class="feature-list">
+            <li>✓ Multiple condition chains</li>
+            <li>✓ List rendering with <code>$for</code></li>
+            <li>✓ Optimized rendering</li>
+            <li>✓ Clean template syntax</li>
+          </ul>
+          <conditional-rendering-sample> </conditional-rendering-sample>
+        </div>
+      </div>
+    </div>
   </div>
 </section>
 
 <script type="module">
-  import { registerComponent } from "ladrillosjs";
-  registerComponent("counter-sample", "./components/samples/counter.html");
+  import { registerComponents } from "ladrillosjs";
+  registerComponents([
+    {
+      name: "counter-sample",
+      path: "./components/samples/counter.html",
+    },
+    {
+      name: "two-way-binding-sample",
+      path: "./components/samples/form.html",
+    },
+    {
+      name: "event-system-sample",
+      path: "./components/samples/login-form.html",
+    },
+    {
+      name: "conditional-rendering-sample",
+      path: "./components/samples/cart.html",
+    },
+  ]);
+</script>
+
+<script>
+  let activeTab = "reactive";
+  let active = "active";
+
+  const setActiveTab = (tab) => {
+    activeTab = tab;
+  };
 </script>
