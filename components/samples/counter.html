@@ -1,0 +1,80 @@
+<style>
+  .counter {
+    text-align: center;
+    padding: 2rem;
+    background: rgba(255, 255, 255, 0.02);
+    border: 1px solid rgba(255, 255, 255, 0.08);
+    border-radius: 12px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .counter h2 {
+    font-size: 1.75rem;
+    font-weight: 700;
+    margin-bottom: 1.5rem;
+    color: #f8fafc;
+  }
+
+  .counter-buttons {
+    display: flex;
+    gap: 0.5rem;
+  }
+
+  .counter button {
+    padding: 0.75rem 1.75rem;
+    color: white;
+    border: none;
+    border-radius: 8px;
+    font-size: 1rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.2s ease;
+  }
+
+  .counter button:first-of-type {
+    background: linear-gradient(135deg, #3b82f6 0%, #2563eb 100%);
+    box-shadow: 0 4px 12px rgba(59, 130, 246, 0.3);
+  }
+
+  .counter button:first-of-type:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 6px 20px rgba(59, 130, 246, 0.4);
+  }
+
+  .counter button:last-of-type {
+    background: linear-gradient(135deg, #64748b 0%, #475569 100%);
+    box-shadow: 0 4px 12px rgba(100, 116, 139, 0.3);
+  }
+
+  .counter button:last-of-type:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 6px 20px rgba(100, 116, 139, 0.4);
+  }
+
+  .counter button:active {
+    transform: translateY(0);
+  }
+</style>
+
+<div class="counter">
+  <h2>Count: {count}</h2>
+  <div class="counter-buttons">
+    <button onclick="increment()">Add</button>
+    <button onclick="reset()">Reset</button>
+  </div>
+</div>
+
+<script>
+  let count = 0;
+
+  const increment = () => {
+    count++;
+  };
+
+  const reset = () => {
+    count = 0;
+  };
+</script>
