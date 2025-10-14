@@ -123,87 +123,42 @@
     font-size: 1.125rem;
   }
 
-  .hero-code {
-    max-width: 800px;
+  .demo-container {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 2rem;
+    max-width: 1200px;
     margin: 0 auto;
+    align-items: start;
   }
-  /* ============================================
-   Code Windows
-   ============================================ */
-  .code-window {
-    background: var(--bg-darker);
+
+  @media (min-width: 1024px) {
+    .demo-container {
+      grid-template-columns: 1.2fr 1fr;
+      gap: 3rem;
+    }
+  }
+
+  .demo-output {
+    background: rgba(255, 255, 255, 0.02);
+    border: 1px solid rgba(255, 255, 255, 0.08);
     border-radius: 12px;
-    overflow: hidden;
-    border: 1px solid var(--border);
-    box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
-  }
-
-  .code-header {
-    background: var(--bg-card);
-    padding: 0.75rem 1rem;
+    padding: 2.5rem;
+    min-height: 300px;
     display: flex;
+    flex-direction: column;
     align-items: center;
-    gap: 1rem;
-    border-bottom: 1px solid var(--border);
+    justify-content: center;
   }
 
-  .code-dots {
-    display: flex;
-    gap: 0.5rem;
-  }
+  @media (max-width: 1023px) {
+    .demo-container {
+      grid-template-columns: 1fr;
+    }
 
-  .code-dots span {
-    width: 12px;
-    height: 12px;
-    border-radius: 50%;
-    background: var(--border);
-  }
-
-  .code-dots span:nth-child(1) {
-    background: #ef4444;
-  }
-  .code-dots span:nth-child(2) {
-    background: #f59e0b;
-  }
-  .code-dots span:nth-child(3) {
-    background: #10b981;
-  }
-
-  .code-title {
-    color: var(--text-secondary);
-    font-size: 0.875rem;
-  }
-
-  .code-content {
-    padding: 1.5rem;
-    overflow-x: auto;
-    font-family: "Monaco", "Menlo", "Courier New", monospace;
-    font-size: 0.875rem;
-    line-height: 1.6;
-  }
-
-  .code-content code {
-    color: var(--text-primary);
-  }
-
-  /* Code Syntax Highlighting */
-  .code-tag {
-    color: #8b5cf6;
-  }
-  .code-attr {
-    color: #f59e0b;
-  }
-  .code-string {
-    color: #10b981;
-  }
-  .code-keyword {
-    color: #ef4444;
-  }
-  .code-number {
-    color: #06b6d4;
-  }
-  .code-comment {
-    color: #64748b;
+    .demo-output {
+      order: 2;
+    }
   }
 </style>
 
@@ -244,32 +199,34 @@
         >
       </div>
     </div>
-    <div class="hero-code">
-      <div class="code-window">
-        <div class="code-header">
-          <div class="code-dots"><span></span><span></span><span></span></div>
-          <span class="code-title">hello-world.html</span>
-        </div>
-        <pre
-          class="code-content"
-        ><code><span class="code-tag">&lt;div</span> <span class="code-attr">class</span>=<span class="code-string">"greeting"</span><span class="code-tag">&gt;</span>
-  <span class="code-tag">&lt;h1&gt;</span>{title}<span class="code-tag">&lt;/h1&gt;</span>
-  <span class="code-tag">&lt;p&gt;</span>Hello, {name}!<span class="code-tag">&lt;/p&gt;</span>
-  <span class="code-tag">&lt;button</span> <span class="code-attr">onclick</span>=<span class="code-string">"greet()"</span><span class="code-tag">&gt;</span>
-    Greet ({count})
-  <span class="code-tag">&lt;/button&gt;</span>
-<span class="code-tag">&lt;/div&gt;</span>
+    <div class="demo-container">
+      <code-block filename="hello-world.html">
+        <template>
+          <div class="greeting">
+            <h1>{title}</h1>
+            <p>Hello, {name}!</p>
+            <button onclick="greet()">Greet ({count})</button>
+          </div>
 
-<span class="code-tag">&lt;script&gt;</span>
-  <span class="code-keyword">let</span> title = <span class="code-string">"Welcome to LadrillosJS"</span>;
-  <span class="code-keyword">let</span> name = <span class="code-string">"World"</span>;
-  <span class="code-keyword">let</span> count = <span class="code-number">0</span>;
+          <script>
+            let title = "Welcome to LadrillosJS";
+            let name = "World";
+            let count = 0;
 
-  <span class="code-keyword">const</span> greet = () => {
-    count++; <span class="code-comment">// Auto re-render</span>
-  };
-<span class="code-tag">&lt;/script&gt;</span></code></pre>
+            const greet = () => {
+              count++; // Auto re-render
+            };
+          </script>
+        </template>
+      </code-block>
+      <div class="demo-output">
+        <hello-world></hello-world>
       </div>
     </div>
   </div>
 </section>
+
+<script type="module">
+  import { registerComponent } from "ladrillosjs";
+  registerComponent("hello-world", "./components/samples/hello-world.html");
+</script>
