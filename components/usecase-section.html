@@ -1,0 +1,84 @@
+<style>
+  /* ============================================
+   Use Cases Section
+   ============================================ */
+  .use-cases-section {
+    padding: var(--section-padding);
+  }
+
+  .use-cases-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 2rem;
+    margin-top: 3rem;
+  }
+
+  .use-case {
+    background: var(--bg-card);
+    padding: 2rem;
+    border-radius: 12px;
+    border: 1px solid var(--border);
+    text-align: center;
+    transition: all 0.3s;
+  }
+
+  .use-case:hover {
+    transform: translateY(-5px);
+    border-color: var(--primary);
+  }
+
+  .use-case-icon {
+    font-size: 3rem;
+    margin-bottom: 1rem;
+  }
+
+  .use-case h3 {
+    font-size: 1.25rem;
+    margin-bottom: 1rem;
+  }
+
+  .use-case p {
+    color: var(--text-secondary);
+    line-height: 1.8;
+  }
+</style>
+
+<section class="use-cases-section">
+  <div class="container">
+    <h2 class="section-title">Built For Modern Web Development</h2>
+    <div class="use-cases-grid">
+      <div class="use-case">
+        <div class="use-case-icon">🌐</div>
+        <h3>SPAs & MPAs</h3>
+        <p>
+          Build both single-page and multi-page applications with the same
+          component architecture.
+        </p>
+      </div>
+      <div class="use-case">
+        <div class="use-case-icon">🧱</div>
+        <h3>Design Systems</h3>
+        <p>
+          Create reusable component libraries that work across projects without
+          framework lock-in.
+        </p>
+      </div>
+      <div class="use-case">
+        <div class="use-case-icon">⚡</div>
+        <h3>Progressive Enhancement</h3>
+        <p>
+          Add interactivity to existing sites without a full rewrite or complex
+          build setup.
+        </p>
+      </div>
+      <div class="use-case">
+        <div class="use-case-icon">🎓</div>
+        <h3>Learning & Prototyping</h3>
+        <p>
+          Perfect for understanding web components and building prototypes
+          without framework overhead.
+        </p>
+      </div>
+    </div>
+  </div>
+</section>

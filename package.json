@@ -10,5 +10,8 @@
   },
   "devDependencies": {
     "vite": "^7.1.9"
+  },
+  "dependencies": {
+    "ladrillosjs": "^2.0.0-beta.2.1"
   }
 }

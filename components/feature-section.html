@@ -1,0 +1,180 @@
+<style>
+  /* ============================================
+   Features Section
+   ============================================ */
+  .features-section {
+    padding: var(--section-padding);
+  }
+
+  .section-subtitle {
+    text-align: center;
+    font-size: 1.125rem;
+    color: var(--text-secondary);
+    margin-top: -2rem;
+    margin-bottom: 4rem;
+  }
+
+  .features-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 2rem;
+    margin-top: 3rem;
+  }
+
+  .feature-card {
+    background: var(--bg-card);
+    padding: 2rem;
+    border-radius: 12px;
+    border: 1px solid var(--border);
+    transition: all 0.3s;
+  }
+
+  .feature-card:hover {
+    transform: translateY(-5px);
+    border-color: var(--primary);
+    box-shadow: 0 10px 30px rgba(255, 107, 53, 0.2);
+  }
+
+  .feature-icon {
+    font-size: 3rem;
+    margin-bottom: 1rem;
+  }
+
+  .feature-card h3 {
+    font-size: 1.25rem;
+    margin-bottom: 1rem;
+    color: var(--text-primary);
+  }
+
+  .feature-card p {
+    color: var(--text-secondary);
+    line-height: 1.8;
+  }
+
+  .feature-card code {
+    background: var(--bg-darker);
+    padding: 0.2rem 0.5rem;
+    border-radius: 4px;
+    font-size: 0.875rem;
+    color: var(--primary-light);
+  }
+</style>
+
+<section class="features-section" id="features">
+  <div class="container">
+    <h2 class="section-title">Everything You Need, Nothing You Don't</h2>
+    <p class="section-subtitle">
+      Built on web standards with modern features that just work
+    </p>
+
+    <div class="features-grid">
+      <div class="feature-card">
+        <div class="feature-icon">🚀</div>
+        <h3>Zero Dependencies</h3>
+        <p>
+          Pure JavaScript, no build tools required. Start building immediately
+          without complex configuration.
+        </p>
+      </div>
+
+      <div class="feature-card">
+        <div class="feature-icon">⚡</div>
+        <h3>Reactive State</h3>
+        <p>
+          Automatic re-rendering on state changes. Just update your variables,
+          we handle the rest.
+        </p>
+      </div>
+
+      <div class="feature-card">
+        <div class="feature-icon">📦</div>
+        <h3>Single-File Components</h3>
+        <p>
+          HTML, CSS, and JavaScript in one file. Keep your components
+          self-contained and portable.
+        </p>
+      </div>
+
+      <div class="feature-card">
+        <div class="feature-icon">🎯</div>
+        <h3>Global Event Bus</h3>
+        <p>
+          Component communication without prop drilling. Emit and listen to
+          events across your app.
+        </p>
+      </div>
+
+      <div class="feature-card">
+        <div class="feature-icon">🔄</div>
+        <h3>Two-Way Binding</h3>
+        <p>
+          Seamless form input synchronization with <code>$bind</code>. No manual
+          event handlers needed.
+        </p>
+      </div>
+
+      <div class="feature-card">
+        <div class="feature-icon">🎨</div>
+        <h3>Scoped Styles</h3>
+        <p>
+          Component styles with optional Shadow DOM. CSS that doesn't leak
+          across components.
+        </p>
+      </div>
+
+      <div class="feature-card">
+        <div class="feature-icon">🔌</div>
+        <h3>Slots & Props</h3>
+        <p>
+          Content projection with named and default slots. Build flexible,
+          reusable components.
+        </p>
+      </div>
+
+      <div class="feature-card">
+        <div class="feature-icon">📝</div>
+        <h3>TypeScript Support</h3>
+        <p>
+          Full type definitions and TypeScript source code. Get autocomplete and
+          type safety.
+        </p>
+      </div>
+
+      <div class="feature-card">
+        <div class="feature-icon">🎭</div>
+        <h3>Conditional Rendering</h3>
+        <p>
+          Show/hide elements with <code>$if</code>, <code>$else-if</code>, and
+          <code>$else</code> directives.
+        </p>
+      </div>
+
+      <div class="feature-card">
+        <div class="feature-icon">🔁</div>
+        <h3>List Rendering</h3>
+        <p>
+          Render arrays with the <code>$for</code> directive. Efficient updates
+          with smart caching.
+        </p>
+      </div>
+
+      <div class="feature-card">
+        <div class="feature-icon">⚙️</div>
+        <h3>Smart Caching</h3>
+        <p>
+          LRU cache for components and compiled functions. Optimized performance
+          out of the box.
+        </p>
+      </div>
+
+      <div class="feature-card">
+        <div class="feature-icon">🧩</div>
+        <h3>External Scripts</h3>
+        <p>
+          Load and bind external JavaScript modules. Integrate with any library
+          seamlessly.
+        </p>
+      </div>
+    </div>
+  </div>
+</section>

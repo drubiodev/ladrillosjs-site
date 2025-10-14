@@ -1,94 +1,275 @@
 <style>
+  /* ============================================
+   Hero Section
+   ============================================ */
   .hero {
-    padding: 6rem 0;
+    padding: 8rem 2rem 6rem;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .hero::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 1000px;
+    height: 1000px;
+    background: radial-gradient(
+      circle,
+      rgba(255, 107, 53, 0.1) 0%,
+      transparent 70%
+    );
+    pointer-events: none;
+  }
+
+  .hero-content {
+    max-width: 900px;
+    margin: 0 auto;
     text-align: center;
-    background: linear-gradient(to bottom, var(--bg-light), var(--bg));
+    position: relative;
+    z-index: 1;
   }
 
-  .hero h1 {
-    font-size: 3.5rem;
+  .hero-title {
+    font-size: 4rem;
     font-weight: 800;
+    line-height: 1.1;
     margin-bottom: 1.5rem;
-    background: linear-gradient(135deg, var(--primary), var(--secondary));
+  }
+
+  .gradient-text {
+    background: var(--gradient-1);
     -webkit-background-clip: text;
-    -webkit-text-fill-color: transparent;
     background-clip: text;
+    -webkit-text-fill-color: transparent;
   }
 
-  .hero p {
-    font-size: 1.5rem;
-    color: var(--text-light);
+  .hero-subtitle {
+    font-size: 1.25rem;
+    color: var(--text-secondary);
     margin-bottom: 3rem;
-    max-width: 700px;
-    margin-left: auto;
-    margin-right: auto;
+    line-height: 1.8;
   }
 
-  .hero-buttons {
+  .hero-stats {
+    display: flex;
+    justify-content: center;
+    gap: 3rem;
+    margin-bottom: 3rem;
+  }
+
+  .stat {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .stat-value {
+    font-size: 2rem;
+    font-weight: 700;
+    color: var(--primary-light);
+  }
+
+  .stat-label {
+    font-size: 0.875rem;
+    color: var(--text-secondary);
+    margin-top: 0.5rem;
+  }
+
+  .hero-actions {
     display: flex;
     gap: 1rem;
     justify-content: center;
-    flex-wrap: wrap;
+    margin-bottom: 4rem;
   }
 
   .btn {
-    padding: 1rem 2rem;
-    border-radius: var(--radius);
-    text-decoration: none;
+    display: inline-block;
+    padding: 0.875rem 2rem;
+    border-radius: 8px;
     font-weight: 600;
-    transition: all 0.2s;
-    display: inline-flex;
-    align-items: center;
-    gap: 0.5rem;
-    font-size: 1.1rem;
+    text-decoration: none;
+    transition: all 0.3s;
+    border: none;
+    cursor: pointer;
+    font-size: 1rem;
   }
 
   .btn-primary {
-    background: var(--primary);
+    background: var(--gradient-1);
     color: white;
-    box-shadow: var(--shadow);
   }
 
   .btn-primary:hover {
-    background: var(--primary-dark);
     transform: translateY(-2px);
-    box-shadow: var(--shadow-lg);
+    box-shadow: 0 10px 25px rgba(255, 107, 53, 0.3);
   }
 
   .btn-secondary {
-    background: var(--bg);
-    color: var(--text);
+    background: transparent;
+    color: var(--text-primary);
     border: 2px solid var(--border);
   }
 
   .btn-secondary:hover {
     border-color: var(--primary);
-    color: var(--primary);
+    background: rgba(255, 107, 53, 0.1);
+  }
+
+  .btn-large {
+    padding: 1rem 2.5rem;
+    font-size: 1.125rem;
+  }
+
+  .hero-code {
+    max-width: 800px;
+    margin: 0 auto;
+  }
+  /* ============================================
+   Code Windows
+   ============================================ */
+  .code-window {
+    background: var(--bg-darker);
+    border-radius: 12px;
+    overflow: hidden;
+    border: 1px solid var(--border);
+    box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+  }
+
+  .code-header {
+    background: var(--bg-card);
+    padding: 0.75rem 1rem;
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    border-bottom: 1px solid var(--border);
+  }
+
+  .code-dots {
+    display: flex;
+    gap: 0.5rem;
+  }
+
+  .code-dots span {
+    width: 12px;
+    height: 12px;
+    border-radius: 50%;
+    background: var(--border);
+  }
+
+  .code-dots span:nth-child(1) {
+    background: #ef4444;
+  }
+  .code-dots span:nth-child(2) {
+    background: #f59e0b;
+  }
+  .code-dots span:nth-child(3) {
+    background: #10b981;
+  }
+
+  .code-title {
+    color: var(--text-secondary);
+    font-size: 0.875rem;
+  }
+
+  .code-content {
+    padding: 1.5rem;
+    overflow-x: auto;
+    font-family: "Monaco", "Menlo", "Courier New", monospace;
+    font-size: 0.875rem;
+    line-height: 1.6;
+  }
+
+  .code-content code {
+    color: var(--text-primary);
+  }
+
+  /* Code Syntax Highlighting */
+  .code-tag {
+    color: #8b5cf6;
+  }
+  .code-attr {
+    color: #f59e0b;
+  }
+  .code-string {
+    color: #10b981;
+  }
+  .code-keyword {
+    color: #ef4444;
+  }
+  .code-number {
+    color: #06b6d4;
+  }
+  .code-comment {
+    color: #64748b;
   }
 </style>
 
 <section class="hero">
   <div class="container">
-    <h1>Build Modular Web Apps</h1>
-    <p>
-      A lightweight web component framework that leverages pure JavaScript to
-      create reusable, reactive components without any build tools.
-    </p>
-    <div class="hero-buttons">
-      <a href="#getting-started" class="btn btn-primary">
-        Get Started
-        <svg
-          width="20"
-          height="20"
-          viewBox="0 0 24 24"
-          fill="none"
-          stroke="currentColor"
-          stroke-width="2"
+    <div class="hero-content">
+      <h1 class="hero-title">
+        <span class="gradient-text">Build Modular</span><br />
+        Web Applications
+      </h1>
+      <p class="hero-subtitle">
+        A lightweight, zero-dependency web component framework.<br />
+        Pure JavaScript with reactive state, event system, and full TypeScript
+        support.
+      </p>
+      <div class="hero-stats">
+        <div class="stat">
+          <span class="stat-value">0</span>
+          <span class="stat-label">Dependencies</span>
+        </div>
+        <div class="stat">
+          <span class="stat-value">⚡</span>
+          <span class="stat-label">Lightning Fast</span>
+        </div>
+        <div class="stat">
+          <span class="stat-value">🎯</span>
+          <span class="stat-label">Web Standards</span>
+        </div>
+      </div>
+      <div class="hero-actions">
+        <a href="#quick-start" class="btn btn-primary">Get Started</a>
+        <a
+          href="https://github.com/drubiodev/LadrillosJS"
+          target="_blank"
+          class="btn btn-secondary"
+          rel="noopener"
+          >View on GitHub</a
         >
-          <path d="M5 12h14M12 5l7 7-7 7" />
-        </svg>
-      </a>
-      <a href="#examples" class="btn btn-secondary"> View Examples </a>
+      </div>
+    </div>
+    <div class="hero-code">
+      <div class="code-window">
+        <div class="code-header">
+          <div class="code-dots"><span></span><span></span><span></span></div>
+          <span class="code-title">hello-world.html</span>
+        </div>
+        <pre
+          class="code-content"
+        ><code><span class="code-tag">&lt;div</span> <span class="code-attr">class</span>=<span class="code-string">"greeting"</span><span class="code-tag">&gt;</span>
+  <span class="code-tag">&lt;h1&gt;</span>{title}<span class="code-tag">&lt;/h1&gt;</span>
+  <span class="code-tag">&lt;p&gt;</span>Hello, {name}!<span class="code-tag">&lt;/p&gt;</span>
+  <span class="code-tag">&lt;button</span> <span class="code-attr">onclick</span>=<span class="code-string">"greet()"</span><span class="code-tag">&gt;</span>
+    Greet ({count})
+  <span class="code-tag">&lt;/button&gt;</span>
+<span class="code-tag">&lt;/div&gt;</span>
+
+<span class="code-tag">&lt;script&gt;</span>
+  <span class="code-keyword">let</span> title = <span class="code-string">"Welcome to LadrillosJS"</span>;
+  <span class="code-keyword">let</span> name = <span class="code-string">"World"</span>;
+  <span class="code-keyword">let</span> count = <span class="code-number">0</span>;
+
+  <span class="code-keyword">const</span> greet = () => {
+    count++; <span class="code-comment">// Auto re-render</span>
+  };
+<span class="code-tag">&lt;/script&gt;</span></code></pre>
+      </div>
     </div>
   </div>
 </section>

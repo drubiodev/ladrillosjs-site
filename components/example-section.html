@@ -1,0 +1,402 @@
+<style>
+  /* ============================================
+   Examples Section
+   ============================================ */
+  .examples-section {
+    padding: var(--section-padding);
+    background: var(--bg-darker);
+  }
+
+  .example-tabs {
+    display: flex;
+    justify-content: center;
+    gap: 1rem;
+    margin-bottom: 3rem;
+    flex-wrap: wrap;
+  }
+
+  .example-tab {
+    padding: 0.75rem 1.5rem;
+    background: transparent;
+    border: 1px solid var(--border);
+    color: var(--text-secondary);
+    border-radius: 8px;
+    cursor: pointer;
+    font-size: 1rem;
+    font-weight: 600;
+    transition: all 0.3s;
+  }
+
+  .example-tab.active {
+    background: var(--primary);
+    color: white;
+    border-color: var(--primary);
+  }
+
+  .example-tab:hover:not(.active) {
+    border-color: var(--primary);
+    color: var(--text-primary);
+  }
+
+  .example-content {
+    display: none;
+  }
+
+  .example-content.active {
+    display: block;
+  }
+
+  .example-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 3rem;
+    align-items: start;
+  }
+
+  .example-code {
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+  }
+
+  .example-description h3 {
+    font-size: 1.75rem;
+    margin-bottom: 1rem;
+  }
+
+  .example-description p {
+    color: var(--text-secondary);
+    margin-bottom: 2rem;
+    line-height: 1.8;
+  }
+
+  .feature-list {
+    list-style: none;
+    padding: 0;
+  }
+
+  .feature-list li {
+    padding: 0.5rem 0;
+    color: var(--text-secondary);
+  }
+
+  .feature-list code {
+    background: var(--bg-card);
+    padding: 0.2rem 0.5rem;
+    border-radius: 4px;
+    font-size: 0.875rem;
+    color: var(--primary-light);
+  }
+
+  /* ============================================
+   Code Windows
+   ============================================ */
+  .code-window {
+    background: var(--bg-darker);
+    border-radius: 12px;
+    overflow: hidden;
+    border: 1px solid var(--border);
+    box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+  }
+
+  .code-header {
+    background: var(--bg-card);
+    padding: 0.75rem 1rem;
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    border-bottom: 1px solid var(--border);
+  }
+
+  .code-dots {
+    display: flex;
+    gap: 0.5rem;
+  }
+
+  .code-dots span {
+    width: 12px;
+    height: 12px;
+    border-radius: 50%;
+    background: var(--border);
+  }
+
+  .code-dots span:nth-child(1) {
+    background: #ef4444;
+  }
+  .code-dots span:nth-child(2) {
+    background: #f59e0b;
+  }
+  .code-dots span:nth-child(3) {
+    background: #10b981;
+  }
+
+  .code-title {
+    color: var(--text-secondary);
+    font-size: 0.875rem;
+  }
+
+  .code-content {
+    padding: 1.5rem;
+    overflow-x: auto;
+    font-family: "Monaco", "Menlo", "Courier New", monospace;
+    font-size: 0.875rem;
+    line-height: 1.6;
+  }
+
+  .code-content code {
+    color: var(--text-primary);
+  }
+
+  /* Code Syntax Highlighting */
+  .code-tag {
+    color: #8b5cf6;
+  }
+  .code-attr {
+    color: #f59e0b;
+  }
+  .code-string {
+    color: #10b981;
+  }
+  .code-keyword {
+    color: #ef4444;
+  }
+  .code-number {
+    color: #06b6d4;
+  }
+  .code-comment {
+    color: #64748b;
+  }
+</style>
+
+<section class="examples-section">
+  <div class="container">
+    <h2 class="section-title">See It In Action</h2>
+    <div class="example-tabs">
+      <button class="example-tab active" data-example="reactive">
+        Reactive State
+      </button>
+      <button class="example-tab" data-example="binding">Data Binding</button>
+      <button class="example-tab" data-example="events">Event System</button>
+      <button class="example-tab" data-example="conditional">
+        Conditional Rendering
+      </button>
+    </div>
+
+    <div class="example-content active" data-example-content="reactive">
+      <div class="example-grid">
+        <div class="example-code">
+          <div class="code-window">
+            <div class="code-header">
+              <span class="code-title">counter.html</span>
+            </div>
+            <pre
+              class="code-content"
+            ><code><span class="code-tag">&lt;div&gt;</span>
+  <span class="code-tag">&lt;h2&gt;</span>Count: {count}<span class="code-tag">&lt;/h2&gt;</span>
+  <span class="code-tag">&lt;button</span> <span class="code-attr">onclick</span>=<span class="code-string">"increment()"</span><span class="code-tag">&gt;</span>
+    Add
+  <span class="code-tag">&lt;/button&gt;</span>
+  <span class="code-tag">&lt;button</span> <span class="code-attr">onclick</span>=<span class="code-string">"reset()"</span><span class="code-tag">&gt;</span>
+    Reset
+  <span class="code-tag">&lt;/button&gt;</span>
+<span class="code-tag">&lt;/div&gt;</span>
+
+<span class="code-tag">&lt;script&gt;</span>
+  <span class="code-keyword">let</span> count = <span class="code-number">0</span>;
+
+  <span class="code-keyword">const</span> increment = () => {
+    count++; <span class="code-comment">// Triggers re-render</span>
+  };
+
+  <span class="code-keyword">const</span> reset = () => {
+    count = <span class="code-number">0</span>;
+  };
+<span class="code-tag">&lt;/script&gt;</span></code></pre>
+          </div>
+        </div>
+        <div class="example-description">
+          <h3>Automatic Re-rendering</h3>
+          <p>
+            State changes automatically trigger component updates. No need to
+            call <code>setState</code> or manage subscriptions manually.
+          </p>
+          <ul class="feature-list">
+            <li>✓ Direct variable assignment</li>
+            <li>✓ Automatic change detection</li>
+            <li>✓ Minimal re-renders</li>
+            <li>✓ No boilerplate code</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+
+    <div class="example-content" data-example-content="binding">
+      <div class="example-grid">
+        <div class="example-code">
+          <div class="code-window">
+            <div class="code-header">
+              <span class="code-title">form.html</span>
+            </div>
+            <pre
+              class="code-content"
+            ><code><span class="code-tag">&lt;div&gt;</span>
+  <span class="code-tag">&lt;h2&gt;</span>Hello, {name}!<span class="code-tag">&lt;/h2&gt;</span>
+  <span class="code-tag">&lt;input</span> 
+    <span class="code-attr">type</span>=<span class="code-string">"text"</span>
+    <span class="code-attr">$bind</span>=<span class="code-string">"name"</span>
+    <span class="code-attr">placeholder</span>=<span class="code-string">"Your name"</span>
+  <span class="code-tag">/&gt;</span>
+
+  <span class="code-tag">&lt;p&gt;</span>Email: {email}<span class="code-tag">&lt;/p&gt;</span>
+  <span class="code-tag">&lt;input</span> <span class="code-attr">$bind</span>=<span class="code-string">"email"</span> <span class="code-tag">/&gt;</span>
+
+  <span class="code-tag">&lt;label&gt;</span>
+    <span class="code-tag">&lt;input</span> 
+      <span class="code-attr">type</span>=<span class="code-string">"checkbox"</span> 
+      <span class="code-attr">$bind</span>=<span class="code-string">"subscribe"</span>
+    <span class="code-tag">/&gt;</span>
+    Subscribe: {subscribe}
+  <span class="code-tag">&lt;/label&gt;</span>
+<span class="code-tag">&lt;/div&gt;</span>
+
+<span class="code-tag">&lt;script&gt;</span>
+  <span class="code-keyword">let</span> name = <span class="code-string">"World"</span>;
+  <span class="code-keyword">let</span> email = <span class="code-string">""</span>;
+  <span class="code-keyword">let</span> subscribe = <span class="code-number">false</span>;
+<span class="code-tag">&lt;/script&gt;</span></code></pre>
+          </div>
+        </div>
+        <div class="example-description">
+          <h3>Two-Way Data Binding</h3>
+          <p>
+            Use the <code>$bind</code> attribute for automatic synchronization
+            between inputs and state. Works with text inputs, checkboxes,
+            selects, and textareas.
+          </p>
+          <ul class="feature-list">
+            <li>✓ No manual event handlers</li>
+            <li>✓ Instant synchronization</li>
+            <li>✓ Works with all form elements</li>
+            <li>✓ Clean, declarative syntax</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+
+    <div class="example-content" data-example-content="events">
+      <div class="example-grid">
+        <div class="example-code">
+          <div class="code-window">
+            <div class="code-header">
+              <span class="code-title">login-form.html</span>
+            </div>
+            <pre
+              class="code-content"
+            ><code><span class="code-tag">&lt;button</span> <span class="code-attr">onclick</span>=<span class="code-string">"login()"</span><span class="code-tag">&gt;</span>
+  Login
+<span class="code-tag">&lt;/button&gt;</span>
+
+<span class="code-tag">&lt;script&gt;</span>
+  <span class="code-keyword">const</span> login = () => {
+    <span class="code-comment">// Emit event to other components</span>
+    $emit(<span class="code-string">"user-logged-in"</span>, {
+      userId: <span class="code-number">123</span>,
+      username: <span class="code-string">"john"</span>
+    });
+  };
+<span class="code-tag">&lt;/script&gt;</span></code></pre>
+          </div>
+          <div class="code-window">
+            <div class="code-header">
+              <span class="code-title">header.html</span>
+            </div>
+            <pre
+              class="code-content"
+            ><code><span class="code-tag">&lt;header&gt;</span>
+  <span class="code-tag">&lt;span</span> <span class="code-attr">$if</span>=<span class="code-string">"{isLoggedIn}"</span><span class="code-tag">&gt;</span>
+    Welcome, {username}!
+  <span class="code-tag">&lt;/span&gt;</span>
+<span class="code-tag">&lt;/header&gt;</span>
+
+<span class="code-tag">&lt;script&gt;</span>
+  <span class="code-keyword">let</span> isLoggedIn = <span class="code-number">false</span>;
+  <span class="code-keyword">let</span> username = <span class="code-string">""</span>;
+
+  <span class="code-comment">// Listen for events</span>
+  $listen(<span class="code-string">"user-logged-in"</span>, (user) => {
+    isLoggedIn = <span class="code-number">true</span>;
+    username = user.username;
+  });
+<span class="code-tag">&lt;/script&gt;</span></code></pre>
+          </div>
+        </div>
+        <div class="example-description">
+          <h3>Global Event Bus</h3>
+          <p>
+            Communicate between components without prop drilling. Emit events
+            from one component and listen in others.
+          </p>
+          <ul class="feature-list">
+            <li>✓ Cross-component communication</li>
+            <li>✓ Decoupled architecture</li>
+            <li>✓ Type-safe event data</li>
+            <li>✓ Automatic cleanup</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+
+    <div class="example-content" data-example-content="conditional">
+      <div class="example-grid">
+        <div class="example-code">
+          <div class="code-window">
+            <div class="code-header">
+              <span class="code-title">cart.html</span>
+            </div>
+            <pre
+              class="code-content"
+            ><code><span class="code-tag">&lt;div&gt;</span>
+  <span class="code-tag">&lt;h1&gt;</span>Shopping Cart<span class="code-tag">&lt;/h1&gt;</span>
+
+  <span class="code-tag">&lt;p</span> <span class="code-attr">$if</span>=<span class="code-string">"{items.length === 0}"</span><span class="code-tag">&gt;</span>
+    Your cart is empty
+  <span class="code-tag">&lt;/p&gt;</span>
+
+  <span class="code-tag">&lt;div</span> <span class="code-attr">$else-if</span>=<span class="code-string">"{items.length &lt; 5}"</span><span class="code-tag">&gt;</span>
+    <span class="code-tag">&lt;p&gt;</span>You have {items.length} items<span class="code-tag">&lt;/p&gt;</span>
+  <span class="code-tag">&lt;/div&gt;</span>
+
+  <span class="code-tag">&lt;div</span> <span class="code-attr">$else</span><span class="code-tag">&gt;</span>
+    <span class="code-tag">&lt;p&gt;</span>Cart is full! ({items.length})<span class="code-tag">&lt;/p&gt;</span>
+  <span class="code-tag">&lt;/div&gt;</span>
+
+  <span class="code-tag">&lt;ul&gt;</span>
+    <span class="code-tag">&lt;li</span> <span class="code-attr">$for</span>=<span class="code-string">"item in items"</span><span class="code-tag">&gt;</span>
+      {item.name}
+    <span class="code-tag">&lt;/li&gt;</span>
+  <span class="code-tag">&lt;/ul&gt;</span>
+<span class="code-tag">&lt;/div&gt;</span>
+
+<span class="code-tag">&lt;script&gt;</span>
+  <span class="code-keyword">let</span> items = [];
+<span class="code-tag">&lt;/script&gt;</span></code></pre>
+          </div>
+        </div>
+        <div class="example-description">
+          <h3>Conditional & List Rendering</h3>
+          <p>
+            Control what gets rendered with intuitive directives. Chain
+            conditions with <code>$if</code>, <code>$else-if</code>, and
+            <code>$else</code>.
+          </p>
+          <ul class="feature-list">
+            <li>✓ Multiple condition chains</li>
+            <li>✓ List rendering with <code>$for</code></li>
+            <li>✓ Optimized rendering</li>
+            <li>✓ Clean template syntax</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
