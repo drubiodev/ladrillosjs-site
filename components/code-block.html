@@ -18,6 +18,7 @@
     margin: 0 auto;
   }
   .code-window {
+    position: relative;
     background: var(--bg-darker);
     border-radius: 12px;
     overflow: hidden;
@@ -117,7 +118,14 @@
     }
   }
 
+  .code-body {
+    position: relative;
+    display: flex;
+    align-items: center;
+  }
+
   .code-content {
+    flex: 1;
     padding: 1.5rem;
     overflow-x: auto;
     font-family: "Monaco", "Menlo", "Courier New", monospace;
@@ -127,6 +135,16 @@
 
   .code-content code {
     color: var(--text-primary);
+  }
+
+  .code-actions {
+    display: flex;
+    align-items: center;
+    padding: 0 1rem 0 0;
+  }
+
+  .code-actions .copy-button {
+    margin-left: 0;
   }
 
   /* Code Syntax Highlighting */
@@ -152,7 +170,7 @@
 
 <div class="code-container">
   <div class="code-window">
-    <div class="code-header">
+    <div class="code-header" $if="filename">
       <div class="code-dots"><span></span><span></span><span></span></div>
       <span class="code-title">{filename}</span>
       <div class="copied-indicator" id="copiedIndicator" $if="copied">
@@ -168,15 +186,34 @@
       </div>
       <button class="copy-button" onclick="copyCode()">Copy</button>
     </div>
-    <pre
-      class="code-content"
-    ><code id="code" class="language-html"></code></pre>
+    <div class="code-body">
+      <pre
+        class="code-content"
+      ><code id="code" class="language-html"></code></pre>
+      <div class="code-actions" $if="!filename">
+        <div class="copied-indicator" id="copiedIndicator" $if="copied">
+          <svg fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path
+              stroke-linecap="round"
+              stroke-linejoin="round"
+              stroke-width="2"
+              d="M5 13l4 4L19 7"
+            ></path>
+          </svg>
+          Copied
+        </div>
+        <button class="copy-button" onclick="copyCode()" $if="!copied">
+          Copy
+        </button>
+      </div>
+    </div>
   </div>
 </div>
 
 <slot></slot>
 
 <script>
+  let filename = null;
   let copied = false;
   const codeElement = $querySelector("pre code");
   const innerRe = /(?<=<template\b[^>]*>)[\s\S]*?(?=<\/template>)/gi;

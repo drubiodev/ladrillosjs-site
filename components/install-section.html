@@ -72,8 +72,9 @@
 
   .copy-btn {
     position: absolute;
-    top: 1rem;
+    top: 50%;
     right: 1rem;
+    transform: translateY(-50%);
     padding: 0.5rem 1rem;
     background: var(--primary);
     color: white;
@@ -87,11 +88,50 @@
 
   .copy-btn:hover {
     background: var(--primary-dark);
-    transform: translateY(-2px);
+    transform: translateY(-50%) scale(1.05);
   }
 
   .copy-btn.copied {
     background: var(--secondary);
+  }
+
+  .copied-indicator {
+    display: none;
+    align-items: center;
+    justify-content: center;
+    gap: 0.5rem;
+    position: absolute;
+    top: 50%;
+    right: 1rem;
+    transform: translateY(-50%);
+    padding: 0.5rem 1rem;
+    background: rgba(16, 185, 129, 0.1);
+    border: 1px solid rgba(16, 185, 129, 0.3);
+    border-radius: 6px;
+    color: rgba(16, 185, 129, 1);
+    font-size: 0.875rem;
+    font-weight: 600;
+    animation: fadeIn 0.2s ease;
+  }
+
+  .copied-indicator.show {
+    display: flex;
+  }
+
+  .copied-indicator svg {
+    width: 16px;
+    height: 16px;
+  }
+
+  @keyframes fadeIn {
+    from {
+      opacity: 0;
+      transform: translateY(-2px);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
   }
 </style>
 
@@ -99,23 +139,35 @@
   <div class="container">
     <h2 class="section-title">Install LadrillosJS</h2>
     <div class="install-tabs">
-      <button class="tab-btn active" data-tab="npm">npm</button>
-      <button class="tab-btn" data-tab="cdn">CDN</button>
+      <button
+        class="tab-btn {activeTab === 'npm' ? 'active' : ''}"
+        onclick="setActiveTab('npm')"
+      >
+        npm
+      </button>
+      <button
+        class="tab-btn {activeTab === 'cdn' ? 'active' : ''}"
+        onclick="setActiveTab('cdn')"
+      >
+        CDN
+      </button>
     </div>
-    <div class="tab-content active" data-content="npm">
-      <div class="code-block">
-        <pre><code>npm install ladrillosjs</code></pre>
-        <button class="copy-btn" onclick="copyCode(this)">Copy</button>
-      </div>
-    </div>
-    <div class="tab-content" data-content="cdn">
-      <div class="code-block">
-        <pre><code>&lt;script type="module"&gt;
-  import { registerComponent } from "https://cdn.jsdelivr.net/npm/ladrillosjs/dist/ladrillosjs.es.js";
-  registerComponent("my-component", "./my-component.html");
-&lt;/script&gt;</code></pre>
-        <button class="copy-btn" onclick="copyCode(this)">Copy</button>
-      </div>
-    </div>
+    <code-block $if="activeTab === 'npm'">
+      <template> npm install ladrillosjs </template>
+    </code-block>
+    <code-block $if="activeTab === 'cdn'">
+      <template>
+        <script src="https://cdn.jsdelivr.net/npm/ladrillosjs"></script>
+      </template>
+    </code-block>
   </div>
 </section>
+
+<script>
+  let activeTab = "npm";
+  let active = "active";
+
+  const setActiveTab = (tab) => {
+    activeTab = tab;
+  };
+</script>
