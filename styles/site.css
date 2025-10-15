@@ -39,6 +39,8 @@ body {
   max-width: var(--container-max);
   margin: 0 auto;
   padding: 0 2rem;
+  width: 100%;
+  box-sizing: border-box;
 }
 
 /* ============================================

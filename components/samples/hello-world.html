@@ -2,6 +2,21 @@
   .greeting {
     text-align: center;
     padding: 2rem;
+    width: 100%;
+    max-width: 100%;
+    box-sizing: border-box;
+  }
+
+  @media (max-width: 768px) {
+    .greeting {
+      padding: 1.5rem;
+    }
+  }
+
+  @media (max-width: 480px) {
+    .greeting {
+      padding: 1rem;
+    }
   }
 
   .greeting h1 {
@@ -12,12 +27,26 @@
     -webkit-background-clip: text;
     background-clip: text;
     -webkit-text-fill-color: transparent;
+    word-wrap: break-word;
+  }
+
+  @media (max-width: 480px) {
+    .greeting h1 {
+      font-size: 1.5rem;
+    }
   }
 
   .greeting p {
     font-size: 1.125rem;
     color: rgba(226, 232, 240, 0.8);
     margin-bottom: 1.5rem;
+    word-wrap: break-word;
+  }
+
+  @media (max-width: 480px) {
+    .greeting p {
+      font-size: 1rem;
+    }
   }
 
   .greeting button {
@@ -31,6 +60,13 @@
     cursor: pointer;
     transition: all 0.2s ease;
     box-shadow: 0 4px 12px rgba(255, 107, 53, 0.3);
+  }
+
+  @media (max-width: 480px) {
+    .greeting button {
+      padding: 0.625rem 1.5rem;
+      font-size: 0.9375rem;
+    }
   }
 
   .greeting button:hover {
