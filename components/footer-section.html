@@ -1,0 +1,156 @@
+<style>
+  /* ============================================
+   Footer
+   ============================================ */
+  ul {
+    padding: 0;
+    margin: 0;
+    list-style: none;
+  }
+
+  /* Footer specific styles */
+  .footer {
+    background: var(--bg-darker);
+    border-top: 1px solid var(--border);
+    padding: 3rem 2rem 2rem;
+  }
+
+  @media (max-width: 768px) {
+    .footer {
+      padding: 2rem 1rem 1.5rem;
+    }
+  }
+
+  .footer-content {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 1rem;
+    margin-bottom: 2rem;
+  }
+
+  @media (max-width: 768px) {
+    .footer-content {
+      grid-template-columns: 1fr 1fr;
+      gap: 2rem;
+    }
+  }
+
+  @media (max-width: 480px) {
+    .footer-content {
+      grid-template-columns: 1fr;
+      gap: 1.5rem;
+    }
+  }
+
+  .footer-section h4 {
+    margin-bottom: 1rem;
+    color: var(--text-primary);
+  }
+
+  .footer-section ul {
+    list-style: none;
+  }
+
+  .footer-section li {
+    margin-bottom: 0.5rem;
+  }
+
+  .footer-section a {
+    color: var(--text-secondary);
+    text-decoration: none;
+    transition: color 0.3s;
+  }
+
+  .footer-section a:hover {
+    color: var(--primary-light);
+  }
+
+  .footer-bottom {
+    text-align: center;
+    padding-top: 2rem;
+    border-top: 1px solid var(--border);
+    color: var(--text-secondary);
+  }
+
+  @media (max-width: 768px) {
+    .footer-bottom {
+      padding-top: 1.5rem;
+      font-size: 0.875rem;
+    }
+  }
+
+  .footer-bottom a {
+    color: var(--primary-light);
+    text-decoration: none;
+  }
+
+  .footer-bottom a:hover {
+    text-decoration: underline;
+  }
+</style>
+
+<footer class="footer">
+  <div class="container">
+    <div class="footer-content">
+      <div class="footer-section">
+        <h4>Resources</h4>
+        <ul>
+          <li>
+            <a href="https://github.com/drubiodev/LadrillosJS">Documentation</a>
+          </li>
+          <li>
+            <a
+              href="https://github.com/drubiodev/LadrillosJS/tree/main/samples/apps"
+              >Examples</a
+            >
+          </li>
+          <li>
+            <a href="https://www.npmjs.com/package/ladrillosjs">NPM Package</a>
+          </li>
+          <li>
+            <a
+              href="https://github.com/drubiodev/LadrillosJS/blob/main/README.md"
+              >API Reference</a
+            >
+          </li>
+        </ul>
+      </div>
+      <div class="footer-section">
+        <h4>Community</h4>
+        <ul>
+          <li>
+            <a href="https://github.com/drubiodev/LadrillosJS">GitHub</a>
+          </li>
+          <li>
+            <a href="https://github.com/drubiodev/LadrillosJS/issues"
+              >Report Issues</a
+            >
+          </li>
+        </ul>
+      </div>
+      <div class="footer-section">
+        <h4>About</h4>
+        <ul>
+          <li>
+            <a href="https://github.com/drubiodev/LadrillosJS/blob/main/LICENSE"
+              >License (MIT)</a
+            >
+          </li>
+          <li><a href="https://github.com/drubiodev">Author</a></li>
+          <li>
+            <a href="https://github.com/drubiodev/LadrillosJS/releases"
+              >Changelog</a
+            >
+          </li>
+        </ul>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <p>
+        Built with ❤️ by
+        <a href="https://github.com/drubiodev">Daniel Rubio</a>
+      </p>
+      <p>MIT License © 2025 LadrillosJS</p>
+    </div>
+  </div>
+</footer>

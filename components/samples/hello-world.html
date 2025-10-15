@@ -1,0 +1,96 @@
+<style>
+  .greeting {
+    text-align: center;
+    padding: 2rem;
+    width: 100%;
+    max-width: 100%;
+    box-sizing: border-box;
+  }
+
+  @media (max-width: 768px) {
+    .greeting {
+      padding: 1.5rem;
+    }
+  }
+
+  @media (max-width: 480px) {
+    .greeting {
+      padding: 1rem;
+    }
+  }
+
+  .greeting h1 {
+    font-size: 1.75rem;
+    font-weight: 700;
+    margin-bottom: 1rem;
+    background: linear-gradient(135deg, #ff6b35 0%, #ff8c5f 100%);
+    -webkit-background-clip: text;
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
+    word-wrap: break-word;
+  }
+
+  @media (max-width: 480px) {
+    .greeting h1 {
+      font-size: 1.5rem;
+    }
+  }
+
+  .greeting p {
+    font-size: 1.125rem;
+    color: rgba(226, 232, 240, 0.8);
+    margin-bottom: 1.5rem;
+    word-wrap: break-word;
+  }
+
+  @media (max-width: 480px) {
+    .greeting p {
+      font-size: 1rem;
+    }
+  }
+
+  .greeting button {
+    padding: 0.75rem 1.75rem;
+    background: linear-gradient(135deg, #ff6b35 0%, #ff8c5f 100%);
+    color: white;
+    border: none;
+    border-radius: 8px;
+    font-size: 1rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    box-shadow: 0 4px 12px rgba(255, 107, 53, 0.3);
+  }
+
+  @media (max-width: 480px) {
+    .greeting button {
+      padding: 0.625rem 1.5rem;
+      font-size: 0.9375rem;
+    }
+  }
+
+  .greeting button:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 6px 20px rgba(255, 107, 53, 0.4);
+  }
+
+  .greeting button:active {
+    transform: translateY(0);
+  }
+</style>
+
+<div class="greeting">
+  <h1>{title}</h1>
+  <p>Hello, {name}!</p>
+  <button onclick="greet()">Greet ({count})</button>
+</div>
+
+<script>
+  let title = "Welcome to LadrillosJS";
+  let name = "World";
+  let count = 0;
+
+  const greet = () => {
+    count++; // Auto re-render
+  };
+</script>
