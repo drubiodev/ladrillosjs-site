@@ -21,11 +21,31 @@
     padding: 3rem 2rem 2rem;
   }
 
+  @media (max-width: 768px) {
+    .footer {
+      padding: 2rem 1rem 1.5rem;
+    }
+  }
+
   .footer-content {
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
     gap: 1rem;
     margin-bottom: 2rem;
+  }
+
+  @media (max-width: 768px) {
+    .footer-content {
+      grid-template-columns: 1fr 1fr;
+      gap: 2rem;
+    }
+  }
+
+  @media (max-width: 480px) {
+    .footer-content {
+      grid-template-columns: 1fr;
+      gap: 1.5rem;
+    }
   }
 
   .footer-section h4 {
@@ -56,6 +76,13 @@
     padding-top: 2rem;
     border-top: 1px solid var(--border);
     color: var(--text-secondary);
+  }
+
+  @media (max-width: 768px) {
+    .footer-bottom {
+      padding-top: 1.5rem;
+      font-size: 0.875rem;
+    }
   }
 
   .footer-bottom a {

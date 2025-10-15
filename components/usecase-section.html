@@ -13,6 +13,20 @@
     margin-top: 3rem;
   }
 
+  @media (max-width: 768px) {
+    .use-cases-grid {
+      grid-template-columns: 1fr;
+      gap: 1.5rem;
+      margin-top: 2rem;
+    }
+  }
+
+  @media (max-width: 480px) {
+    .use-cases-grid {
+      gap: 1rem;
+    }
+  }
+
   .use-case {
     background: var(--bg-card);
     padding: 2rem;
@@ -20,6 +34,18 @@
     border: 1px solid var(--border);
     text-align: center;
     transition: all 0.3s;
+  }
+
+  @media (max-width: 768px) {
+    .use-case {
+      padding: 1.5rem;
+    }
+  }
+
+  @media (max-width: 480px) {
+    .use-case {
+      padding: 1.25rem;
+    }
   }
 
   .use-case:hover {

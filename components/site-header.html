@@ -58,6 +58,27 @@
     align-items: center;
   }
 
+  @media (max-width: 768px) {
+    .nav-links {
+      display: none;
+      position: fixed;
+      top: 70px;
+      left: 0;
+      right: 0;
+      background: rgba(15, 23, 42, 0.98);
+      -webkit-backdrop-filter: blur(16px);
+      backdrop-filter: blur(16px);
+      flex-direction: column;
+      gap: 1rem;
+      padding: 2rem;
+      border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+    }
+
+    .nav-links.mobile-open {
+      display: flex;
+    }
+  }
+
   .nav-links a {
     color: rgba(226, 232, 240, 0.7);
     text-decoration: none;
@@ -119,6 +140,81 @@
     font-size: 0.9375rem;
     letter-spacing: -0.01em;
   }
+
+  @media (max-width: 768px) {
+    .welcome-message {
+      position: fixed;
+      top: 10px;
+      left: 50%;
+      transform: translateX(-50%);
+      z-index: 999;
+      font-size: 0.8125rem;
+      padding: 0.375rem 0.75rem;
+      white-space: nowrap;
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+    }
+  }
+
+  @media (max-width: 480px) {
+    .welcome-message {
+      font-size: 0.75rem;
+      padding: 0.3rem 0.6rem;
+      top: 65px;
+    }
+  }
+
+  /* Mobile Toggle Button */
+  .mobile-toggle {
+    display: none;
+    background: transparent;
+    border: none;
+    color: var(--text-primary);
+    cursor: pointer;
+    padding: 0.5rem;
+  }
+
+  .mobile-toggle svg {
+    width: 24px;
+    height: 24px;
+  }
+
+  @media (max-width: 768px) {
+    .mobile-toggle {
+      display: block;
+    }
+
+    .nav-content {
+      padding: 1rem;
+    }
+
+    .brand-name {
+      font-size: 1.125rem;
+    }
+
+    .logo {
+      width: 32px;
+      height: 32px;
+    }
+
+    .version {
+      font-size: 0.625rem;
+      padding: 0.2rem 0.5rem;
+    }
+
+    .nav-brand {
+      gap: 0.75rem;
+    }
+  }
+
+  @media (max-width: 480px) {
+    .brand-name {
+      font-size: 1rem;
+    }
+
+    .nav-brand {
+      gap: 0.5rem;
+    }
+  }
 </style>
 
 <header>
@@ -142,7 +238,17 @@
         <div class="welcome-message" $if="{isLoggedIn}">
           Welcome, {username}!
         </div>
-        <div class="nav-links">
+        <button class="mobile-toggle" onclick="toggleMobileMenu()">
+          <svg fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path
+              stroke-linecap="round"
+              stroke-linejoin="round"
+              stroke-width="2"
+              d="M4 6h16M4 12h16M4 18h16"
+            ></path>
+          </svg>
+        </button>
+        <div class="nav-links" id="navLinks">
           <a href="#features">Features</a>
           <a href="#quick-start">Quick Start</a>
           <a
@@ -178,5 +284,26 @@
   $listen("user-logged-in", (user) => {
     isLoggedIn = true;
     username = user.username;
+  });
+
+  // Mobile menu toggle
+  window.toggleMobileMenu = function () {
+    const navLinks = $querySelector(".nav-links");
+    if (navLinks) {
+      navLinks.classList.toggle("mobile-open");
+    }
+  };
+
+  // Close mobile menu when clicking a link
+  document.addEventListener("DOMContentLoaded", () => {
+    const navLinks = document.querySelectorAll(".nav-links a");
+    navLinks.forEach((link) => {
+      link.addEventListener("click", () => {
+        const nav = document.querySelector(".nav-links");
+        if (nav && nav.classList.contains("mobile-open")) {
+          nav.classList.remove("mobile-open");
+        }
+      });
+    });
   });
 </script>

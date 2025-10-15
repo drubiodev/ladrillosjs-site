@@ -8,6 +8,18 @@
     overflow: hidden;
   }
 
+  @media (max-width: 768px) {
+    .hero {
+      padding: 6rem 1rem 4rem;
+    }
+  }
+
+  @media (max-width: 480px) {
+    .hero {
+      padding: 5rem 1rem 3rem;
+    }
+  }
+
   .hero::before {
     content: "";
     position: absolute;
@@ -39,6 +51,18 @@
     margin-bottom: 1.5rem;
   }
 
+  @media (max-width: 768px) {
+    .hero-title {
+      font-size: 2.5rem;
+    }
+  }
+
+  @media (max-width: 480px) {
+    .hero-title {
+      font-size: 2rem;
+    }
+  }
+
   .gradient-text {
     background: var(--gradient-1);
     -webkit-background-clip: text;
@@ -53,11 +77,37 @@
     line-height: 1.8;
   }
 
+  @media (max-width: 768px) {
+    .hero-subtitle {
+      font-size: 1.125rem;
+      margin-bottom: 2rem;
+    }
+  }
+
+  @media (max-width: 480px) {
+    .hero-subtitle {
+      font-size: 1rem;
+    }
+  }
+
   .hero-stats {
     display: flex;
     justify-content: center;
     gap: 3rem;
     margin-bottom: 3rem;
+  }
+
+  @media (max-width: 768px) {
+    .hero-stats {
+      gap: 2rem;
+      flex-wrap: wrap;
+    }
+  }
+
+  @media (max-width: 480px) {
+    .hero-stats {
+      gap: 1.5rem;
+    }
   }
 
   .stat {
@@ -70,6 +120,18 @@
     font-size: 2rem;
     font-weight: 700;
     color: var(--primary-light);
+  }
+
+  @media (max-width: 768px) {
+    .stat-value {
+      font-size: 1.75rem;
+    }
+  }
+
+  @media (max-width: 480px) {
+    .stat-value {
+      font-size: 1.5rem;
+    }
   }
 
   .stat-label {
@@ -85,6 +147,27 @@
     margin-bottom: 4rem;
   }
 
+  @media (max-width: 768px) {
+    .hero-actions {
+      flex-direction: column;
+      gap: 0.75rem;
+      align-items: stretch;
+      padding: 0;
+      max-width: 500px;
+      margin-left: auto;
+      margin-right: auto;
+      margin-bottom: 3rem;
+    }
+  }
+
+  @media (max-width: 480px) {
+    .hero-actions {
+      margin-bottom: 3rem;
+      max-width: 100%;
+      padding: 0 0.5rem;
+    }
+  }
+
   .btn {
     display: inline-block;
     padding: 0.875rem 2rem;
@@ -95,11 +178,26 @@
     border: none;
     cursor: pointer;
     font-size: 1rem;
+    text-align: center;
+  }
+
+  @media (max-width: 768px) {
+    .btn {
+      padding: 1rem 2rem;
+      display: block;
+    }
+  }
+
+  @media (max-width: 480px) {
+    .btn {
+      padding: 0.875rem 1.5rem;
+    }
   }
 
   .btn-primary {
     background: var(--gradient-1);
     color: white;
+    border: 2px solid transparent;
   }
 
   .btn-primary:hover {
@@ -149,6 +247,20 @@
     flex-direction: column;
     align-items: center;
     justify-content: center;
+  }
+
+  @media (max-width: 768px) {
+    .demo-output {
+      padding: 1.5rem;
+      min-height: 250px;
+    }
+  }
+
+  @media (max-width: 480px) {
+    .demo-output {
+      padding: 1rem;
+      min-height: 200px;
+    }
   }
 
   @media (max-width: 1023px) {
