@@ -10,9 +10,9 @@
       type="image/png"
       href="https://raw.githubusercontent.com/drubiodev/LadrillosJS/refs/heads/main/LadrillosJS.jpg"
     />
+    <script defer src="https://cdn.jsdelivr.net/npm/ladrillosjs"></script>
     <script type="module">
-      import { registerComponents } from "ladrillosjs";
-      await registerComponents([
+      await ladrillosjs.registerComponents([
         { name: "site-header", path: "./components/site-header.html" },
         { name: "hero-section", path: "./components/hero-section.html" },
         { name: "install-section", path: "./components/install-section.html" },
@@ -22,6 +22,23 @@
         { name: "cta-section", path: "./components/cta-section.html" },
         { name: "footer-section", path: "./components/footer-section.html" },
         { name: "code-block", path: "./components/code-block.html" },
+        { name: "hello-world", path: "./components/samples/hello-world.html" },
+        {
+          name: "counter-sample",
+          path: "./components/samples/counter.html",
+        },
+        {
+          name: "two-way-binding-sample",
+          path: "./components/samples/form.html",
+        },
+        {
+          name: "event-system-sample",
+          path: "./components/samples/login-form.html",
+        },
+        {
+          name: "conditional-rendering-sample",
+          path: "./components/samples/cart.html",
+        },
       ]);
       document.body.classList.remove("loading");
     </script>
