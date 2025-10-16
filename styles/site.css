@@ -108,3 +108,12 @@ body {
 .section-subtitle {
   font-size: clamp(0.875rem, 2vw, 1.125rem);
 }
+
+feature-section,
+example-section,
+usecase-section,
+cta-section,
+footer-section {
+  display: block;
+  min-height: 400px; /* Reserves space, prevents layout shift */
+}
