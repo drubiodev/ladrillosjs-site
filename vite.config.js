@@ -35,4 +35,5 @@ const copyPagesPlugin = {
 
 export default defineConfig({
   plugins: [copyComponentsPlugin(), copyPagesPlugin],
+  base: "/ladrillosjs-site/",
 });
