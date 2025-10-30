@@ -13,11 +13,9 @@
       }
     </style>
 
-    <script
-      defer
-      src="https://cdn.jsdelivr.net/npm/ladrillosjs@2.0.0-beta.3.3"
-    ></script>
     <script type="module">
+      import * as ladrillosjs from "ladrillosjs";
+
       await ladrillosjs.registerComponents([
         // Eager: Above-the-fold & interactive
         { name: "site-header", path: "./components/site-header.html" },
@@ -53,31 +51,6 @@
 
         // Utility components (loaded on demand)
         { name: "code-block", path: "./components/code-block.html" },
-        {
-          name: "hello-world",
-          path: "./components/samples/hello-world.html",
-          lazy: true,
-        },
-        {
-          name: "counter-sample",
-          path: "./components/samples/counter.html",
-          lazy: true,
-        },
-        {
-          name: "two-way-binding-sample",
-          path: "./components/samples/form.html",
-          lazy: true,
-        },
-        {
-          name: "event-system-sample",
-          path: "./components/samples/login-form.html",
-          lazy: true,
-        },
-        {
-          name: "conditional-rendering-sample",
-          path: "./components/samples/cart.html",
-          lazy: true,
-        },
       ]);
       document.body.classList.remove("loading");
     </script>

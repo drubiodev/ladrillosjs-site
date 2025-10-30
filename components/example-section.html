@@ -356,6 +356,32 @@
   </div>
 </section>
 
+<script type="module">
+  import { registerComponents } from "ladrillosjs";
+await registerComponents([
+  {
+          name: "counter-sample",
+          path: "./components/samples/counter.html",
+          lazy: true,
+        },
+        {
+          name: "two-way-binding-sample",
+          path: "./components/samples/form.html",
+          lazy: true,
+        },
+        {
+          name: "event-system-sample",
+          path: "./components/samples/login-form.html",
+          lazy: true,
+        },
+        {
+          name: "conditional-rendering-sample",
+          path: "./components/samples/cart.html",
+          lazy: true,
+        }
+])
+</script>
+
 <script>
   let activeTab = "reactive";
   let active = "active";
