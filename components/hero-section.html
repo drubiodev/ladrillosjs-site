@@ -26,6 +26,99 @@
     z-index: 1;
   }
 
+  /* Brick Animation - SVG Isometric */
+  .brick-animation {
+    position: absolute;
+    right: 5%;
+    top: 50%;
+    transform: translateY(-50%);
+    width: 420px;
+    height: 420px;
+    pointer-events: none;
+  }
+
+  .brick-animation svg {
+    width: 100%;
+    height: 100%;
+    overflow: visible;
+  }
+
+  /* Cube groups animate in */
+  .brick-animation .cube-group {
+    opacity: 0;
+    animation: cubeDropIn 0.55s cubic-bezier(0.34, 1.56, 0.64, 1) forwards;
+  }
+
+  .brick-animation .cube-group:nth-child(1) {
+    animation-delay: 0.1s;
+  }
+  .brick-animation .cube-group:nth-child(2) {
+    animation-delay: 0.18s;
+  }
+  .brick-animation .cube-group:nth-child(3) {
+    animation-delay: 0.14s;
+  }
+  .brick-animation .cube-group:nth-child(4) {
+    animation-delay: 0.24s;
+  }
+  .brick-animation .cube-group:nth-child(5) {
+    animation-delay: 0.42s;
+  }
+  .brick-animation .cube-group:nth-child(6) {
+    animation-delay: 0.6s;
+  }
+  .brick-animation .cube-group:nth-child(7) {
+    animation-delay: 0.7s;
+  }
+  .brick-animation .cube-group:nth-child(8) {
+    animation-delay: 0.82s;
+  }
+
+  /* Shadow fades in */
+  .brick-animation .shadow-el {
+    opacity: 0;
+    animation: shadowReveal 0.8s ease-out 0.2s forwards;
+  }
+
+  @keyframes shadowReveal {
+    to {
+      opacity: 0.5;
+    }
+  }
+
+  @keyframes cubeDropIn {
+    0% {
+      opacity: 0;
+      transform: translateY(-30px);
+    }
+    100% {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+
+  /* Responsive */
+  @media (max-width: 1100px) {
+    .brick-animation {
+      right: 2%;
+      transform: translateY(-50%) scale(0.8);
+    }
+  }
+
+  @media (max-width: 900px) {
+    .brick-animation {
+      opacity: 0.35;
+      right: -5%;
+      transform: translateY(-50%) scale(0.65);
+    }
+  }
+
+  @media (max-width: 768px) {
+    .brick-animation {
+      display: none;
+    }
+  }
+
   .hero-tagline {
     font-size: 0.9rem;
     color: var(--text-secondary);
@@ -273,6 +366,89 @@
 
 <section class="hero">
   <div class="hero-card">
+    <!-- Brick stacking animation - SVG Isometric -->
+    <div class="brick-animation">
+      <svg viewBox="60 80 340 360" xmlns="http://www.w3.org/2000/svg">
+        <defs>
+          <filter id="brickShadow" x="-50%" y="-50%" width="200%" height="200%">
+            <feGaussianBlur in="SourceGraphic" stdDeviation="10" />
+          </filter>
+        </defs>
+
+        <!-- Shadow -->
+        <ellipse
+          class="shadow-el"
+          cx="210"
+          cy="390"
+          rx="130"
+          ry="35"
+          fill="rgba(0,0,0,0.13)"
+          filter="url(#brickShadow)"
+        />
+
+        <!-- ====== BOTTOM LAYER z=0 ====== -->
+        <!-- Draw order: b1(back) → b2/b3 → b4(front) -->
+
+        <!-- b1 grid(0,0) - back -->
+        <g class="cube-group">
+          <polygon points="200,230 252,260 200,290 148,260" fill="#fdba74" />
+          <polygon points="148,260 200,290 200,340 148,310" fill="#f97316" />
+          <polygon points="200,290 252,260 252,310 200,340" fill="#ea580c" />
+        </g>
+
+        <!-- b2 grid(1,0) - right -->
+        <g class="cube-group">
+          <polygon points="252,260 304,290 252,320 200,290" fill="#fdba74" />
+          <polygon points="200,290 252,320 252,370 200,340" fill="#f97316" />
+          <polygon points="252,320 304,290 304,340 252,370" fill="#ea580c" />
+        </g>
+
+        <!-- b3 grid(0,1) - left -->
+        <g class="cube-group">
+          <polygon points="148,260 200,290 148,320 96,290" fill="#fdba74" />
+          <polygon points="96,290 148,320 148,370 96,340" fill="#f97316" />
+          <polygon points="148,320 200,290 200,340 148,370" fill="#ea580c" />
+        </g>
+
+        <!-- b4 grid(1,1) - front -->
+        <g class="cube-group">
+          <polygon points="200,290 252,320 200,350 148,320" fill="#fdba74" />
+          <polygon points="148,320 200,350 200,400 148,370" fill="#f97316" />
+          <polygon points="200,350 252,320 252,370 200,400" fill="#ea580c" />
+        </g>
+
+        <!-- ====== MIDDLE LAYER z=1 ====== -->
+        <!-- m1 grid(0.5, 0.5) - centered -->
+        <g class="cube-group">
+          <polygon points="200,210 252,240 200,270 148,240" fill="#fdba74" />
+          <polygon points="148,240 200,270 200,320 148,290" fill="#f97316" />
+          <polygon points="200,270 252,240 252,290 200,320" fill="#ea580c" />
+        </g>
+
+        <!-- ====== TOP LAYER z=2 ====== -->
+        <!-- t2 - L vertical stem (behind t1, draw first) -->
+        <g class="cube-group">
+          <polygon points="148,145 200,175 148,205 96,175" fill="#fdba74" />
+          <polygon points="96,175 148,205 148,255 96,225" fill="#f97316" />
+          <polygon points="148,205 200,175 200,225 148,255" fill="#ea580c" />
+        </g>
+
+        <!-- t1 - L horizontal bar (2 units wide) -->
+        <g class="cube-group">
+          <polygon points="200,115 304,175 252,205 148,145" fill="#fdba74" />
+          <polygon points="148,145 252,205 252,255 148,195" fill="#f97316" />
+          <polygon points="252,205 304,175 304,225 252,255" fill="#ea580c" />
+        </g>
+
+        <!-- t3 - standalone block (front-right) -->
+        <g class="cube-group">
+          <polygon points="304,175 356,205 304,235 252,205" fill="#fdba74" />
+          <polygon points="252,205 304,235 304,285 252,255" fill="#f97316" />
+          <polygon points="304,235 356,205 356,255 304,285" fill="#ea580c" />
+        </g>
+      </svg>
+    </div>
+
     <div class="hero-container">
       <p class="hero-tagline">
         Zero dependencies. <span>Pure JavaScript.</span>
