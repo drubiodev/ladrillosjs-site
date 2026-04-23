@@ -35,33 +35,30 @@
     text-decoration: none;
   }
 
-  /* Brick logo */
+  /* Brick logo - isometric SVG mark */
   .brick-logo {
-    display: flex;
-    flex-direction: column;
-    gap: 2px;
+    width: 28px;
+    height: 28px;
+    display: block;
+    transition: transform 0.3s cubic-bezier(0.22, 1, 0.36, 1);
   }
 
-  .brick-row {
-    display: flex;
-    gap: 2px;
+  .brick-logo svg {
+    width: 100%;
+    height: 100%;
+    display: block;
+    overflow: visible;
   }
 
-  .brick {
-    width: 10px;
-    height: 7px;
-    background: var(--text-primary);
-    border-radius: 1px;
-  }
-
-  .brick-row:first-child {
-    justify-content: center;
+  .nav-brand:hover .brick-logo {
+    transform: translateY(-2px) rotate(-4deg);
   }
 
   .brand-name {
-    font-weight: 600;
+    font-weight: 700;
     font-size: 1rem;
     color: var(--text-primary);
+    letter-spacing: -0.01em;
   }
 
   .nav-left-links {
@@ -175,15 +172,42 @@
   <div class="nav-content">
     <div class="nav-left">
       <a href="/" class="nav-brand">
-        <div class="brick-logo">
-          <div class="brick-row">
-            <div class="brick"></div>
-          </div>
-          <div class="brick-row">
-            <div class="brick"></div>
-            <div class="brick"></div>
-          </div>
-        </div>
+        <span class="brick-logo" aria-hidden="true">
+          <svg viewBox="0 0 64 64" xmlns="http://www.w3.org/2000/svg">
+            <defs>
+              <linearGradient id="logoTop" x1="0" y1="0" x2="1" y2="1">
+                <stop offset="0%" stop-color="#ffd4bd" />
+                <stop offset="100%" stop-color="#fde4d0" />
+              </linearGradient>
+              <linearGradient id="logoLeft" x1="0" y1="0" x2="0" y2="1">
+                <stop offset="0%" stop-color="#fbc9a8" />
+                <stop offset="100%" stop-color="#f5ad85" />
+              </linearGradient>
+              <linearGradient id="logoRight" x1="0" y1="0" x2="0" y2="1">
+                <stop offset="0%" stop-color="#f5ad85" />
+                <stop offset="100%" stop-color="#ff6b35" />
+              </linearGradient>
+            </defs>
+            <!-- bottom-left brick -->
+            <g>
+              <polygon points="16,30 32,38 16,46 0,38" fill="url(#logoTop)" />
+              <polygon points="0,38 0,48 16,56 16,46" fill="url(#logoLeft)" />
+              <polygon points="16,46 32,38 32,48 16,56" fill="url(#logoRight)" />
+            </g>
+            <!-- bottom-right brick -->
+            <g>
+              <polygon points="48,30 64,38 48,46 32,38" fill="url(#logoTop)" />
+              <polygon points="32,38 32,48 48,56 48,46" fill="url(#logoLeft)" />
+              <polygon points="48,46 64,38 64,48 48,56" fill="url(#logoRight)" />
+            </g>
+            <!-- top brick -->
+            <g>
+              <polygon points="32,8 48,16 32,24 16,16" fill="url(#logoTop)" />
+              <polygon points="16,16 16,26 32,34 32,24" fill="url(#logoLeft)" />
+              <polygon points="32,24 48,16 48,26 32,34" fill="url(#logoRight)" />
+            </g>
+          </svg>
+        </span>
         <span class="brand-name">LadrillosJS</span>
       </a>
       <div class="nav-left-links">
@@ -191,33 +215,14 @@
         <a href="#quick-start">Quick Start</a>
       </div>
     </div>
-    <button
-      class="mobile-toggle"
-      onclick="toggleMobileMenu()"
-      title="Toggle Mobile Navigation"
-    >
+    <button class="mobile-toggle" onclick="toggleMobileMenu()" title="Toggle Mobile Navigation">
       <svg fill="none" stroke="currentColor" viewBox="0 0 24 24">
-        <path
-          stroke-linecap="round"
-          stroke-linejoin="round"
-          stroke-width="2"
-          d="M4 6h16M4 12h16M4 18h16"
-        ></path>
+        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"></path>
       </svg>
     </button>
     <div class="nav-right" $ref="navLinks">
-      <a
-        href="https://github.com/drubiodev/LadrillosJS/tree/ts-rewrite"
-        target="_blank"
-        rel="noopener"
-        >Docs</a
-      >
-      <a
-        href="https://github.com/drubiodev/LadrillosJS/tree/ts-rewrite"
-        target="_blank"
-        rel="noopener"
-        >GitHub</a
-      >
+      <a href="https://github.com/drubiodev/LadrillosJS/tree/ts-rewrite" target="_blank" rel="noopener">Docs</a>
+      <a href="https://github.com/drubiodev/LadrillosJS/tree/ts-rewrite" target="_blank" rel="noopener">GitHub</a>
       <a href="#quick-start" class="btn-cta">Get Started</a>
     </div>
   </div>
