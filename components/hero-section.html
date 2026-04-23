@@ -15,9 +15,16 @@
     min-height: calc(100vh - 4rem);
     display: flex;
     align-items: center;
-    padding: 4rem;
+    padding: 4rem 2rem;
     position: relative;
     overflow: hidden;
+  }
+
+  .hero-inner {
+    width: 100%;
+    max-width: var(--container-max);
+    margin: 0 auto;
+    position: relative;
   }
 
   .hero-container {
@@ -29,7 +36,7 @@
   /* Brick Animation - SVG Isometric */
   .brick-animation {
     position: absolute;
-    right: 18%;
+    right: 0;
     top: 50%;
     transform: translateY(-50%);
     width: 460px;
@@ -107,7 +114,7 @@
   /* Responsive */
   @media (max-width: 1100px) {
     .brick-animation {
-      right: 2%;
+      right: 0;
       transform: translateY(-50%) scale(0.8);
     }
   }
@@ -373,112 +380,114 @@
 
 <section class="hero">
   <div class="hero-card">
-    <!-- Brick stacking animation - SVG Isometric -->
-    <div class="brick-animation">
-      <svg viewBox="110 250 230 220" xmlns="http://www.w3.org/2000/svg">
-        <defs>
-          <filter id="brickShadow" x="-50%" y="-50%" width="200%" height="200%">
-            <feGaussianBlur in="SourceGraphic" stdDeviation="8" />
-          </filter>
-        </defs>
+    <div class="hero-inner">
+      <!-- Brick stacking animation - SVG Isometric -->
+      <div class="brick-animation">
+        <svg viewBox="110 250 230 220" xmlns="http://www.w3.org/2000/svg">
+          <defs>
+            <filter id="brickShadow" x="-50%" y="-50%" width="200%" height="200%">
+              <feGaussianBlur in="SourceGraphic" stdDeviation="8" />
+            </filter>
+          </defs>
 
-        <!-- Soft ground shadow -->
-        <ellipse class="shadow-el" cx="226" cy="455" rx="115" ry="14" fill="rgba(234, 88, 12, 0.12)"
-          filter="url(#brickShadow)" />
+          <!-- Soft ground shadow -->
+          <ellipse class="shadow-el" cx="226" cy="455" rx="115" ry="14" fill="rgba(234, 88, 12, 0.12)"
+            filter="url(#brickShadow)" />
 
-        <!-- ===== BOTTOM ROW (3 bricks) — laid first ===== -->
+          <!-- ===== BOTTOM ROW (3 bricks) — laid first ===== -->
 
-        <!-- Bottom brick 1 (back-left) -->
-        <g class="cube-group">
-          <polygon points="174,303 226,329 174,355 122,329" fill="#fde4d0" />
-          <polygon points="122,329 122,359 174,385 174,355" fill="#fbc9a8" />
-          <polygon points="174,355 226,329 226,359 174,385" fill="#f5ad85" />
-        </g>
+          <!-- Bottom brick 1 (back-left) -->
+          <g class="cube-group">
+            <polygon points="174,303 226,329 174,355 122,329" fill="#fde4d0" />
+            <polygon points="122,329 122,359 174,385 174,355" fill="#fbc9a8" />
+            <polygon points="174,355 226,329 226,359 174,385" fill="#f5ad85" />
+          </g>
 
-        <!-- Bottom brick 2 (middle) -->
-        <g class="cube-group">
-          <polygon points="226,329 278,355 226,381 174,355" fill="#fde4d0" />
-          <polygon points="174,355 174,385 226,411 226,381" fill="#fbc9a8" />
-          <polygon points="226,381 278,355 278,385 226,411" fill="#f5ad85" />
-        </g>
+          <!-- Bottom brick 2 (middle) -->
+          <g class="cube-group">
+            <polygon points="226,329 278,355 226,381 174,355" fill="#fde4d0" />
+            <polygon points="174,355 174,385 226,411 226,381" fill="#fbc9a8" />
+            <polygon points="226,381 278,355 278,385 226,411" fill="#f5ad85" />
+          </g>
 
-        <!-- Bottom brick 3 (front-right) -->
-        <g class="cube-group">
-          <polygon points="278,355 330,381 278,407 226,381" fill="#fde4d0" />
-          <polygon points="226,381 226,411 278,437 278,407" fill="#fbc9a8" />
-          <polygon points="278,407 330,381 330,411 278,437" fill="#f5ad85" />
-        </g>
+          <!-- Bottom brick 3 (front-right) -->
+          <g class="cube-group">
+            <polygon points="278,355 330,381 278,407 226,381" fill="#fde4d0" />
+            <polygon points="226,381 226,411 278,437 278,407" fill="#fbc9a8" />
+            <polygon points="278,407 330,381 330,411 278,437" fill="#f5ad85" />
+          </g>
 
-        <!-- ===== MIDDLE ROW (2 bricks) — laid second ===== -->
+          <!-- ===== MIDDLE ROW (2 bricks) — laid second ===== -->
 
-        <!-- Middle-left brick (A) -->
-        <g class="cube-group">
-          <polygon points="200,286 252,312 200,338 148,312" fill="#fde4d0" />
-          <polygon points="148,312 148,342 200,368 200,338" fill="#fbc9a8" />
-          <polygon points="200,338 252,312 252,342 200,368" fill="#f5ad85" />
-        </g>
+          <!-- Middle-left brick (A) -->
+          <g class="cube-group">
+            <polygon points="200,286 252,312 200,338 148,312" fill="#fde4d0" />
+            <polygon points="148,312 148,342 200,368 200,338" fill="#fbc9a8" />
+            <polygon points="200,338 252,312 252,342 200,368" fill="#f5ad85" />
+          </g>
 
-        <!-- Middle-right brick (B) -->
-        <g class="cube-group">
-          <polygon points="252,312 304,338 252,364 200,338" fill="#fde4d0" />
-          <polygon points="200,338 200,368 252,394 252,364" fill="#fbc9a8" />
-          <polygon points="252,364 304,338 304,368 252,394" fill="#f5ad85" />
-        </g>
+          <!-- Middle-right brick (B) -->
+          <g class="cube-group">
+            <polygon points="252,312 304,338 252,364 200,338" fill="#fde4d0" />
+            <polygon points="200,338 200,368 252,394 252,364" fill="#fbc9a8" />
+            <polygon points="252,364 304,338 304,368 252,394" fill="#f5ad85" />
+          </g>
 
-        <!-- ===== TOP (1 brick) — laid last ===== -->
-        <g class="cube-group">
-          <polygon points="226,269 278,295 226,321 174,295" fill="#fde4d0" />
-          <polygon points="174,295 174,325 226,351 226,321" fill="#fbc9a8" />
-          <polygon points="226,321 278,295 278,325 226,351" fill="#f5ad85" />
-        </g>
-      </svg>
-    </div>
+          <!-- ===== TOP (1 brick) — laid last ===== -->
+          <g class="cube-group">
+            <polygon points="226,269 278,295 226,321 174,295" fill="#fde4d0" />
+            <polygon points="174,295 174,325 226,351 226,321" fill="#fbc9a8" />
+            <polygon points="226,321 278,295 278,325 226,351" fill="#f5ad85" />
+          </g>
+        </svg>
+      </div>
 
-    <div class="hero-container">
-      <p class="hero-tagline">
-        Zero dependencies. <span>Pure JavaScript.</span>
-      </p>
-      <h1 class="hero-title">
-        Build Better,<br />
-        Build Simpler
-      </h1>
+      <div class="hero-container">
+        <p class="hero-tagline">
+          Zero dependencies. <span>Pure JavaScript.</span>
+        </p>
+        <h1 class="hero-title">
+          Build Better,<br />
+          Build Simpler
+        </h1>
 
-      <div class="hero-actions">
-        <div class="install-picker">
-          <div class="install-tabs">
-            <button class="tab-btn active" onclick="switchTab('npm')" $ref="npmTab">
-              npm
-            </button>
-            <button class="tab-btn" onclick="switchTab('cdn')" $ref="cdnTab">
-              CDN
-            </button>
-          </div>
+        <div class="hero-actions">
+          <div class="install-picker">
+            <div class="install-tabs">
+              <button class="tab-btn active" onclick="switchTab('npm')" $ref="npmTab">
+                npm
+              </button>
+              <button class="tab-btn" onclick="switchTab('cdn')" $ref="cdnTab">
+                CDN
+              </button>
+            </div>
 
-          <div class="install-box" $ref="npmBox">
-            <code>npm install <span class="highlight">ladrillosjs</span></code>
-            <button class="copy-btn" onclick="copyCommand('npm')" $ref="npmCopyBtn">
-              <svg fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                  d="M8 16H6a2 2 0 01-2-2V6a2 2 0 012-2h8a2 2 0 012 2v2m-6 12h8a2 2 0 002-2v-8a2 2 0 00-2-2h-8a2 2 0 00-2 2v8a2 2 0 002 2z">
-                </path>
-              </svg>
-              Copy
-            </button>
-          </div>
+            <div class="install-box" $ref="npmBox">
+              <code>npm install <span class="highlight">ladrillosjs</span></code>
+              <button class="copy-btn" onclick="copyCommand('npm')" $ref="npmCopyBtn">
+                <svg fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                    d="M8 16H6a2 2 0 01-2-2V6a2 2 0 012-2h8a2 2 0 012 2v2m-6 12h8a2 2 0 002-2v-8a2 2 0 00-2-2h-8a2 2 0 00-2 2v8a2 2 0 002 2z">
+                  </path>
+                </svg>
+                Copy
+              </button>
+            </div>
 
-          <div class="install-box" $ref="cdnBox" style="display: none">
-            <code>&lt;<span class="tag">script</span>
+            <div class="install-box" $ref="cdnBox" style="display: none">
+              <code>&lt;<span class="tag">script</span>
               <span class="attr">src</span>=<span class="string"
                 >"https://cdn.jsdelivr.net/npm/ladrillosjs"</span
               >&gt;&lt;/<span class="tag">script</span>&gt;</code>
-            <button class="copy-btn" onclick="copyCommand('cdn')" $ref="cdnCopyBtn">
-              <svg fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                  d="M8 16H6a2 2 0 01-2-2V6a2 2 0 012-2h8a2 2 0 012 2v2m-6 12h8a2 2 0 002-2v-8a2 2 0 00-2-2h-8a2 2 0 00-2 2v8a2 2 0 002 2z">
-                </path>
-              </svg>
-              Copy
-            </button>
+              <button class="copy-btn" onclick="copyCommand('cdn')" $ref="cdnCopyBtn">
+                <svg fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                    d="M8 16H6a2 2 0 01-2-2V6a2 2 0 012-2h8a2 2 0 012 2v2m-6 12h8a2 2 0 002-2v-8a2 2 0 00-2-2h-8a2 2 0 00-2 2v8a2 2 0 002 2z">
+                  </path>
+                </svg>
+                Copy
+              </button>
+            </div>
           </div>
         </div>
       </div>
