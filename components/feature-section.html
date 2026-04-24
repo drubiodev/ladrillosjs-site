@@ -148,6 +148,31 @@
     color: #10b981;
   }
 
+  /* Rose accent variant */
+  .feature-row.accent-rose .feature-eyebrow {
+    color: #e11d48;
+  }
+
+  .feature-row.accent-rose .feature-eyebrow::before {
+    background: linear-gradient(135deg, #f43f5e 0%, #e11d48 100%);
+  }
+
+  .feature-row.accent-rose .feature-title .highlight {
+    background: linear-gradient(135deg, #f43f5e 0%, #e11d48 100%);
+    -webkit-background-clip: text;
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
+  }
+
+  .feature-row.accent-rose .feature-description code {
+    background: rgba(244, 63, 94, 0.1);
+    color: #be123c;
+  }
+
+  .feature-row.accent-rose .feature-points li svg {
+    color: #f43f5e;
+  }
+
   .feature-description {
     font-size: 1.0625rem;
     line-height: 1.7;
@@ -253,6 +278,19 @@
     background-image:
       radial-gradient(circle at 50% 50%,
         rgba(16, 185, 129, 0.12) 0%,
+        transparent 60%),
+      radial-gradient(circle at 1px 1px,
+        rgba(15, 23, 42, 0.08) 1px,
+        transparent 0);
+    background-size: 100% 100%, 20px 20px;
+  }
+
+  /* Alt accent variant — rose glow */
+  .feature-demo.accent-rose {
+    background-color: #fff7f8;
+    background-image:
+      radial-gradient(circle at 50% 50%,
+        rgba(244, 63, 94, 0.12) 0%,
         transparent 60%),
       radial-gradient(circle at 1px 1px,
         rgba(15, 23, 42, 0.08) 1px,
@@ -519,6 +557,86 @@
         </div>
       </div>
     </div>
+
+    <!-- Feature: Control Flow -->
+    <div class="feature-row reverse accent-rose">
+      <div class="feature-copy">
+        <span class="feature-eyebrow">Control Flow</span>
+        <h3 class="feature-title">
+          Render what matters, <span class="highlight">when it matters.</span>
+        </h3>
+        <p class="feature-description">
+          Branch your UI with <code>$if</code>, <code>$else-if</code>, and
+          <code>$else</code> — or toggle visibility without unmounting using
+          <code>$show</code>. Declarative, readable, and exactly what you'd
+          expect from plain HTML.
+        </p>
+        <ul class="feature-points">
+          <li>
+            <svg viewBox="0 0 20 20" fill="currentColor" aria-hidden="true">
+              <path fill-rule="evenodd"
+                d="M16.704 4.153a.75.75 0 01.143 1.052l-8 10.5a.75.75 0 01-1.127.075l-4.5-4.5a.75.75 0 011.06-1.06l3.894 3.893 7.48-9.817a.75.75 0 011.05-.143z"
+                clip-rule="evenodd" />
+            </svg>
+            <span><code>$if</code> / <code>$else-if</code> / <code>$else</code> mount and unmount branches</span>
+          </li>
+          <li>
+            <svg viewBox="0 0 20 20" fill="currentColor" aria-hidden="true">
+              <path fill-rule="evenodd"
+                d="M16.704 4.153a.75.75 0 01.143 1.052l-8 10.5a.75.75 0 01-1.127.075l-4.5-4.5a.75.75 0 011.06-1.06l3.894 3.893 7.48-9.817a.75.75 0 011.05-.143z"
+                clip-rule="evenodd" />
+            </svg>
+            <span><code>$show</code> keeps the element in the DOM — ideal for preserving state</span>
+          </li>
+          <li>
+            <svg viewBox="0 0 20 20" fill="currentColor" aria-hidden="true">
+              <path fill-rule="evenodd"
+                d="M16.704 4.153a.75.75 0 01.143 1.052l-8 10.5a.75.75 0 01-1.127.075l-4.5-4.5a.75.75 0 011.06-1.06l3.894 3.893 7.48-9.817a.75.75 0 011.05-.143z"
+                clip-rule="evenodd" />
+            </svg>
+            <span>Any JavaScript expression works — ternaries, method calls, the works</span>
+          </li>
+        </ul>
+      </div>
+
+      <div class="feature-visual">
+        <code-block filename="flow.html">
+          <template>
+            <select $bind="status">
+              <option value="">Select a deploy status…</option>
+              <option value="loading">Deploying</option>
+              <option value="success">Succeeded</option>
+              <option value="error">Failed</option>
+            </select>
+
+            <div $if="status === 'loading'">Deploying to production…</div>
+            <div $else-if="status === 'success'">Deploy successful</div>
+            <div $else-if="status === 'error'">Deploy failed — rolling back</div>
+            <div $else>Waiting for a status…</div>
+
+            <label>
+              <input type="checkbox" $bind="showHint" />
+              Show release notes
+            </label>
+
+            <div $show="{showHint}">
+              Kept in the DOM — visibility toggled via CSS.
+            </div>
+
+            <script>
+              let status = "";
+              let showHint = false;
+            </script>
+          </template>
+        </code-block>
+
+        <div class="feature-demo-wrapper">
+          <div class="feature-demo accent-rose">
+            <flow-sample></flow-sample>
+          </div>
+        </div>
+      </div>
+    </div>
   </div>
 </section>
 
@@ -530,5 +648,6 @@
     { name: "counter-sample", path: "./components/samples/counter.html", lazy: true, },
     { name: "form-sample", path: "./components/samples/form.html", lazy: true, },
     { name: "ref-sample", path: "./components/samples/ref.html", lazy: true, },
+    { name: "flow-sample", path: "./components/samples/flow.html", lazy: true, },
   ]);
 </script>

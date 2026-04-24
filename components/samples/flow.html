@@ -1,0 +1,185 @@
+<style>
+    .flow-demo {
+        display: flex;
+        flex-direction: column;
+        gap: 1rem;
+        width: 100%;
+        max-width: 340px;
+    }
+
+    .flow-demo label {
+        font-size: 0.75rem;
+        font-weight: 600;
+        text-transform: uppercase;
+        letter-spacing: 0.08em;
+        color: #64748b;
+    }
+
+    .flow-demo select {
+        padding: 0.7rem 0.95rem;
+        background: #ffffff;
+        border: 1px solid #e2e8f0;
+        border-radius: 8px;
+        color: #0f172a;
+        font-size: 0.9375rem;
+        width: 100%;
+        cursor: pointer;
+        transition: all 0.2s ease;
+        box-shadow: 0 1px 2px rgba(15, 23, 42, 0.04);
+        appearance: none;
+        background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' fill='none' viewBox='0 0 20 20'%3E%3Cpath stroke='%2364748b' stroke-linecap='round' stroke-linejoin='round' stroke-width='2' d='M6 8l4 4 4-4'/%3E%3C/svg%3E");
+        background-repeat: no-repeat;
+        background-position: right 0.75rem center;
+        background-size: 18px;
+        padding-right: 2.25rem;
+    }
+
+    .flow-demo select:focus {
+        outline: none;
+        border-color: #f43f5e;
+        box-shadow: 0 0 0 3px rgba(244, 63, 94, 0.15);
+    }
+
+    .flow-demo .checkbox-row {
+        display: flex;
+        align-items: center;
+        gap: 0.5rem;
+        font-size: 0.875rem;
+        color: #334155;
+        cursor: pointer;
+        font-weight: 500;
+        user-select: none;
+    }
+
+    .flow-demo .checkbox-row input {
+        width: 17px;
+        height: 17px;
+        accent-color: #f43f5e;
+        cursor: pointer;
+    }
+
+    /* Status card — this is what $if/$else-if/$else swaps */
+    .status-card {
+        display: flex;
+        align-items: center;
+        gap: 0.75rem;
+        padding: 0.875rem 1rem;
+        border-radius: 10px;
+        font-size: 0.9375rem;
+        font-weight: 600;
+        border: 1px solid transparent;
+    }
+
+    .status-card .dot {
+        width: 10px;
+        height: 10px;
+        border-radius: 50%;
+        flex-shrink: 0;
+    }
+
+    .status-card.loading {
+        background: #eff6ff;
+        border-color: #bfdbfe;
+        color: #1d4ed8;
+    }
+
+    .status-card.loading .dot {
+        background: #3b82f6;
+        animation: pulse 1.2s ease-in-out infinite;
+    }
+
+    .status-card.success {
+        background: #ecfdf5;
+        border-color: #a7f3d0;
+        color: #047857;
+    }
+
+    .status-card.success .dot {
+        background: #10b981;
+    }
+
+    .status-card.error {
+        background: #fef2f2;
+        border-color: #fecaca;
+        color: #b91c1c;
+    }
+
+    .status-card.error .dot {
+        background: #ef4444;
+    }
+
+    .status-card.idle {
+        background: #f8fafc;
+        border-color: #e2e8f0;
+        color: #64748b;
+    }
+
+    .status-card.idle .dot {
+        background: #94a3b8;
+    }
+
+    @keyframes pulse {
+
+        0%,
+        100% {
+            opacity: 1;
+            transform: scale(1);
+        }
+
+        50% {
+            opacity: 0.5;
+            transform: scale(1.3);
+        }
+    }
+
+    .hint-card {
+        padding: 0.75rem 0.9rem;
+        background: linear-gradient(135deg, rgba(244, 63, 94, 0.08), rgba(251, 113, 133, 0.08));
+        border: 1px dashed rgba(244, 63, 94, 0.35);
+        border-radius: 8px;
+        font-size: 0.8125rem;
+        color: #9f1239;
+        line-height: 1.4;
+    }
+</style>
+
+<div class="flow-demo">
+    <select $bind="status">
+        <option value="">Select a deploy status…</option>
+        <option value="loading">Deploying</option>
+        <option value="success">Succeeded</option>
+        <option value="error">Failed</option>
+    </select>
+
+    <div class="status-card loading" $if="status === 'loading'">
+        <span class="dot"></span>
+        <span>Deploying to production…</span>
+    </div>
+    <div class="status-card success" $else-if="status === 'success'">
+        <span class="dot"></span>
+        <span>Deploy successful</span>
+    </div>
+    <div class="status-card error" $else-if="status === 'error'">
+        <span class="dot"></span>
+        <span>Deploy failed — rolling back</span>
+    </div>
+    <div class="status-card idle" $else>
+        <span class="dot"></span>
+        <span>Waiting for a status…</span>
+    </div>
+
+    <label class="checkbox-row">
+        <input type="checkbox" $bind="showHint" />
+        Show release notes
+    </label>
+
+    <div class="hint-card" $show="{showHint}">
+        This element stays in the DOM — <strong>$show</strong> just toggles its visibility via CSS, preserving scroll
+        position and animations.
+    </div>
+</div>
+
+<script>
+    let status = "";
+    let showHint = false;
+</script>
