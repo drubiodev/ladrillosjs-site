@@ -198,6 +198,97 @@
     color: #0ea5e9;
   }
 
+  /* Violet accent variant */
+  .feature-row.accent-violet .feature-eyebrow {
+    color: #7c3aed;
+  }
+
+  .feature-row.accent-violet .feature-eyebrow::before {
+    background: linear-gradient(135deg, #8b5cf6 0%, #7c3aed 100%);
+  }
+
+  .feature-row.accent-violet .feature-title .highlight {
+    background: linear-gradient(135deg, #8b5cf6 0%, #7c3aed 100%);
+    -webkit-background-clip: text;
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
+  }
+
+  .feature-row.accent-violet .feature-description code {
+    background: rgba(139, 92, 246, 0.1);
+    color: #6d28d9;
+  }
+
+  .feature-row.accent-violet .feature-points li svg {
+    color: #8b5cf6;
+  }
+
+  /* ============================================
+     Code tabs (used by cross-component feature)
+     ============================================ */
+  .code-tabs {
+    display: flex;
+    gap: 0.25rem;
+    padding: 0.25rem;
+    background: #1e293b;
+    border: 1px solid #334155;
+    border-radius: 10px;
+    align-self: flex-start;
+  }
+
+  .code-tabs button {
+    padding: 0.45rem 0.9rem;
+    background: transparent;
+    border: none;
+    color: #94a3b8;
+    font-size: 0.8125rem;
+    font-weight: 600;
+    font-family: var(--font-mono);
+    border-radius: 7px;
+    cursor: pointer;
+    transition: all 0.15s ease;
+  }
+
+  .code-tabs button:hover {
+    color: #e2e8f0;
+  }
+
+  .code-tabs button.active {
+    background: linear-gradient(135deg, #8b5cf6 0%, #7c3aed 100%);
+    color: #fff;
+    box-shadow: 0 2px 6px rgba(139, 92, 246, 0.35);
+  }
+
+  /* Emit → Listen connector */
+  .flow-connector {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.5rem;
+    padding: 0.35rem 0;
+    font-size: 0.7rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.12em;
+    color: #8b5cf6;
+  }
+
+  .flow-connector::before,
+  .flow-connector::after {
+    content: "";
+    flex: 1;
+    height: 1px;
+    background: linear-gradient(90deg, transparent, rgba(139, 92, 246, 0.4), transparent);
+  }
+
+  .comm-stack {
+    display: flex;
+    flex-direction: column;
+    gap: 0.25rem;
+    width: 100%;
+    max-width: 360px;
+  }
+
   .feature-description {
     font-size: 1.0625rem;
     line-height: 1.7;
@@ -329,6 +420,19 @@
     background-image:
       radial-gradient(circle at 50% 50%,
         rgba(14, 165, 233, 0.12) 0%,
+        transparent 60%),
+      radial-gradient(circle at 1px 1px,
+        rgba(15, 23, 42, 0.08) 1px,
+        transparent 0);
+    background-size: 100% 100%, 20px 20px;
+  }
+
+  /* Alt accent variant — violet glow */
+  .feature-demo.accent-violet {
+    background-color: #faf7ff;
+    background-image:
+      radial-gradient(circle at 50% 50%,
+        rgba(139, 92, 246, 0.13) 0%,
         transparent 60%),
       radial-gradient(circle at 1px 1px,
         rgba(15, 23, 42, 0.08) 1px,
@@ -753,8 +857,115 @@
         </div>
       </div>
     </div>
+
+    <!-- Feature Section: Cross-Component Communication -->
+    <div class="feature-row reverse accent-violet">
+      <div class="feature-copy">
+        <span class="feature-eyebrow">Cross-Component Comms</span>
+        <h3 class="feature-title">
+          Skip the prop drilling. <span class="highlight">Just send events.</span>
+        </h3>
+        <p class="feature-description">
+          Broadcast events from anywhere with <code>$emit</code>, and pick
+          them up with <code>$listen</code>. Siblings, cousins, deeply-nested
+          components — they all talk without touching a shared parent.
+        </p>
+        <ul class="feature-points">
+          <li>
+            <svg viewBox="0 0 20 20" fill="currentColor" aria-hidden="true">
+              <path fill-rule="evenodd"
+                d="M16.704 4.153a.75.75 0 01.143 1.052l-8 10.5a.75.75 0 01-1.127.075l-4.5-4.5a.75.75 0 011.06-1.06l3.894 3.893 7.48-9.817a.75.75 0 011.05-.143z"
+                clip-rule="evenodd" />
+            </svg>
+            <span><code>$emit(name, payload)</code> broadcasts to any listener</span>
+          </li>
+          <li>
+            <svg viewBox="0 0 20 20" fill="currentColor" aria-hidden="true">
+              <path fill-rule="evenodd"
+                d="M16.704 4.153a.75.75 0 01.143 1.052l-8 10.5a.75.75 0 01-1.127.075l-4.5-4.5a.75.75 0 011.06-1.06l3.894 3.893 7.48-9.817a.75.75 0 011.05-.143z"
+                clip-rule="evenodd" />
+            </svg>
+            <span><code>$listen(name, handler)</code> subscribes from anywhere in the tree</span>
+          </li>
+          <li>
+            <svg viewBox="0 0 20 20" fill="currentColor" aria-hidden="true">
+              <path fill-rule="evenodd"
+                d="M16.704 4.153a.75.75 0 01.143 1.052l-8 10.5a.75.75 0 01-1.127.075l-4.5-4.5a.75.75 0 011.06-1.06l3.894 3.893 7.48-9.817a.75.75 0 011.05-.143z"
+                clip-rule="evenodd" />
+            </svg>
+            <span>No stores, no context providers, no callback chains</span>
+          </li>
+        </ul>
+      </div>
+
+      <div class="feature-visual">
+        <!-- Tab switcher powered by $show -->
+        <div class="code-tabs">
+          <button
+            onclick="activeFile = 'emit.html'"
+            class="{activeFile === 'emit.html' ? 'active' : ''}">
+            emit.html
+          </button>
+          <button
+            onclick="activeFile = 'listen.html'"
+            class="{activeFile === 'listen.html' ? 'active' : ''}">
+            listen.html
+          </button>
+        </div>
+
+        <div $show="{activeFile === 'emit.html'}">
+          <code-block filename="emit.html">
+            <template>
+              <input $bind="message" type="text" placeholder="Type a message" />
+              <button onclick="sendMessage()">Send</button>
+
+              <script>
+                let message = "";
+
+                function sendMessage() {
+                  $emit("message-sent", message);
+                  message = "";
+                }
+              </script>
+            </template>
+          </code-block>
+        </div>
+
+        <div $show="{activeFile === 'listen.html'}">
+          <code-block filename="listen.html">
+            <template>
+              <ul>
+                <li $for="msg in messages">{msg}</li>
+              </ul>
+
+              <script>
+                let messages = [];
+
+                $listen("message-sent", (data) => {
+                  messages = [...messages, data];
+                });
+              </script>
+            </template>
+          </code-block>
+        </div>
+
+        <div class="feature-demo-wrapper">
+          <div class="feature-demo accent-violet">
+            <div class="comm-stack">
+              <emit-sample></emit-sample>
+              <div class="flow-connector">$emit → $listen</div>
+              <listen-sample></listen-sample>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
   </div>
 </section>
+
+<script>
+  let activeFile = "emit.html";
+</script>
 
 <script type="module">
   import { registerComponents } from "ladrillosjs";
@@ -766,5 +977,7 @@
     { name: "ref-sample", path: "./components/samples/ref.html", lazy: true, },
     { name: "flow-sample", path: "./components/samples/flow.html", lazy: true, },
     { name: "list-sample", path: "./components/samples/loop.html", lazy: true, },
+    { name: "emit-sample", path: "./components/samples/emit.html", lazy: true, },
+    { name: "listen-sample", path: "./components/samples/listen.html", lazy: true, },
   ]);
 </script>
