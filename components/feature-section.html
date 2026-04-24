@@ -123,6 +123,31 @@
     color: #6366f1;
   }
 
+  /* Emerald accent variant */
+  .feature-row.accent-emerald .feature-eyebrow {
+    color: #059669;
+  }
+
+  .feature-row.accent-emerald .feature-eyebrow::before {
+    background: linear-gradient(135deg, #10b981 0%, #059669 100%);
+  }
+
+  .feature-row.accent-emerald .feature-title .highlight {
+    background: linear-gradient(135deg, #10b981 0%, #059669 100%);
+    -webkit-background-clip: text;
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
+  }
+
+  .feature-row.accent-emerald .feature-description code {
+    background: rgba(16, 185, 129, 0.12);
+    color: #047857;
+  }
+
+  .feature-row.accent-emerald .feature-points li svg {
+    color: #10b981;
+  }
+
   .feature-description {
     font-size: 1.0625rem;
     line-height: 1.7;
@@ -215,6 +240,19 @@
     background-image:
       radial-gradient(circle at 50% 50%,
         rgba(99, 102, 241, 0.1) 0%,
+        transparent 60%),
+      radial-gradient(circle at 1px 1px,
+        rgba(15, 23, 42, 0.08) 1px,
+        transparent 0);
+    background-size: 100% 100%, 20px 20px;
+  }
+
+  /* Alt accent variant — emerald glow */
+  .feature-demo.accent-emerald {
+    background-color: #f6fbf8;
+    background-image:
+      radial-gradient(circle at 50% 50%,
+        rgba(16, 185, 129, 0.12) 0%,
         transparent 60%),
       radial-gradient(circle at 1px 1px,
         rgba(15, 23, 42, 0.08) 1px,
@@ -417,6 +455,70 @@
         </div>
       </div>
     </div>
+
+    <!-- Feature: References -->
+    <div class="feature-row accent-emerald">
+      <div class="feature-copy">
+        <span class="feature-eyebrow">References</span>
+        <h3 class="feature-title">
+          Direct DOM access, <span class="highlight">when you need it.</span>
+        </h3>
+        <p class="feature-description">
+          Tag any element with <code>$ref</code> and reach it through
+          <code>$refs</code>. Perfect for focusing inputs, measuring layout,
+          integrating third-party libraries, or anything else that needs
+          the real DOM node.
+        </p>
+        <ul class="feature-points">
+          <li>
+            <svg viewBox="0 0 20 20" fill="currentColor" aria-hidden="true">
+              <path fill-rule="evenodd"
+                d="M16.704 4.153a.75.75 0 01.143 1.052l-8 10.5a.75.75 0 01-1.127.075l-4.5-4.5a.75.75 0 011.06-1.06l3.894 3.893 7.48-9.817a.75.75 0 011.05-.143z"
+                clip-rule="evenodd" />
+            </svg>
+            <span>One declarative attribute — no <code>querySelector</code> calls</span>
+          </li>
+          <li>
+            <svg viewBox="0 0 20 20" fill="currentColor" aria-hidden="true">
+              <path fill-rule="evenodd"
+                d="M16.704 4.153a.75.75 0 01.143 1.052l-8 10.5a.75.75 0 01-1.127.075l-4.5-4.5a.75.75 0 011.06-1.06l3.894 3.893 7.48-9.817a.75.75 0 011.05-.143z"
+                clip-rule="evenodd" />
+            </svg>
+            <span>Access the real DOM node for focus, scroll, measurements</span>
+          </li>
+          <li>
+            <svg viewBox="0 0 20 20" fill="currentColor" aria-hidden="true">
+              <path fill-rule="evenodd"
+                d="M16.704 4.153a.75.75 0 01.143 1.052l-8 10.5a.75.75 0 01-1.127.075l-4.5-4.5a.75.75 0 011.06-1.06l3.894 3.893 7.48-9.817a.75.75 0 011.05-.143z"
+                clip-rule="evenodd" />
+            </svg>
+            <span>Drop in any third-party library that needs an element</span>
+          </li>
+        </ul>
+      </div>
+
+      <div class="feature-visual">
+        <code-block filename="ref.html">
+          <template>
+            <input type="text" $ref="inputEl" placeholder="Click the button to focus me" />
+            <button onclick="focusInput()">Focus Input</button>
+
+            <script>
+              function focusInput() {
+                $refs.inputEl.focus();
+                $refs.inputEl.select();
+              }
+            </script>
+          </template>
+        </code-block>
+
+        <div class="feature-demo-wrapper">
+          <div class="feature-demo accent-emerald">
+            <ref-sample></ref-sample>
+          </div>
+        </div>
+      </div>
+    </div>
   </div>
 </section>
 
@@ -427,5 +529,6 @@
     { name: "code-block", path: "./components/code-block.html", lazy: true, },
     { name: "counter-sample", path: "./components/samples/counter.html", lazy: true, },
     { name: "form-sample", path: "./components/samples/form.html", lazy: true, },
+    { name: "ref-sample", path: "./components/samples/ref.html", lazy: true, },
   ]);
 </script>
