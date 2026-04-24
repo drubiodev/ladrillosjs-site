@@ -34,6 +34,7 @@
   /* Spacing */
   --container-max: 1100px;
   --section-padding: 5rem 2rem;
+  --section-padding-mobile: 3.5rem 1.25rem;
 
   /* Typography */
   --font-sans: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto,
@@ -44,6 +45,13 @@
 
 html {
   scroll-behavior: smooth;
+}
+
+html,
+body {
+  /* Prevent accidental horizontal scroll from animated/absolute children */
+  overflow-x: hidden;
+  max-width: 100%;
 }
 
 body {
@@ -74,11 +82,23 @@ body::before {
   padding: 0 1.5rem;
 }
 
+@media (max-width: 480px) {
+  .container {
+    padding: 0 1rem;
+  }
+}
+
 .section-title {
   font-size: 2.5rem;
   font-weight: 700;
   color: var(--text-primary);
   margin-bottom: 1rem;
+}
+
+@media (max-width: 768px) {
+  .section-title {
+    font-size: 1.875rem;
+  }
 }
 
 .section-intro {
@@ -165,4 +185,14 @@ body.loading {
 body {
   opacity: 1;
   transition: opacity 0.3s ease;
+}
+
+/* Better tap targets on touch devices */
+@media (hover: none) and (pointer: coarse) {
+
+  .btn,
+  button,
+  a.btn {
+    min-height: 44px;
+  }
 }

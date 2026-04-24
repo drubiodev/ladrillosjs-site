@@ -27,6 +27,12 @@
     text-wrap: balance;
   }
 
+  @media (max-width: 480px) {
+    .features-section .section-title {
+      font-size: 1.875rem;
+    }
+  }
+
   .features-section .section-subtitle {
     font-size: 1.125rem;
     color: var(--text-secondary);
@@ -479,12 +485,46 @@
   }
 
   @media (max-width: 768px) {
+    .features-section {
+      padding: var(--section-padding-mobile);
+    }
+
     .features-section .section-subtitle {
       font-size: 1rem;
     }
 
+    .features-header {
+      margin-bottom: 2.5rem;
+    }
+
+    .feature-row {
+      gap: 2rem;
+      margin-bottom: 3.5rem;
+    }
+
     .feature-demo {
-      padding: 1.5rem;
+      padding: 1.5rem 1rem;
+      min-height: 180px;
+    }
+
+    .feature-description {
+      font-size: 1rem;
+    }
+  }
+
+  @media (max-width: 480px) {
+    .feature-demo {
+      padding: 1.25rem 0.75rem;
+      border-radius: 12px;
+    }
+
+    .feature-points li {
+      font-size: 0.9375rem;
+    }
+
+    .code-tabs {
+      width: 100%;
+      overflow-x: auto;
     }
   }
 </style>
@@ -901,14 +941,10 @@
       <div class="feature-visual">
         <!-- Tab switcher powered by $show -->
         <div class="code-tabs">
-          <button
-            onclick="activeFile = 'emit.html'"
-            class="{activeFile === 'emit.html' ? 'active' : ''}">
+          <button onclick="activeFile = 'emit.html'" class="{activeFile === 'emit.html' ? 'active' : ''}">
             emit.html
           </button>
-          <button
-            onclick="activeFile = 'listen.html'"
-            class="{activeFile === 'listen.html' ? 'active' : ''}">
+          <button onclick="activeFile = 'listen.html'" class="{activeFile === 'listen.html' ? 'active' : ''}">
             listen.html
           </button>
         </div>
