@@ -98,6 +98,31 @@
     -webkit-text-fill-color: transparent;
   }
 
+  /* Indigo accent variant for alternating rows */
+  .feature-row.accent-indigo .feature-eyebrow {
+    color: #6366f1;
+  }
+
+  .feature-row.accent-indigo .feature-eyebrow::before {
+    background: linear-gradient(135deg, #6366f1 0%, #8b5cf6 100%);
+  }
+
+  .feature-row.accent-indigo .feature-title .highlight {
+    background: linear-gradient(135deg, #6366f1 0%, #8b5cf6 100%);
+    -webkit-background-clip: text;
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
+  }
+
+  .feature-row.accent-indigo .feature-description code {
+    background: rgba(99, 102, 241, 0.1);
+    color: #4f46e5;
+  }
+
+  .feature-row.accent-indigo .feature-points li svg {
+    color: #6366f1;
+  }
+
   .feature-description {
     font-size: 1.0625rem;
     line-height: 1.7;
@@ -182,6 +207,19 @@
     box-shadow:
       inset 0 0 0 1px rgba(15, 23, 42, 0.06),
       0 1px 2px rgba(15, 23, 42, 0.04);
+  }
+
+  /* Alt accent variant — indigo glow */
+  .feature-demo.accent-indigo {
+    background-color: #f8fafc;
+    background-image:
+      radial-gradient(circle at 50% 50%,
+        rgba(99, 102, 241, 0.1) 0%,
+        transparent 60%),
+      radial-gradient(circle at 1px 1px,
+        rgba(15, 23, 42, 0.08) 1px,
+        transparent 0);
+    background-size: 100% 100%, 20px 20px;
   }
 
   /* ============================================
@@ -270,7 +308,7 @@
                 d="M16.704 4.153a.75.75 0 01.143 1.052l-8 10.5a.75.75 0 01-1.127.075l-4.5-4.5a.75.75 0 011.06-1.06l3.894 3.893 7.48-9.817a.75.75 0 011.05-.143z"
                 clip-rule="evenodd" />
             </svg>
-            <span>Top-level variables are reactive state — just use <code>let</code></span>
+            <span>Top-level variables are reactive state </span>
           </li>
           <li>
             <svg viewBox="0 0 20 20" fill="currentColor" aria-hidden="true">
@@ -307,6 +345,78 @@
         </div>
       </div>
     </div>
+
+    <!-- Feature: Two-Way Binding -->
+    <div class="feature-row reverse accent-indigo">
+      <div class="feature-copy">
+        <span class="feature-eyebrow">Two-Way Binding</span>
+        <h3 class="feature-title">
+          Form state, <span class="highlight">instantly in sync.</span>
+        </h3>
+        <p class="feature-description">
+          Connect any input to a variable with <code>$bind</code>. Edits flow
+          both ways — update the input and your state changes, update your
+          state and the input follows. No event handlers, no boilerplate.
+        </p>
+        <ul class="feature-points">
+          <li>
+            <svg viewBox="0 0 20 20" fill="currentColor" aria-hidden="true">
+              <path fill-rule="evenodd"
+                d="M16.704 4.153a.75.75 0 01.143 1.052l-8 10.5a.75.75 0 01-1.127.075l-4.5-4.5a.75.75 0 011.06-1.06l3.894 3.893 7.48-9.817a.75.75 0 011.05-.143z"
+                clip-rule="evenodd" />
+            </svg>
+            <span>Works with <code>text</code>, <code>email</code>, <code>checkbox</code>, and more</span>
+          </li>
+          <li>
+            <svg viewBox="0 0 20 20" fill="currentColor" aria-hidden="true">
+              <path fill-rule="evenodd"
+                d="M16.704 4.153a.75.75 0 01.143 1.052l-8 10.5a.75.75 0 01-1.127.075l-4.5-4.5a.75.75 0 011.06-1.06l3.894 3.893 7.48-9.817a.75.75 0 011.05-.143z"
+                clip-rule="evenodd" />
+            </svg>
+            <span>Automatic type coercion — booleans stay booleans</span>
+          </li>
+          <li>
+            <svg viewBox="0 0 20 20" fill="currentColor" aria-hidden="true">
+              <path fill-rule="evenodd"
+                d="M16.704 4.153a.75.75 0 01.143 1.052l-8 10.5a.75.75 0 01-1.127.075l-4.5-4.5a.75.75 0 011.06-1.06l3.894 3.893 7.48-9.817a.75.75 0 011.05-.143z"
+                clip-rule="evenodd" />
+            </svg>
+            <span>One attribute replaces <code>value</code> + <code>oninput</code> plumbing</span>
+          </li>
+        </ul>
+      </div>
+
+      <div class="feature-visual">
+        <code-block filename="form.html">
+          <template>
+            <div>
+              <h2>Hello, {name}!</h2>
+              <input type="text" $bind="name" placeholder="Your name" />
+
+              <p>Email: {email}</p>
+              <input type="email" $bind="email" placeholder="your@email.com" />
+
+              <label>
+                <input type="checkbox" $bind="subscribe" />
+                Subscribe: {subscribe}
+              </label>
+            </div>
+
+            <script>
+              let name = "World";
+              let email = "";
+              let subscribe = false;
+            </script>
+          </template>
+        </code-block>
+
+        <div class="feature-demo-wrapper">
+          <div class="feature-demo accent-indigo">
+            <form-sample></form-sample>
+          </div>
+        </div>
+      </div>
+    </div>
   </div>
 </section>
 
@@ -316,5 +426,6 @@
   await registerComponents([
     { name: "code-block", path: "./components/code-block.html", lazy: true, },
     { name: "counter-sample", path: "./components/samples/counter.html", lazy: true, },
+    { name: "form-sample", path: "./components/samples/form.html", lazy: true, },
   ]);
 </script>
