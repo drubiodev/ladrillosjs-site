@@ -1,15 +1,10 @@
-<link
-  rel="stylesheet"
-  href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/atom-one-dark.min.css"
-/>
-<script
-  src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/highlight.min.js"
-  external
-></script>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/atom-one-dark.min.css" />
+<script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/highlight.min.js" external></script>
 <style>
   .hljs {
-    background: transparent;
+    background: transparent !important;
   }
+
   /* ============================================
    Code Windows
    ============================================ */
@@ -18,23 +13,24 @@
     margin: 0 auto;
     width: 100%;
   }
+
   .code-window {
     position: relative;
-    background: var(--bg-darker);
+    background: #020617;
     border-radius: 12px;
     overflow: hidden;
-    border: 1px solid var(--border);
+    border: 1px solid #334155;
     box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
     max-width: 100%;
   }
 
   .code-header {
-    background: var(--bg-card);
+    background: #1e293b;
     padding: 0.75rem 1rem;
     display: flex;
     align-items: center;
     gap: 1rem;
-    border-bottom: 1px solid var(--border);
+    border-bottom: 1px solid #334155;
   }
 
   @media (max-width: 768px) {
@@ -61,21 +57,23 @@
     width: 12px;
     height: 12px;
     border-radius: 50%;
-    background: var(--border);
+    background: #334155;
   }
 
   .code-dots span:nth-child(1) {
     background: #ef4444;
   }
+
   .code-dots span:nth-child(2) {
     background: #f59e0b;
   }
+
   .code-dots span:nth-child(3) {
     background: #10b981;
   }
 
   .code-title {
-    color: var(--text-secondary);
+    color: #94a3b8;
     font-size: 0.875rem;
     flex: 1;
   }
@@ -157,6 +155,7 @@
       opacity: 0;
       transform: translateY(-2px);
     }
+
     to {
       opacity: 1;
       transform: translateY(0);
@@ -174,7 +173,6 @@
 
   .code-content {
     flex: 1;
-    padding: 1.5rem;
     overflow-x: auto;
     font-family: "Monaco", "Menlo", "Courier New", monospace;
     font-size: 0.875rem;
@@ -199,7 +197,7 @@
   }
 
   .code-content code {
-    color: var(--text-primary);
+    color: #f1f5f9;
   }
 
   .code-actions {
@@ -227,34 +225,22 @@
       <span class="code-title">{filename}</span>
       <div class="copied-indicator" id="copiedIndicator" $if="copied">
         <svg fill="none" stroke="currentColor" viewBox="0 0 24 24">
-          <path
-            stroke-linecap="round"
-            stroke-linejoin="round"
-            stroke-width="2"
-            d="M5 13l4 4L19 7"
-          ></path>
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path>
         </svg>
         Copied
       </div>
-      <button class="copy-button" onclick="copyCode()">Copy</button>
+      <button class="copy-button" onclick="await copyCode()">Copy</button>
     </div>
     <div class="code-body">
-      <pre
-        class="code-content"
-      ><code id="code" class="language-html"></code></pre>
+      <pre class="code-content"><code $ref="codeEl" class="language-html"></code></pre>
       <div class="code-actions" $if="!filename">
         <div class="copied-indicator" id="copiedIndicator" $if="copied">
           <svg fill="none" stroke="currentColor" viewBox="0 0 24 24">
-            <path
-              stroke-linecap="round"
-              stroke-linejoin="round"
-              stroke-width="2"
-              d="M5 13l4 4L19 7"
-            ></path>
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path>
           </svg>
           Copied
         </div>
-        <button class="copy-button" onclick="copyCode()" $if="!copied">
+        <button class="copy-button" onclick="await copyCode()" $if="!copied">
           Copy
         </button>
       </div>
@@ -262,30 +248,27 @@
   </div>
 </div>
 
-<slot></slot>
+<slot $ref="slotEl"></slot>
 
 <script>
   let filename = null;
   let copied = false;
-  const codeElement = $querySelector("pre code");
   const innerRe = /(?<=<template\b[^>]*>)[\s\S]*?(?=<\/template>)/gi;
-  const html = this.innerHTML.match(innerRe);
-  codeElement.textContent = html;
-  hljs.highlightElement(codeElement);
+  const source = $host.__originalHTML ?? $host.innerHTML;
+  const html = source.match(innerRe);
+  $refs.codeEl.textContent = html;
+  hljs.highlightElement($refs.codeEl);
 
-  const slotEl = $querySelector("slot");
-  if (slotEl) slotEl.remove();
+  if ($refs.slotEl) $refs.slotEl.remove();
 
-  const copyCode = () => {
-    console.log("Copying code to clipboard:", html);
+  const copyCode = async () => {
+    const text = Array.isArray(html) ? html.join("") : html;
+
     if (navigator.clipboard && navigator.clipboard.writeText) {
-      return navigator.clipboard
-        .writeText(html)
-        .then(() => {
-          copied = true;
-          setTimeout(() => (copied = false), 2000);
-        })
-        .catch((err) => console.error("Clipboard API failed:", err));
+      await navigator.clipboard.writeText(text);
+      copied = true;
+      setTimeout(() => (copied = false), 2000);
+      return;
     }
 
     // iOS / fallback for older browsers
@@ -299,7 +282,8 @@
 
     try {
       document.execCommand("copy");
-      $emit("copied", { message: "Code copied to clipboard!" });
+      copied = true;
+      setTimeout(() => (copied = false), 2000);
     } catch (err) {
       console.error("execCommand fallback failed:", err);
     }
