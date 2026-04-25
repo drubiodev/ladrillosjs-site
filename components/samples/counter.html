@@ -1,0 +1,72 @@
+<style>
+  .counter {
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 1.25rem;
+    width: 100%;
+  }
+
+  .counter h2 {
+    font-size: 2rem;
+    font-weight: 700;
+    color: #0f172a;
+    letter-spacing: -0.01em;
+    font-variant-numeric: tabular-nums;
+  }
+
+  .counter-buttons {
+    display: flex;
+    gap: 0.625rem;
+  }
+
+  .counter button {
+    padding: 0.7rem 1.6rem;
+    color: white;
+    border: none;
+    border-radius: 8px;
+    font-size: 0.9375rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.2s ease;
+  }
+
+  .counter button:first-of-type {
+    background: linear-gradient(135deg, #ff6b35 0%, #f7931e 100%);
+    box-shadow: 0 4px 12px rgba(255, 107, 53, 0.3);
+  }
+
+  .counter button:first-of-type:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 6px 20px rgba(255, 107, 53, 0.4);
+  }
+
+  .counter button:last-of-type {
+    background: #f1f5f9;
+    color: #334155;
+    box-shadow: inset 0 0 0 1px #e2e8f0;
+  }
+
+  .counter button:last-of-type:hover {
+    background: #e2e8f0;
+    transform: translateY(-2px);
+  }
+
+  .counter button:active {
+    transform: translateY(0);
+  }
+</style>
+
+<div class="counter">
+  <h2>Count: {count}</h2>
+  <div class="counter-buttons">
+    <button onclick="count++">Add</button>
+    <button onclick="count=0">Reset</button>
+  </div>
+</div>
+
+<script>
+  let count = 0;
+</script>

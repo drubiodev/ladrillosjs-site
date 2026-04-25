@@ -1,0 +1,84 @@
+<style>
+  .ref-demo {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 0.875rem;
+    width: 100%;
+    max-width: 340px;
+  }
+
+  .ref-demo input[type="text"] {
+    padding: 0.7rem 0.95rem;
+    background: #ffffff;
+    border: 1px solid #e2e8f0;
+    border-radius: 8px;
+    color: #0f172a;
+    font-size: 0.9375rem;
+    width: 100%;
+    transition: all 0.2s ease;
+    box-shadow: 0 1px 2px rgba(15, 23, 42, 0.04);
+    text-align: center;
+  }
+
+  .ref-demo input[type="text"]:focus {
+    outline: none;
+    border-color: #10b981;
+    box-shadow: 0 0 0 3px rgba(16, 185, 129, 0.18);
+  }
+
+  .ref-demo input::placeholder {
+    color: #94a3b8;
+  }
+
+  .ref-demo button {
+    padding: 0.7rem 1.25rem;
+    background: linear-gradient(135deg, #10b981 0%, #059669 100%);
+    color: #ffffff;
+    border: none;
+    border-radius: 8px;
+    font-size: 0.9375rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    box-shadow: 0 4px 12px rgba(16, 185, 129, 0.3);
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.5rem;
+  }
+
+  .ref-demo button:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 6px 20px rgba(16, 185, 129, 0.4);
+  }
+
+  .ref-demo button:active {
+    transform: translateY(0);
+  }
+
+  .ref-demo button svg {
+    width: 16px;
+    height: 16px;
+  }
+</style>
+
+<div class="ref-demo">
+  <input type="text" $ref="inputEl" placeholder="Click the button to focus me" />
+  <button onclick="focusInput()">
+    <svg viewBox="0 0 20 20" fill="currentColor" aria-hidden="true">
+      <path d="M10 12a2 2 0 100-4 2 2 0 000 4z" />
+      <path fill-rule="evenodd"
+        d="M.458 10C1.732 5.943 5.522 3 10 3s8.268 2.943 9.542 7c-1.274 4.057-5.064 7-9.542 7S1.732 14.057.458 10zM14 10a4 4 0 11-8 0 4 4 0 018 0z"
+        clip-rule="evenodd" />
+    </svg>
+    Focus Input
+  </button>
+</div>
+
+<script>
+  function focusInput() {
+    $refs.inputEl.focus();
+    $refs.inputEl.select();
+  }
+</script>
