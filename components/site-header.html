@@ -61,6 +61,22 @@
     letter-spacing: -0.01em;
   }
 
+  .brand-version {
+    display: inline-flex;
+    align-items: center;
+    margin-left: 0.5rem;
+    padding: 0.125rem 0.5rem;
+    font-size: 0.7rem;
+    font-weight: 600;
+    line-height: 1;
+    color: #ff6b35;
+    background: rgba(255, 107, 53, 0.1);
+    border: 1px solid rgba(255, 107, 53, 0.25);
+    border-radius: 100px;
+    letter-spacing: 0.02em;
+    text-transform: lowercase;
+  }
+
   .nav-left-links {
     display: flex;
     align-items: center;
@@ -232,6 +248,7 @@
           </svg>
         </span>
         <span class="brand-name">LadrillosJS</span>
+        <span class="brand-version" aria-label="Version">{version}</span>
       </a>
       <div class="nav-left-links">
         <a href="./#features">Features</a>

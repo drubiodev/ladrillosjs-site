@@ -444,7 +444,7 @@
 </head>
 
 <body class="loading">
-    <site-header version="v2_beta"></site-header>
+    <site-header version="v2_rc"></site-header>
 
     <main class="gs-page">
         <div class="gs-shell">
@@ -498,7 +498,11 @@
                             tooling.</p>
                         <code-block filename="index.html">
                             <template>
-                                <h1>hi</h1>
+                                <script type="module">
+                                    import { registerComponent } from
+                                        "https://cdn.jsdelivr.net/npm/ladrillosjs@2/dist/index.js";
+                                    registerComponent("my-counter", "./counter.html");
+                                </script>
                             </template>
                         </code-block>
                         <div class="gs-callout is-info">
