@@ -42,11 +42,15 @@
             top: 6rem;
             align-self: start;
             font-size: 0.875rem;
+            max-height: calc(100vh - 7rem);
+            overflow-y: auto;
         }
 
         @media (max-width: 900px) {
             .gs-toc {
                 position: static;
+                max-height: none;
+                overflow: visible;
                 border: 1px solid var(--border);
                 border-radius: 12px;
                 padding: 1rem;
@@ -77,7 +81,6 @@
             padding: 0.4rem 0.75rem;
             color: var(--text-secondary);
             text-decoration: none;
-            border-radius: 6px;
             border-left: 2px solid transparent;
             transition: all 0.15s ease;
         }
@@ -454,14 +457,14 @@
                 <ul>
                     <li><a href="#install">Install</a></li>
                     <li><a href="#first-component">Your first component</a></li>
-                    <li><a href="#mental-model">Mental model</a></li>
+                    <!-- <li><a href="#mental-model">Mental model</a></li>
                     <li><a href="#directives">Directives</a></li>
                     <li><a href="#events">Event bus</a></li>
                     <li><a href="#lazy">Lazy loading</a></li>
                     <li><a href="#project">Project layout</a></li>
                     <li><a href="#whats-new">What's new in v2</a></li>
                     <li><a href="#troubleshoot">Troubleshooting</a></li>
-                    <li><a href="#next">Next steps</a></li>
+                    <li><a href="#next">Next steps</a></li> -->
                 </ul>
             </aside>
 
