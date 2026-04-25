@@ -1,0 +1,588 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Getting Started · LadrillosJS</title>
+    <meta name="description"
+        content="Get started with LadrillosJS v2 — a lightweight, zero-dependency web component framework. Build reactive UIs with plain HTML files." />
+    <link rel="stylesheet" href="./styles/site.css" />
+
+    <style>
+        /* ============================================
+       Getting Started Page Layout
+       ============================================ */
+        .gs-page {
+            background: var(--bg-main);
+            padding-top: 6rem;
+            padding-bottom: 4rem;
+        }
+
+        .gs-shell {
+            max-width: var(--container-max);
+            margin: 0 auto;
+            padding: 0 1.5rem;
+            display: grid;
+            grid-template-columns: 220px minmax(0, 1fr);
+            gap: 3rem;
+            align-items: start;
+        }
+
+        @media (max-width: 900px) {
+            .gs-shell {
+                grid-template-columns: 1fr;
+                gap: 1rem;
+            }
+        }
+
+        /* TOC */
+        .gs-toc {
+            position: sticky;
+            top: 6rem;
+            align-self: start;
+            font-size: 0.875rem;
+            max-height: calc(100vh - 7rem);
+            overflow-y: auto;
+        }
+
+        @media (max-width: 900px) {
+            .gs-toc {
+                position: static;
+                max-height: none;
+                overflow: visible;
+                border: 1px solid var(--border);
+                border-radius: 12px;
+                padding: 1rem;
+                background: var(--bg-subtle);
+            }
+        }
+
+        .gs-toc h4 {
+            font-size: 0.75rem;
+            text-transform: uppercase;
+            letter-spacing: 0.08em;
+            color: var(--text-muted);
+            font-weight: 600;
+            margin-bottom: 0.75rem;
+        }
+
+        .gs-toc ul {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+            display: flex;
+            flex-direction: column;
+            gap: 0.25rem;
+        }
+
+        .gs-toc a {
+            display: block;
+            padding: 0.4rem 0.75rem;
+            color: var(--text-secondary);
+            text-decoration: none;
+            border-left: 2px solid transparent;
+            transition: all 0.15s ease;
+        }
+
+        .gs-toc a:hover {
+            color: var(--text-primary);
+            background: var(--bg-subtle);
+            text-decoration: none;
+            border-left-color: var(--primary);
+        }
+
+        /* Main content */
+        .gs-content {
+            min-width: 0;
+            max-width: 760px;
+        }
+
+        .gs-eyebrow {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            font-size: 0.75rem;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 0.1em;
+            color: var(--primary);
+            background: rgba(255, 107, 53, 0.08);
+            padding: 0.375rem 0.75rem;
+            border-radius: 100px;
+            margin-bottom: 1.25rem;
+        }
+
+        .gs-title {
+            font-size: clamp(2.25rem, 5vw, 3.25rem);
+            font-weight: 800;
+            letter-spacing: -0.03em;
+            line-height: 1.05;
+            margin-bottom: 1rem;
+        }
+
+        .gs-lede {
+            font-size: 1.125rem;
+            color: var(--text-secondary);
+            line-height: 1.6;
+            margin-bottom: 2.5rem;
+            max-width: 60ch;
+        }
+
+        .gs-section {
+            margin-top: 4rem;
+            scroll-margin-top: 6rem;
+        }
+
+        .gs-section h2 {
+            font-size: 1.875rem;
+            font-weight: 800;
+            letter-spacing: -0.02em;
+            margin-bottom: 0.5rem;
+            line-height: 1.2;
+        }
+
+        .gs-section h3 {
+            font-size: 1.25rem;
+            font-weight: 700;
+            margin-top: 2rem;
+            margin-bottom: 0.75rem;
+        }
+
+        .gs-section p {
+            color: var(--text-secondary);
+            line-height: 1.7;
+            margin-bottom: 1rem;
+        }
+
+        .gs-section p code,
+        .gs-section li code {
+            background: var(--bg-subtle);
+            color: var(--primary-dark);
+            padding: 0.125rem 0.4rem;
+            border-radius: 4px;
+            font-size: 0.875em;
+            border: 1px solid var(--border-light);
+        }
+
+        .gs-section ul {
+            color: var(--text-secondary);
+            line-height: 1.8;
+            padding-left: 1.25rem;
+            margin-bottom: 1rem;
+        }
+
+        /* Subhead under section title */
+        .gs-subhead {
+            color: var(--text-secondary);
+            margin-bottom: 1.5rem;
+            max-width: 60ch;
+        }
+
+        /* Tabs */
+        .gs-tabs {
+            display: inline-flex;
+            background: #f1f5f9;
+            padding: 4px;
+            border-radius: 8px;
+            gap: 0;
+            margin-bottom: 1.25rem;
+            flex-wrap: wrap;
+        }
+
+        .gs-tab {
+            padding: 0.5rem 1rem;
+            border: none;
+            background: transparent;
+            color: #64748b;
+            font-size: 0.875rem;
+            font-weight: 600;
+            cursor: pointer;
+            border-radius: 6px;
+            transition: all 0.15s ease;
+            font-family: inherit;
+        }
+
+        .gs-tab:hover:not(.is-active) {
+            color: #1e293b;
+        }
+
+        .gs-tab.is-active {
+            background: white;
+            color: var(--text-primary);
+            box-shadow: 0 1px 3px rgba(0, 0, 0, 0.08);
+        }
+
+        /* Step blocks */
+        .gs-step {
+            display: flex;
+            gap: 1rem;
+            align-items: flex-start;
+            margin-top: 2rem;
+        }
+
+        .gs-step-num {
+            flex-shrink: 0;
+            width: 32px;
+            height: 32px;
+            background: var(--gradient-accent);
+            color: white;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 700;
+            font-size: 0.95rem;
+            box-shadow: 0 4px 12px rgba(255, 107, 53, 0.25);
+        }
+
+        .gs-step-body {
+            flex: 1;
+            min-width: 0;
+            padding-top: 0.25rem;
+        }
+
+        .gs-step-body h3 {
+            margin-top: 0;
+        }
+
+        /* Callouts */
+        .gs-callout {
+            display: flex;
+            gap: 0.875rem;
+            padding: 1rem 1.25rem;
+            background: var(--bg-subtle);
+            border-left: 4px solid var(--primary);
+            margin: 1.5rem 0;
+            font-size: 0.9375rem;
+            color: var(--text-primary);
+            line-height: 1.6;
+        }
+
+        .gs-callout.is-info {
+            border-left-color: #0ea5e9;
+            background: rgba(14, 165, 233, 0.06);
+        }
+
+        .gs-callout.is-warn {
+            border-left-color: #f59e0b;
+            background: rgba(245, 158, 11, 0.07);
+        }
+
+        .gs-callout strong {
+            color: var(--text-primary);
+        }
+
+        /* Concept grid */
+        .gs-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+            gap: 1rem;
+            margin-top: 1.25rem;
+        }
+
+        .gs-card {
+            border: 1px solid var(--border);
+            border-radius: 12px;
+            padding: 1.25rem;
+            background: var(--bg-card);
+            transition: all 0.2s ease;
+        }
+
+        .gs-card:hover {
+            border-color: var(--primary);
+            transform: translateY(-2px);
+            box-shadow: 0 8px 24px rgba(0, 0, 0, 0.04);
+        }
+
+        .gs-card .gs-card-tag {
+            display: inline-block;
+            font-family: var(--font-mono);
+            font-size: 0.8rem;
+            font-weight: 700;
+            color: var(--primary);
+            background: rgba(255, 107, 53, 0.08);
+            padding: 0.2rem 0.5rem;
+            border-radius: 4px;
+            margin-bottom: 0.625rem;
+        }
+
+        .gs-card h4 {
+            font-size: 1rem;
+            font-weight: 700;
+            margin-bottom: 0.375rem;
+            color: var(--text-primary);
+        }
+
+        .gs-card p {
+            font-size: 0.875rem;
+            color: var(--text-secondary);
+            margin: 0;
+            line-height: 1.55;
+        }
+
+        /* Live demo wrapper */
+        .gs-demo {
+            margin-top: 1rem;
+            padding: 1.5rem;
+            background: var(--bg-subtle);
+            border: 1px solid var(--border);
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            min-height: 120px;
+        }
+
+        .gs-demo-label {
+            display: block;
+            font-size: 0.75rem;
+            text-transform: uppercase;
+            letter-spacing: 0.08em;
+            color: var(--text-muted);
+            font-weight: 600;
+            margin: 1rem 0;
+        }
+
+        /* Migration / version pill row */
+        .gs-pill-row {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.5rem;
+            margin-bottom: 1.25rem;
+        }
+
+        .gs-pill {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.375rem;
+            font-size: 0.75rem;
+            font-weight: 600;
+            padding: 0.3rem 0.625rem;
+            border-radius: 100px;
+            background: #f1f5f9;
+            color: #334155;
+        }
+
+        .gs-pill.is-new {
+            background: rgba(16, 185, 129, 0.1);
+            color: #047857;
+        }
+
+        /* Code block spacing */
+        .gs-section .code-container {
+            margin: 1rem 0 0;
+        }
+
+        /* Next-steps cards */
+        .gs-next {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+            gap: 1rem;
+            margin-top: 1.5rem;
+        }
+
+        .gs-next a {
+            display: block;
+            padding: 1.25rem;
+            border: 1px solid var(--border);
+            border-radius: 12px;
+            text-decoration: none;
+            color: var(--text-primary);
+            background: var(--bg-card);
+            transition: all 0.2s ease;
+        }
+
+        .gs-next a:hover {
+            border-color: var(--primary);
+            transform: translateY(-2px);
+            box-shadow: 0 8px 24px rgba(0, 0, 0, 0.05);
+            text-decoration: none;
+        }
+
+        .gs-next h4 {
+            font-size: 1rem;
+            font-weight: 700;
+            margin-bottom: 0.25rem;
+            display: flex;
+            align-items: center;
+            gap: 0.375rem;
+        }
+
+        .gs-next p {
+            font-size: 0.875rem;
+            color: var(--text-secondary);
+            margin: 0;
+        }
+
+        .gs-arrow {
+            transition: transform 0.2s ease;
+        }
+
+        .gs-next a:hover .gs-arrow {
+            transform: translateX(3px);
+        }
+    </style>
+
+    <script type="module">
+        import { registerComponents } from "ladrillosjs";
+
+        await registerComponents([
+            { name: "site-header", path: "./components/site-header.html" },
+            { name: "install-section", path: "./components/install.html" },
+            { name: "code-block", path: "./components/code-block.html" },
+            {
+                name: "footer-section",
+                path: "./components/footer-section.html",
+                lazy: true,
+            },
+            {
+                name: "counter-sample",
+                path: "./components/samples/counter.html",
+                lazy: true,
+            },
+        ]);
+        document.body.classList.remove("loading");
+    </script>
+</head>
+
+<body class="loading">
+    <site-header version="v2_rc"></site-header>
+
+    <main class="gs-page">
+        <div class="gs-shell">
+            <!-- Sticky TOC -->
+            <aside class="gs-toc" aria-label="On this page">
+                <h4>On this page</h4>
+                <ul>
+                    <li><a href="#install">Install</a></li>
+                    <li><a href="#first-component">Your first component</a></li>
+                    <!-- <li><a href="#mental-model">Mental model</a></li>
+                    <li><a href="#directives">Directives</a></li>
+                    <li><a href="#events">Event bus</a></li>
+                    <li><a href="#lazy">Lazy loading</a></li>
+                    <li><a href="#project">Project layout</a></li>
+                    <li><a href="#whats-new">What's new in v2</a></li>
+                    <li><a href="#troubleshoot">Troubleshooting</a></li>
+                    <li><a href="#next">Next steps</a></li> -->
+                </ul>
+            </aside>
+
+            <article class="gs-content">
+                <span class="gs-eyebrow">
+                    <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"
+                        stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                        <path d="M5 12l5 5L20 7" />
+                    </svg>
+                    v2.0 — now in release candidate
+                </span>
+                <h1 class="gs-title">Getting started with LadrillosJS</h1>
+                <p class="gs-lede">
+                    A lightweight, zero-dependency web component framework. Build reactive UIs
+                    with plain <code>.html</code> files — no JSX, no virtual DOM, no compiler
+                    required. You'll have your first component running in about five minutes.
+                </p>
+
+                <!-- ============================================
+             1. Install
+             ============================================ -->
+                <section id="install" class="gs-section">
+                    <h2>1. Install</h2>
+                    <p class="gs-subhead">Pick the path that fits your project. Both paths work the same way.</p>
+
+                    <install-section></install-section>
+                </section>
+
+                <!-- ============================================
+             2. First Component
+             ============================================ -->
+                <section id="first-component" class="gs-section">
+                    <h2>2. Your first component</h2>
+                    <p class="gs-subhead">
+                        A LadrillosJS component is a single <code>.html</code> file with markup, a
+                        <code>&lt;script&gt;</code>, and optional <code>&lt;style&gt;</code>. Let's build a counter.
+                    </p>
+
+                    <div class="gs-step">
+                        <div class="gs-step-num">1</div>
+                        <div class="gs-step-body">
+                            <h3>Create the component</h3>
+                            <p>Save this as <code>counter.html</code>:</p>
+                            <code-block filename="counter.html">
+                                <template>
+                                    <div class="counter">
+                                        <h2>Count: {count}</h2>
+                                        <div class="counter-buttons">
+                                            <button onclick="count++">Add</button>
+                                            <button onclick="count = 0">Reset</button>
+                                        </div>
+                                    </div>
+
+                                    <script>
+                                        let count = 0;
+                                    </script>
+                                </template>
+                            </code-block>
+                        </div>
+                    </div>
+
+                    <div class="gs-step">
+                        <div class="gs-step-num">2</div>
+                        <div class="gs-step-body">
+                            <h3>Register it</h3>
+                            <p>Tell LadrillosJS which custom-element tag maps to which file.</p>
+                            <code-block filename="index.html">
+                                <template>
+                                    registerComponent("my-counter", "./counter.html");
+                                </template>
+                            </code-block>
+                        </div>
+                    </div>
+
+                    <div class="gs-step">
+                        <div class="gs-step-num">3</div>
+                        <div class="gs-step-body">
+                            <h3>Use it anywhere</h3>
+                            <p>Drop the tag into your HTML — it's a real custom element.</p>
+                            <code-block>
+                                <template>
+                                    <my-counter></my-counter>
+                                </template>
+                            </code-block>
+
+                            <span class="gs-demo-label">Live result</span>
+                            <div class="gs-demo">
+                                <counter-sample></counter-sample>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="gs-callout">
+                        <div>
+                            <strong>That's it.</strong> No build step required, no boilerplate, no setState.
+                            Just declare a <code>let</code> variable and the DOM updates when you change it.
+                        </div>
+                    </div>
+                </section>
+            </article>
+        </div>
+    </main>
+
+    <footer-section></footer-section>
+    <script>
+        // Install picker tabs (plain JS — this page body is not a registered component)
+        (function () {
+            const tabs = document.querySelectorAll('#install .gs-tab');
+            const panes = document.querySelectorAll('#install [data-pane]');
+            tabs.forEach((t) => {
+                t.addEventListener('click', () => {
+                    const target = t.dataset.tab;
+                    tabs.forEach((x) => x.classList.toggle('is-active', x.dataset.tab === target));
+                    panes.forEach((p) => { p.hidden = p.dataset.pane !== target; });
+                });
+            });
+        })();
+    </script>
+</body>
+
+</html>

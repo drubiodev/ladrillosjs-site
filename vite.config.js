@@ -1,5 +1,5 @@
 import { defineConfig } from "vite";
-import { copyComponentsPlugin } from "ladrillosjs/vite";
+// import { copyComponentsPlugin } from "ladrillosjs/vite";
 import { promises as fs } from "fs";
 import { resolve } from "path";
 
@@ -34,6 +34,14 @@ const copyPagesPlugin = {
 };
 
 export default defineConfig({
-  plugins: [copyComponentsPlugin(), copyPagesPlugin],
+  plugins: [copyPagesPlugin],
   base: "/ladrillosjs-site/",
+  build: {
+    rollupOptions: {
+      input: {
+        main: resolve(process.cwd(), "index.html"),
+        "getting-started": resolve(process.cwd(), "getting-started.html"),
+      },
+    },
+  },
 });

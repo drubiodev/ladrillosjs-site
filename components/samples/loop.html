@@ -1,0 +1,182 @@
+<style>
+    .loop-demo {
+        display: flex;
+        flex-direction: column;
+        gap: 0.75rem;
+        width: 100%;
+        max-width: 340px;
+    }
+
+    .loop-demo .add-row {
+        display: flex;
+        gap: 0.5rem;
+    }
+
+    .loop-demo input[type="text"] {
+        flex: 1;
+        padding: 0.65rem 0.9rem;
+        background: #ffffff;
+        border: 1px solid #e2e8f0;
+        border-radius: 8px;
+        color: #0f172a;
+        font-size: 0.9375rem;
+        transition: all 0.2s ease;
+        box-shadow: 0 1px 2px rgba(15, 23, 42, 0.04);
+    }
+
+    .loop-demo input[type="text"]:focus {
+        outline: none;
+        border-color: #0ea5e9;
+        box-shadow: 0 0 0 3px rgba(14, 165, 233, 0.15);
+    }
+
+    .loop-demo input::placeholder {
+        color: #94a3b8;
+    }
+
+    .loop-demo .add-btn {
+        padding: 0 1rem;
+        background: linear-gradient(135deg, #0ea5e9 0%, #0284c7 100%);
+        color: #fff;
+        border: none;
+        border-radius: 8px;
+        font-weight: 600;
+        font-size: 0.9375rem;
+        cursor: pointer;
+        transition: all 0.2s ease;
+        box-shadow: 0 4px 12px rgba(14, 165, 233, 0.3);
+    }
+
+    .loop-demo .add-btn:hover {
+        transform: translateY(-1px);
+        box-shadow: 0 6px 16px rgba(14, 165, 233, 0.4);
+    }
+
+    .loop-demo ul {
+        list-style: none;
+        padding: 0;
+        margin: 0;
+        display: flex;
+        flex-direction: column;
+        gap: 0.4rem;
+    }
+
+    .loop-demo li {
+        display: flex;
+        align-items: center;
+        gap: 0.75rem;
+        padding: 0.65rem 0.85rem;
+        background: #ffffff;
+        border: 1px solid #e2e8f0;
+        border-radius: 8px;
+        font-size: 0.9375rem;
+        color: #0f172a;
+        box-shadow: 0 1px 2px rgba(15, 23, 42, 0.04);
+        animation: slideIn 0.2s ease;
+    }
+
+    .loop-demo .index {
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        width: 22px;
+        height: 22px;
+        border-radius: 6px;
+        background: linear-gradient(135deg, #0ea5e9 0%, #0284c7 100%);
+        color: #fff;
+        font-size: 0.75rem;
+        font-weight: 700;
+        flex-shrink: 0;
+        font-variant-numeric: tabular-nums;
+    }
+
+    .loop-demo .text {
+        flex: 1;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        white-space: nowrap;
+    }
+
+    .loop-demo .remove-btn {
+        background: transparent;
+        border: none;
+        color: #94a3b8;
+        cursor: pointer;
+        padding: 0.25rem;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        border-radius: 4px;
+        transition: all 0.15s ease;
+    }
+
+    .loop-demo .remove-btn:hover {
+        color: #ef4444;
+        background: #fef2f2;
+    }
+
+    .loop-demo .remove-btn svg {
+        width: 16px;
+        height: 16px;
+    }
+
+    .loop-demo .empty {
+        text-align: center;
+        padding: 1rem;
+        color: #94a3b8;
+        font-size: 0.875rem;
+        font-style: italic;
+    }
+
+    @keyframes slideIn {
+        from {
+            opacity: 0;
+            transform: translateY(-4px);
+        }
+
+        to {
+            opacity: 1;
+            transform: translateY(0);
+        }
+    }
+</style>
+
+<div class="loop-demo">
+    <div class="add-row">
+        <input type="text" $bind="newTask" placeholder="Add a task…" onkeydown="if (event.key === 'Enter') addTask()" />
+        <button class="add-btn" onclick="addTask()">Add</button>
+    </div>
+
+    <ul>
+        <li $for="(task, i) in tasks">
+            <span class="index">{i + 1}</span>
+            <span class="text">{task}</span>
+            <button class="remove-btn" onclick="removeTask(i)" aria-label="Remove">
+                <svg viewBox="0 0 20 20" fill="currentColor" aria-hidden="true">
+                    <path fill-rule="evenodd"
+                        d="M4.293 4.293a1 1 0 011.414 0L10 8.586l4.293-4.293a1 1 0 111.414 1.414L11.414 10l4.293 4.293a1 1 0 01-1.414 1.414L10 11.414l-4.293 4.293a1 1 0 01-1.414-1.414L8.586 10 4.293 5.707a1 1 0 010-1.414z"
+                        clip-rule="evenodd" />
+                </svg>
+            </button>
+        </li>
+        <li class="empty" $if="tasks.length === 0">
+            No tasks yet — add one above
+        </li>
+    </ul>
+</div>
+
+<script>
+    let tasks = ["Ship the landing page", "Star the repo 🧱"];
+    let newTask = "";
+
+    function addTask() {
+        const t = newTask.trim();
+        if (!t) return;
+        tasks = [...tasks, t];
+        newTask = "";
+    }
+
+    function removeTask(i) {
+        tasks = tasks.filter((_, idx) => idx !== i);
+    }
+</script>
