@@ -180,6 +180,7 @@
     width: 100%;
     max-width: 100%;
     box-sizing: border-box;
+    padding: 1rem 3rem;
   }
 
   @media (max-width: 768px) {
@@ -255,14 +256,29 @@
   let copied = false;
   const innerRe = /(?<=<template\b[^>]*>)[\s\S]*?(?=<\/template>)/gi;
   const source = $host.__originalHTML ?? $host.innerHTML;
-  const html = source.match(innerRe);
+  const matches = source.match(innerRe);
+  const raw = matches ? matches.join("") : "";
+
+  // Dedent: strip the common leading whitespace from every non-empty line
+  // so the rendered code doesn't inherit indentation from its host file.
+  const trimmed = raw.replace(/^[\r\n]+/, "").replace(/\s+$/, "");
+  const lines = trimmed.split("\n");
+  let minIndent = Infinity;
+  for (const line of lines) {
+    if (!line.trim()) continue;
+    const m = line.match(/^[ \t]*/);
+    if (m && m[0].length < minIndent) minIndent = m[0].length;
+  }
+  if (!isFinite(minIndent)) minIndent = 0;
+  const html = lines.map((l) => l.slice(minIndent)).join("\n");
+
   $refs.codeEl.textContent = html;
   hljs.highlightElement($refs.codeEl);
 
   if ($refs.slotEl) $refs.slotEl.remove();
 
   const copyCode = async () => {
-    const text = Array.isArray(html) ? html.join("") : html;
+    const text = html;
 
     if (navigator.clipboard && navigator.clipboard.writeText) {
       await navigator.clipboard.writeText(text);

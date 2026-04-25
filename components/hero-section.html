@@ -159,168 +159,6 @@
     display: none;
   }
 
-  /* Install picker */
-  .install-picker {
-    display: flex;
-    flex-direction: column;
-    align-items: flex-start;
-    gap: 0.75rem;
-    width: 100%;
-    max-width: 400px;
-  }
-
-  /* Tab toggle - pill style */
-  .install-tabs {
-    display: inline-flex;
-    background: #f1f5f9;
-    padding: 3px;
-    border-radius: 6px;
-    gap: 0;
-  }
-
-  .tab-btn {
-    padding: 0.4rem 1rem;
-    border: none;
-    background: transparent;
-    color: #64748b;
-    font-size: 0.8rem;
-    font-weight: 500;
-    cursor: pointer;
-    transition: all 0.2s ease;
-    border-radius: 4px;
-  }
-
-  .tab-btn:hover:not(.active) {
-    color: #334155;
-  }
-
-  .tab-btn.active {
-    background: white;
-    color: var(--text-primary);
-    box-shadow: 0 1px 2px rgba(0, 0, 0, 0.08);
-  }
-
-  /* Install command box */
-  .install-box {
-    display: flex;
-    align-items: center;
-    gap: 0.75rem;
-    background: var(--text-primary);
-    padding: 0.75rem 1rem;
-    border-radius: 8px;
-    font-family: var(--font-mono);
-    font-size: 0.8rem;
-    color: #e2e8f0;
-    box-sizing: border-box;
-  }
-
-  .install-box code {
-    flex: 1;
-    min-width: 0;
-    background: transparent;
-    padding: 0;
-    color: #e2e8f0;
-    text-align: left;
-    white-space: nowrap;
-    overflow: hidden;
-    text-overflow: ellipsis;
-  }
-
-  /* Show full text on hover */
-  .install-box:hover code {
-    overflow-x: auto;
-    text-overflow: clip;
-  }
-
-  /* Custom scrollbar for code */
-  .install-box code::-webkit-scrollbar {
-    height: 4px;
-  }
-
-  .install-box code::-webkit-scrollbar-track {
-    background: transparent;
-  }
-
-  .install-box code::-webkit-scrollbar-thumb {
-    background: #475569;
-    border-radius: 2px;
-  }
-
-  .install-box code::-webkit-scrollbar-thumb:hover {
-    background: #64748b;
-  }
-
-  .install-box .highlight {
-    color: var(--primary-light);
-  }
-
-  .install-box .tag {
-    color: var(--primary-light);
-  }
-
-  .install-box .attr {
-    color: #7dd3fc;
-  }
-
-  .install-box .string {
-    color: #86efac;
-  }
-
-  .copy-btn {
-    background: #334155;
-    border: none;
-    padding: 0.5rem 1rem;
-    border-radius: 6px;
-    cursor: pointer;
-    color: #94a3b8;
-    transition: all 0.2s ease;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    gap: 0.5rem;
-    font-size: 0.875rem;
-    font-weight: 500;
-    flex-shrink: 0;
-    min-width: 85px;
-  }
-
-  .copy-btn:hover {
-    background: #475569;
-    color: #e2e8f0;
-  }
-
-  .copy-btn svg {
-    width: 16px;
-    height: 16px;
-  }
-
-  .copy-btn {
-    background: #475569;
-    border: none;
-    padding: 0.4rem 0.75rem;
-    border-radius: 4px;
-    cursor: pointer;
-    color: #94a3b8;
-    transition: all 0.2s ease;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    gap: 0.375rem;
-    font-size: 0.75rem;
-    font-weight: 500;
-    flex-shrink: 0;
-  }
-
-  .copy-btn:hover {
-    background: #64748b;
-    color: #e2e8f0;
-  }
-
-  .copy-btn svg {
-    width: 14px;
-    height: 14px;
-  }
-
   /* Responsive */
   @media (max-width: 768px) {
     .hero {
@@ -347,17 +185,6 @@
     .hero-actions {
       align-items: center;
     }
-
-    .install-picker {
-      max-width: 100%;
-      width: 100%;
-      align-items: center;
-    }
-
-    .install-box {
-      width: 100%;
-      max-width: 100%;
-    }
   }
 
   @media (max-width: 480px) {
@@ -374,17 +201,6 @@
     .hero-tagline {
       font-size: 0.85rem;
       margin-bottom: 1rem;
-    }
-
-    .install-box {
-      font-size: 0.7rem;
-      padding: 0.625rem 0.75rem;
-      gap: 0.5rem;
-    }
-
-    .copy-btn {
-      padding: 0.35rem 0.6rem;
-      font-size: 0.7rem;
     }
   }
 </style>
@@ -449,74 +265,8 @@
           Build Simpler
         </h1>
 
-        <div class="hero-actions">
-          <div class="install-picker">
-            <div class="install-tabs">
-              <button class="tab-btn active" onclick="switchTab('npm')" $ref="npmTab">
-                npm
-              </button>
-              <button class="tab-btn" onclick="switchTab('cdn')" $ref="cdnTab">
-                CDN
-              </button>
-            </div>
-
-            <div class="install-box" $ref="npmBox">
-              <code>npm install <span class="highlight">ladrillosjs</span></code>
-              <button class="copy-btn" onclick="copyCommand('npm')" $ref="npmCopyBtn">
-                <svg fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                    d="M8 16H6a2 2 0 01-2-2V6a2 2 0 012-2h8a2 2 0 012 2v2m-6 12h8a2 2 0 002-2v-8a2 2 0 00-2-2h-8a2 2 0 00-2 2v8a2 2 0 002 2z">
-                  </path>
-                </svg>
-                Copy
-              </button>
-            </div>
-
-            <div class="install-box" $ref="cdnBox" style="display: none">
-              <code>&lt;<span class="tag">script</span>
-              <span class="attr">src</span>=<span class="string"
-                >"https://cdn.jsdelivr.net/npm/ladrillosjs"</span
-              >&gt;&lt;/<span class="tag">script</span>&gt;</code>
-              <button class="copy-btn" onclick="copyCommand('cdn')" $ref="cdnCopyBtn">
-                <svg fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                    d="M8 16H6a2 2 0 01-2-2V6a2 2 0 012-2h8a2 2 0 012 2v2m-6 12h8a2 2 0 002-2v-8a2 2 0 00-2-2h-8a2 2 0 00-2 2v8a2 2 0 002 2z">
-                  </path>
-                </svg>
-                Copy
-              </button>
-            </div>
-          </div>
-        </div>
+        <install-section></install-section>
       </div>
     </div>
   </div>
 </section>
-
-<script>
-  const commands = {
-    npm: "npm install ladrillosjs",
-    cdn: '<script src="https://cdn.jsdelivr.net/npm/ladrillosjs"><\/script>',
-  };
-
-  const switchTab = (tab) => {
-    // Update tab buttons
-    $refs.npmTab.classList.toggle("active", tab === "npm");
-    $refs.cdnTab.classList.toggle("active", tab === "cdn");
-
-    // Show/hide install boxes
-    $refs.npmBox.style.display = tab === "npm" ? "flex" : "none";
-    $refs.cdnBox.style.display = tab === "cdn" ? "flex" : "none";
-  };
-
-  const copyCommand = (type) => {
-    navigator.clipboard.writeText(commands[type]);
-    const btn = type === "npm" ? $refs.npmCopyBtn : $refs.cdnCopyBtn;
-    const originalHTML = btn.innerHTML;
-    btn.innerHTML =
-      '<svg fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path></svg> Copied!';
-    setTimeout(() => {
-      btn.innerHTML = originalHTML;
-    }, 2000);
-  };
-</script>
