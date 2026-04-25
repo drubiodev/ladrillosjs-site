@@ -36,4 +36,12 @@ const copyPagesPlugin = {
 export default defineConfig({
   plugins: [copyPagesPlugin],
   base: "/ladrillosjs-site/",
+  build: {
+    rollupOptions: {
+      input: {
+        main: resolve(process.cwd(), "index.html"),
+        "getting-started": resolve(process.cwd(), "getting-started.html"),
+      },
+    },
+  },
 });
