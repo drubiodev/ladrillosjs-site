@@ -58,7 +58,7 @@
         cursor: pointer;
     }
 
-    /* Status card — this is what $if/$else-if/$else swaps */
+    /* Status card — this is what <if>/<else-if>/<else> swaps */
     .status-card {
         display: flex;
         align-items: center;
@@ -151,32 +151,43 @@
         <option value="error">Failed</option>
     </select>
 
-    <div class="status-card loading" $if="status === 'loading'">
-        <span class="dot"></span>
-        <span>Deploying to production…</span>
-    </div>
-    <div class="status-card success" $else-if="status === 'success'">
-        <span class="dot"></span>
-        <span>Deploy successful</span>
-    </div>
-    <div class="status-card error" $else-if="status === 'error'">
-        <span class="dot"></span>
-        <span>Deploy failed — rolling back</span>
-    </div>
-    <div class="status-card idle" $else>
-        <span class="dot"></span>
-        <span>Waiting for a status…</span>
-    </div>
+    <if condition="status === 'loading'">
+        <div class="status-card loading">
+            <span class="dot"></span>
+            <span>Deploying to production…</span>
+        </div>
+    </if>
+    <else-if condition="status === 'success'">
+        <div class="status-card success">
+            <span class="dot"></span>
+            <span>Deploy successful</span>
+        </div>
+    </else-if>
+    <else-if condition="status === 'error'">
+        <div class="status-card error">
+            <span class="dot"></span>
+            <span>Deploy failed — rolling back</span>
+        </div>
+    </else-if>
+    <else>
+        <div class="status-card idle">
+            <span class="dot"></span>
+            <span>Waiting for a status…</span>
+        </div>
+    </else>
 
     <label class="checkbox-row">
         <input type="checkbox" $bind="showHint" />
         Show release notes
     </label>
 
-    <div class="hint-card" $show="{showHint}">
-        This element stays in the DOM — <strong>$show</strong> just toggles its visibility via CSS, preserving scroll
-        position and animations.
-    </div>
+    <show condition="showHint">
+        <div class="hint-card">
+            This element stays in the DOM — <strong>&lt;show&gt;</strong> just toggles its visibility via CSS,
+            preserving scroll
+            position and animations.
+        </div>
+    </show>
 </div>
 
 <script>

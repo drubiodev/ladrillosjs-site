@@ -748,9 +748,9 @@
           Render what matters, <span class="highlight">when it matters.</span>
         </h3>
         <p class="feature-description">
-          Branch your UI with <code>$if</code>, <code>$else-if</code>, and
-          <code>$else</code> — or toggle visibility without unmounting using
-          <code>$show</code>. Declarative, readable, and exactly what you'd
+          Branch your UI with <code>&lt;if&gt;</code>, <code>&lt;else-if&gt;</code>, and
+          <code>&lt;else&gt;</code> — or toggle visibility without unmounting using
+          <code>&lt;show&gt;</code>. Declarative, readable, and exactly what you'd
           expect from plain HTML.
         </p>
         <ul class="feature-points">
@@ -760,7 +760,8 @@
                 d="M16.704 4.153a.75.75 0 01.143 1.052l-8 10.5a.75.75 0 01-1.127.075l-4.5-4.5a.75.75 0 011.06-1.06l3.894 3.893 7.48-9.817a.75.75 0 011.05-.143z"
                 clip-rule="evenodd" />
             </svg>
-            <span><code>$if</code> / <code>$else-if</code> / <code>$else</code> mount and unmount branches</span>
+            <span><code>&lt;if&gt;</code> / <code>&lt;else-if&gt;</code> / <code>&lt;else&gt;</code> mount and unmount
+              branches</span>
           </li>
           <li>
             <svg viewBox="0 0 20 20" fill="currentColor" aria-hidden="true">
@@ -768,7 +769,7 @@
                 d="M16.704 4.153a.75.75 0 01.143 1.052l-8 10.5a.75.75 0 01-1.127.075l-4.5-4.5a.75.75 0 011.06-1.06l3.894 3.893 7.48-9.817a.75.75 0 011.05-.143z"
                 clip-rule="evenodd" />
             </svg>
-            <span><code>$show</code> keeps the element in the DOM — ideal for preserving state</span>
+            <span><code>&lt;show&gt;</code> keeps the element in the DOM — ideal for preserving state</span>
           </li>
           <li>
             <svg viewBox="0 0 20 20" fill="currentColor" aria-hidden="true">
@@ -791,19 +792,27 @@
               <option value="error">Failed</option>
             </select>
 
-            <div $if="status === 'loading'">Deploying to production…</div>
-            <div $else-if="status === 'success'">Deploy successful</div>
-            <div $else-if="status === 'error'">Deploy failed — rolling back</div>
-            <div $else>Waiting for a status…</div>
+            <if condition="status === 'loading'">
+              <div>Deploying to production…</div>
+            </if>
+            <else-if condition="status === 'success'">
+              <div>Deploy successful</div>
+            </else-if>
+            <else-if condition="status === 'error'">
+              <div>Deploy failed — rolling back</div>
+            </else-if>
+            <else>
+              <div>Waiting for a status…</div>
+            </else>
 
             <label>
               <input type="checkbox" $bind="showHint" />
               Show release notes
             </label>
 
-            <div $show="{showHint}">
-              Kept in the DOM — visibility toggled via CSS.
-            </div>
+            <show condition="showHint">
+              <div>Kept in the DOM — visibility toggled via CSS.</div>
+            </show>
 
             <script>
               let status = "";
@@ -828,7 +837,7 @@
           Loops that <span class="highlight">just make sense.</span>
         </h3>
         <p class="feature-description">
-          Render any array with <code>$for</code>. Mutate the list and the
+          Render any array with <code>&lt;for&gt;</code>. Mutate the list and the
           DOM keeps up — add items, remove them, reorder them — it all works
           without lifecycle hooks, keys, or re-renders you have to think about.
         </p>
@@ -855,7 +864,7 @@
                 d="M16.704 4.153a.75.75 0 01.143 1.052l-8 10.5a.75.75 0 01-1.127.075l-4.5-4.5a.75.75 0 011.06-1.06l3.894 3.893 7.48-9.817a.75.75 0 011.05-.143z"
                 clip-rule="evenodd" />
             </svg>
-            <span>Pairs seamlessly with <code>$if</code> for empty states and filters</span>
+            <span>Pairs seamlessly with <code>&lt;if&gt;</code> for empty states and filters</span>
           </li>
         </ul>
       </div>
@@ -867,10 +876,12 @@
             <button onclick="addTask()">Add</button>
 
             <ul>
-              <li $for="(task, i) in tasks">
-                {i + 1}: {task}
-                <button onclick="removeTask(i)">×</button>
-              </li>
+              <for each="(task, i) in tasks">
+                <li>
+                  {i + 1}: {task}
+                  <button onclick="removeTask(i)">×</button>
+                </li>
+              </for>
             </ul>
 
             <script>
@@ -939,7 +950,7 @@
       </div>
 
       <div class="feature-visual">
-        <!-- Tab switcher powered by $show -->
+        <!-- Tab switcher powered by <show> -->
         <div class="code-tabs">
           <button onclick="activeFile = 'emit.html'" class="{activeFile === 'emit.html' ? 'active' : ''}">
             emit.html
@@ -949,7 +960,7 @@
           </button>
         </div>
 
-        <div $show="{activeFile === 'emit.html'}">
+        <show condition="activeFile === 'emit.html'">
           <code-block filename="emit.html">
             <template>
               <input $bind="message" type="text" placeholder="Type a message" />
@@ -965,13 +976,15 @@
               </script>
             </template>
           </code-block>
-        </div>
+        </show>
 
-        <div $show="{activeFile === 'listen.html'}">
+        <show condition="activeFile === 'listen.html'">
           <code-block filename="listen.html">
             <template>
               <ul>
-                <li $for="msg in messages">{msg}</li>
+                <for each="msg in messages">
+                  <li>{msg}</li>
+                </for>
               </ul>
 
               <script>
@@ -983,7 +996,7 @@
               </script>
             </template>
           </code-block>
-        </div>
+        </show>
 
         <div class="feature-demo-wrapper">
           <div class="feature-demo accent-violet">
@@ -996,6 +1009,7 @@
         </div>
       </div>
     </div>
+
   </div>
 </section>
 
@@ -1007,13 +1021,13 @@
   import { registerComponents } from "ladrillosjs";
 
   await registerComponents([
-    { name: "code-block", path: "./code-block.html", lazy: true, },
-    { name: "counter-sample", path: "./samples/counter.html", lazy: true, },
-    { name: "form-sample", path: "./samples/form.html", lazy: true, },
-    { name: "ref-sample", path: "./samples/ref.html", lazy: true, },
-    { name: "flow-sample", path: "./samples/flow.html", lazy: true, },
-    { name: "list-sample", path: "./samples/loop.html", lazy: true, },
-    { name: "emit-sample", path: "./samples/emit.html", lazy: true, },
-    { name: "listen-sample", path: "./samples/listen.html", lazy: true, },
+    { name: "code-block", path: "./code-block.html" },
+    { name: "counter-sample", path: "./samples/counter.html" },
+    { name: "form-sample", path: "./samples/form.html" },
+    { name: "ref-sample", path: "./samples/ref.html" },
+    { name: "flow-sample", path: "./samples/flow.html" },
+    { name: "list-sample", path: "./samples/loop.html" },
+    { name: "emit-sample", path: "./samples/emit.html" },
+    { name: "listen-sample", path: "./samples/listen.html" },
   ]);
 </script>
