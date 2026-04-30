@@ -309,7 +309,29 @@
   if (resolvedLang) {
     $refs.codeEl.classList.add(`language-${resolvedLang}`);
   }
-  hljs.highlightElement($refs.codeEl);
+
+  // Highlight now if hljs is ready; otherwise poll briefly until the CDN
+  // script finishes loading. Inlined (no helper) because Ladrillos may
+  // execute statements in separate scopes — closures over locals from
+  // a setInterval callback can otherwise lose access to them.
+  if (typeof hljs !== "undefined") {
+    $refs.codeEl.removeAttribute("data-highlighted");
+    hljs.highlightElement($refs.codeEl);
+  } else {
+    const codeEl = $refs.codeEl;
+    const start = Date.now();
+    const iv = setInterval(() => {
+      if (typeof hljs !== "undefined") {
+        clearInterval(iv);
+        if (codeEl) {
+          codeEl.removeAttribute("data-highlighted");
+          hljs.highlightElement(codeEl);
+        }
+      } else if (Date.now() - start > 5000) {
+        clearInterval(iv);
+      }
+    }, 50);
+  }
 
   if ($refs.slotEl) $refs.slotEl.remove();
 

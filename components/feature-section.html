@@ -539,473 +539,484 @@
     </div>
 
     <!-- Feature: Templating & Reactivity -->
-    <div class="feature-row">
-      <div class="feature-copy">
-        <span class="feature-eyebrow">Templating</span>
-        <h3 class="feature-title">
-          Simple syntax.
-          <span class="highlight">Reactive by default.</span>
-        </h3>
-        <p class="feature-description">
-          Bind any JavaScript expression with <code>{curly braces}</code>.
-          When state changes, the DOM updates automatically — no virtual DOM,
-          no diffing ceremony, no build step.
-        </p>
-        <ul class="feature-points">
-          <li>
-            <svg viewBox="0 0 20 20" fill="currentColor" aria-hidden="true">
-              <path fill-rule="evenodd"
-                d="M16.704 4.153a.75.75 0 01.143 1.052l-8 10.5a.75.75 0 01-1.127.075l-4.5-4.5a.75.75 0 011.06-1.06l3.894 3.893 7.48-9.817a.75.75 0 011.05-.143z"
-                clip-rule="evenodd" />
-            </svg>
-            <span>Plain <code>{expression}</code> interpolation — no directives to memorize</span>
-          </li>
-          <li>
-            <svg viewBox="0 0 20 20" fill="currentColor" aria-hidden="true">
-              <path fill-rule="evenodd"
-                d="M16.704 4.153a.75.75 0 01.143 1.052l-8 10.5a.75.75 0 01-1.127.075l-4.5-4.5a.75.75 0 011.06-1.06l3.894 3.893 7.48-9.817a.75.75 0 011.05-.143z"
-                clip-rule="evenodd" />
-            </svg>
-            <span>Top-level variables are reactive state </span>
-          </li>
-          <li>
-            <svg viewBox="0 0 20 20" fill="currentColor" aria-hidden="true">
-              <path fill-rule="evenodd"
-                d="M16.704 4.153a.75.75 0 01.143 1.052l-8 10.5a.75.75 0 01-1.127.075l-4.5-4.5a.75.75 0 011.06-1.06l3.894 3.893 7.48-9.817a.75.75 0 011.05-.143z"
-                clip-rule="evenodd" />
-            </svg>
-            <span>Standard inline handlers like <code>onclick</code> — zero framework syntax</span>
-          </li>
-        </ul>
-      </div>
-
-      <div class="feature-visual">
-        <code-block filename="counter.html">
-          <template>
-            <div>
-              <h2>Count: {count}</h2>
-              <div>
-                <button onclick="count++">Add</button>
-                <button onclick="count=0">Reset</button>
-              </div>
-            </div>
-
-            <script>
-              let count = 0;
-            </script>
-          </template>
-        </code-block>
-
-        <div class="feature-demo-wrapper">
-          <div class="feature-demo">
-            <counter-sample></counter-sample>
-          </div>
-        </div>
-      </div>
-    </div>
-
-    <!-- Feature: Two-Way Binding -->
-    <div class="feature-row reverse accent-indigo">
-      <div class="feature-copy">
-        <span class="feature-eyebrow">Two-Way Binding</span>
-        <h3 class="feature-title">
-          Form state, <span class="highlight">instantly in sync.</span>
-        </h3>
-        <p class="feature-description">
-          Connect any input to a variable with <code>$bind</code>. Edits flow
-          both ways — update the input and your state changes, update your
-          state and the input follows. No event handlers, no boilerplate.
-        </p>
-        <ul class="feature-points">
-          <li>
-            <svg viewBox="0 0 20 20" fill="currentColor" aria-hidden="true">
-              <path fill-rule="evenodd"
-                d="M16.704 4.153a.75.75 0 01.143 1.052l-8 10.5a.75.75 0 01-1.127.075l-4.5-4.5a.75.75 0 011.06-1.06l3.894 3.893 7.48-9.817a.75.75 0 011.05-.143z"
-                clip-rule="evenodd" />
-            </svg>
-            <span>Works with <code>text</code>, <code>email</code>, <code>checkbox</code>, and more</span>
-          </li>
-          <li>
-            <svg viewBox="0 0 20 20" fill="currentColor" aria-hidden="true">
-              <path fill-rule="evenodd"
-                d="M16.704 4.153a.75.75 0 01.143 1.052l-8 10.5a.75.75 0 01-1.127.075l-4.5-4.5a.75.75 0 011.06-1.06l3.894 3.893 7.48-9.817a.75.75 0 011.05-.143z"
-                clip-rule="evenodd" />
-            </svg>
-            <span>Automatic type coercion — booleans stay booleans</span>
-          </li>
-          <li>
-            <svg viewBox="0 0 20 20" fill="currentColor" aria-hidden="true">
-              <path fill-rule="evenodd"
-                d="M16.704 4.153a.75.75 0 01.143 1.052l-8 10.5a.75.75 0 01-1.127.075l-4.5-4.5a.75.75 0 011.06-1.06l3.894 3.893 7.48-9.817a.75.75 0 011.05-.143z"
-                clip-rule="evenodd" />
-            </svg>
-            <span>One attribute replaces <code>value</code> + <code>oninput</code> plumbing</span>
-          </li>
-        </ul>
-      </div>
-
-      <div class="feature-visual">
-        <code-block filename="form.html">
-          <template>
-            <div>
-              <h2>Hello, {name}!</h2>
-              <input type="text" $bind="name" placeholder="Your name" />
-
-              <p>Email: {email}</p>
-              <input type="email" $bind="email" placeholder="your@email.com" />
-
-              <label>
-                <input type="checkbox" $bind="subscribe" />
-                Subscribe: {subscribe}
-              </label>
-            </div>
-
-            <script>
-              let name = "World";
-              let email = "";
-              let subscribe = false;
-            </script>
-          </template>
-        </code-block>
-
-        <div class="feature-demo-wrapper">
-          <div class="feature-demo accent-indigo">
-            <form-sample></form-sample>
-          </div>
-        </div>
-      </div>
-    </div>
-
-    <!-- Feature: References -->
-    <div class="feature-row accent-emerald">
-      <div class="feature-copy">
-        <span class="feature-eyebrow">References</span>
-        <h3 class="feature-title">
-          Direct DOM access, <span class="highlight">when you need it.</span>
-        </h3>
-        <p class="feature-description">
-          Tag any element with <code>$ref</code> and reach it through
-          <code>$refs</code>. Perfect for focusing inputs, measuring layout,
-          integrating third-party libraries, or anything else that needs
-          the real DOM node.
-        </p>
-        <ul class="feature-points">
-          <li>
-            <svg viewBox="0 0 20 20" fill="currentColor" aria-hidden="true">
-              <path fill-rule="evenodd"
-                d="M16.704 4.153a.75.75 0 01.143 1.052l-8 10.5a.75.75 0 01-1.127.075l-4.5-4.5a.75.75 0 011.06-1.06l3.894 3.893 7.48-9.817a.75.75 0 011.05-.143z"
-                clip-rule="evenodd" />
-            </svg>
-            <span>One declarative attribute — no <code>querySelector</code> calls</span>
-          </li>
-          <li>
-            <svg viewBox="0 0 20 20" fill="currentColor" aria-hidden="true">
-              <path fill-rule="evenodd"
-                d="M16.704 4.153a.75.75 0 01.143 1.052l-8 10.5a.75.75 0 01-1.127.075l-4.5-4.5a.75.75 0 011.06-1.06l3.894 3.893 7.48-9.817a.75.75 0 011.05-.143z"
-                clip-rule="evenodd" />
-            </svg>
-            <span>Access the real DOM node for focus, scroll, measurements</span>
-          </li>
-          <li>
-            <svg viewBox="0 0 20 20" fill="currentColor" aria-hidden="true">
-              <path fill-rule="evenodd"
-                d="M16.704 4.153a.75.75 0 01.143 1.052l-8 10.5a.75.75 0 01-1.127.075l-4.5-4.5a.75.75 0 011.06-1.06l3.894 3.893 7.48-9.817a.75.75 0 011.05-.143z"
-                clip-rule="evenodd" />
-            </svg>
-            <span>Drop in any third-party library that needs an element</span>
-          </li>
-        </ul>
-      </div>
-
-      <div class="feature-visual">
-        <code-block filename="ref.html">
-          <template>
-            <input type="text" $ref="inputEl" placeholder="Click the button to focus me" />
-            <button onclick="focusInput()">Focus Input</button>
-
-            <script>
-              function focusInput() {
-                $refs.inputEl.focus();
-                $refs.inputEl.select();
-              }
-            </script>
-          </template>
-        </code-block>
-
-        <div class="feature-demo-wrapper">
-          <div class="feature-demo accent-emerald">
-            <ref-sample></ref-sample>
-          </div>
-        </div>
-      </div>
-    </div>
-
-    <!-- Feature: Control Flow -->
-    <div class="feature-row reverse accent-rose">
-      <div class="feature-copy">
-        <span class="feature-eyebrow">Control Flow</span>
-        <h3 class="feature-title">
-          Render what matters, <span class="highlight">when it matters.</span>
-        </h3>
-        <p class="feature-description">
-          Branch your UI with <code>&lt;if&gt;</code>, <code>&lt;else-if&gt;</code>, and
-          <code>&lt;else&gt;</code> — or toggle visibility without unmounting using
-          <code>&lt;show&gt;</code>. Declarative, readable, and exactly what you'd
-          expect from plain HTML.
-        </p>
-        <ul class="feature-points">
-          <li>
-            <svg viewBox="0 0 20 20" fill="currentColor" aria-hidden="true">
-              <path fill-rule="evenodd"
-                d="M16.704 4.153a.75.75 0 01.143 1.052l-8 10.5a.75.75 0 01-1.127.075l-4.5-4.5a.75.75 0 011.06-1.06l3.894 3.893 7.48-9.817a.75.75 0 011.05-.143z"
-                clip-rule="evenodd" />
-            </svg>
-            <span><code>&lt;if&gt;</code> / <code>&lt;else-if&gt;</code> / <code>&lt;else&gt;</code> mount and unmount
-              branches</span>
-          </li>
-          <li>
-            <svg viewBox="0 0 20 20" fill="currentColor" aria-hidden="true">
-              <path fill-rule="evenodd"
-                d="M16.704 4.153a.75.75 0 01.143 1.052l-8 10.5a.75.75 0 01-1.127.075l-4.5-4.5a.75.75 0 011.06-1.06l3.894 3.893 7.48-9.817a.75.75 0 011.05-.143z"
-                clip-rule="evenodd" />
-            </svg>
-            <span><code>&lt;show&gt;</code> keeps the element in the DOM — ideal for preserving state</span>
-          </li>
-          <li>
-            <svg viewBox="0 0 20 20" fill="currentColor" aria-hidden="true">
-              <path fill-rule="evenodd"
-                d="M16.704 4.153a.75.75 0 01.143 1.052l-8 10.5a.75.75 0 01-1.127.075l-4.5-4.5a.75.75 0 011.06-1.06l3.894 3.893 7.48-9.817a.75.75 0 011.05-.143z"
-                clip-rule="evenodd" />
-            </svg>
-            <span>Any JavaScript expression works — ternaries, method calls, the works</span>
-          </li>
-        </ul>
-      </div>
-
-      <div class="feature-visual">
-        <code-block filename="flow.html">
-          <template>
-            <select $bind="status">
-              <option value="">Select a deploy status…</option>
-              <option value="loading">Deploying</option>
-              <option value="success">Succeeded</option>
-              <option value="error">Failed</option>
-            </select>
-
-            <if condition="status === 'loading'">
-              <div>Deploying to production…</div>
-            </if>
-            <else-if condition="status === 'success'">
-              <div>Deploy successful</div>
-            </else-if>
-            <else-if condition="status === 'error'">
-              <div>Deploy failed — rolling back</div>
-            </else-if>
-            <else>
-              <div>Waiting for a status…</div>
-            </else>
-
-            <label>
-              <input type="checkbox" $bind="showHint" />
-              Show release notes
-            </label>
-
-            <show condition="showHint">
-              <div>Kept in the DOM — visibility toggled via CSS.</div>
-            </show>
-
-            <script>
-              let status = "";
-              let showHint = false;
-            </script>
-          </template>
-        </code-block>
-
-        <div class="feature-demo-wrapper">
-          <div class="feature-demo accent-rose">
-            <flow-sample></flow-sample>
-          </div>
-        </div>
-      </div>
-    </div>
-
-    <!-- Feature: List Rendering -->
-    <div class="feature-row accent-sky">
-      <div class="feature-copy">
-        <span class="feature-eyebrow">List Rendering</span>
-        <h3 class="feature-title">
-          Loops that <span class="highlight">just make sense.</span>
-        </h3>
-        <p class="feature-description">
-          Render any array with <code>$for</code>. Mutate the list and the
-          DOM keeps up — add items, remove them, reorder them — it all works
-          without lifecycle hooks, keys, or re-renders you have to think about.
-        </p>
-        <ul class="feature-points">
-          <li>
-            <svg viewBox="0 0 20 20" fill="currentColor" aria-hidden="true">
-              <path fill-rule="evenodd"
-                d="M16.704 4.153a.75.75 0 01.143 1.052l-8 10.5a.75.75 0 01-1.127.075l-4.5-4.5a.75.75 0 011.06-1.06l3.894 3.893 7.48-9.817a.75.75 0 011.05-.143z"
-                clip-rule="evenodd" />
-            </svg>
-            <span>Familiar <code>(item, i) in items</code> syntax — destructuring supported</span>
-          </li>
-          <li>
-            <svg viewBox="0 0 20 20" fill="currentColor" aria-hidden="true">
-              <path fill-rule="evenodd"
-                d="M16.704 4.153a.75.75 0 01.143 1.052l-8 10.5a.75.75 0 01-1.127.075l-4.5-4.5a.75.75 0 011.06-1.06l3.894 3.893 7.48-9.817a.75.75 0 011.05-.143z"
-                clip-rule="evenodd" />
-            </svg>
-            <span>Reassign the array and the list updates — no manual diffing</span>
-          </li>
-          <li>
-            <svg viewBox="0 0 20 20" fill="currentColor" aria-hidden="true">
-              <path fill-rule="evenodd"
-                d="M16.704 4.153a.75.75 0 01.143 1.052l-8 10.5a.75.75 0 01-1.127.075l-4.5-4.5a.75.75 0 011.06-1.06l3.894 3.893 7.48-9.817a.75.75 0 011.05-.143z"
-                clip-rule="evenodd" />
-            </svg>
-            <span>Pairs seamlessly with <code>$if</code> for empty states and filters</span>
-          </li>
-        </ul>
-      </div>
-
-      <div class="feature-visual">
-        <code-block filename="tasks.html">
-          <template>
-            <input type="text" $bind="newTask" placeholder="Add a task…" />
-            <button onclick="addTask()">Add</button>
-
-            <ul>
-              <li $for="(task, i) in tasks">
-                {i + 1}: {task}
-                <button onclick="removeTask(i)">×</button>
-              </li>
-            </ul>
-
-            <script>
-              let tasks = ["Ship the landing page", "Star the repo 🧱"];
-              let newTask = "";
-
-              function addTask() {
-                if (!newTask.trim()) return;
-                tasks = [...tasks, newTask.trim()];
-                newTask = "";
-              }
-
-              function removeTask(i) {
-                tasks = tasks.filter((_, idx) => idx !== i);
-              }
-            </script>
-          </template>
-        </code-block>
-
-        <div class="feature-demo-wrapper">
-          <div class="feature-demo accent-sky">
-            <list-sample></list-sample>
-          </div>
-        </div>
-      </div>
-    </div>
-
-    <!-- Feature Section: Cross-Component Communication -->
-    <div class="feature-row reverse accent-violet">
-      <div class="feature-copy">
-        <span class="feature-eyebrow">Cross-Component Comms</span>
-        <h3 class="feature-title">
-          Skip the prop drilling. <span class="highlight">Just send events.</span>
-        </h3>
-        <p class="feature-description">
-          Broadcast events from anywhere with <code>$emit</code>, and pick
-          them up with <code>$listen</code>. Siblings, cousins, deeply-nested
-          components — they all talk without touching a shared parent.
-        </p>
-        <ul class="feature-points">
-          <li>
-            <svg viewBox="0 0 20 20" fill="currentColor" aria-hidden="true">
-              <path fill-rule="evenodd"
-                d="M16.704 4.153a.75.75 0 01.143 1.052l-8 10.5a.75.75 0 01-1.127.075l-4.5-4.5a.75.75 0 011.06-1.06l3.894 3.893 7.48-9.817a.75.75 0 011.05-.143z"
-                clip-rule="evenodd" />
-            </svg>
-            <span><code>$emit(name, payload)</code> broadcasts to any listener</span>
-          </li>
-          <li>
-            <svg viewBox="0 0 20 20" fill="currentColor" aria-hidden="true">
-              <path fill-rule="evenodd"
-                d="M16.704 4.153a.75.75 0 01.143 1.052l-8 10.5a.75.75 0 01-1.127.075l-4.5-4.5a.75.75 0 011.06-1.06l3.894 3.893 7.48-9.817a.75.75 0 011.05-.143z"
-                clip-rule="evenodd" />
-            </svg>
-            <span><code>$listen(name, handler)</code> subscribes from anywhere in the tree</span>
-          </li>
-          <li>
-            <svg viewBox="0 0 20 20" fill="currentColor" aria-hidden="true">
-              <path fill-rule="evenodd"
-                d="M16.704 4.153a.75.75 0 01.143 1.052l-8 10.5a.75.75 0 01-1.127.075l-4.5-4.5a.75.75 0 011.06-1.06l3.894 3.893 7.48-9.817a.75.75 0 011.05-.143z"
-                clip-rule="evenodd" />
-            </svg>
-            <span>No stores, no context providers, no callback chains</span>
-          </li>
-        </ul>
-      </div>
-
-      <div class="feature-visual">
-        <!-- Tab switcher powered by $show -->
-        <div class="code-tabs">
-          <button onclick="activeFile = 'emit.html'" class="{activeFile === 'emit.html' ? 'active' : ''}">
-            emit.html
-          </button>
-          <button onclick="activeFile = 'listen.html'" class="{activeFile === 'listen.html' ? 'active' : ''}">
-            listen.html
-          </button>
+    <lazy>
+      <div class="feature-row">
+        <div class="feature-copy">
+          <span class="feature-eyebrow">Templating</span>
+          <h3 class="feature-title">
+            Simple syntax.
+            <span class="highlight">Reactive by default.</span>
+          </h3>
+          <p class="feature-description">
+            Bind any JavaScript expression with <code>{curly braces}</code>.
+            When state changes, the DOM updates automatically — no virtual DOM,
+            no diffing ceremony, no build step.
+          </p>
+          <ul class="feature-points">
+            <li>
+              <svg viewBox="0 0 20 20" fill="currentColor" aria-hidden="true">
+                <path fill-rule="evenodd"
+                  d="M16.704 4.153a.75.75 0 01.143 1.052l-8 10.5a.75.75 0 01-1.127.075l-4.5-4.5a.75.75 0 011.06-1.06l3.894 3.893 7.48-9.817a.75.75 0 011.05-.143z"
+                  clip-rule="evenodd" />
+              </svg>
+              <span>Plain <code>{expression}</code> interpolation — no directives to memorize</span>
+            </li>
+            <li>
+              <svg viewBox="0 0 20 20" fill="currentColor" aria-hidden="true">
+                <path fill-rule="evenodd"
+                  d="M16.704 4.153a.75.75 0 01.143 1.052l-8 10.5a.75.75 0 01-1.127.075l-4.5-4.5a.75.75 0 011.06-1.06l3.894 3.893 7.48-9.817a.75.75 0 011.05-.143z"
+                  clip-rule="evenodd" />
+              </svg>
+              <span>Top-level variables are reactive state </span>
+            </li>
+            <li>
+              <svg viewBox="0 0 20 20" fill="currentColor" aria-hidden="true">
+                <path fill-rule="evenodd"
+                  d="M16.704 4.153a.75.75 0 01.143 1.052l-8 10.5a.75.75 0 01-1.127.075l-4.5-4.5a.75.75 0 011.06-1.06l3.894 3.893 7.48-9.817a.75.75 0 011.05-.143z"
+                  clip-rule="evenodd" />
+              </svg>
+              <span>Standard inline handlers like <code>onclick</code> — zero framework syntax</span>
+            </li>
+          </ul>
         </div>
 
-        <div $show="{activeFile === 'emit.html'}">
-          <code-block filename="emit.html">
+        <div class="feature-visual">
+          <code-block filename="counter.html">
             <template>
-              <input $bind="message" type="text" placeholder="Type a message" />
-              <button onclick="sendMessage()">Send</button>
+              <div>
+                <h2>Count: {count}</h2>
+                <div>
+                  <button onclick="count++">Add</button>
+                  <button onclick="count=0">Reset</button>
+                </div>
+              </div>
 
               <script>
-                let message = "";
+                let count = 0;
+              </script>
+            </template>
+          </code-block>
 
-                function sendMessage() {
-                  $emit("message-sent", message);
-                  message = "";
+          <div class="feature-demo-wrapper">
+            <div class="feature-demo">
+              <counter-sample></counter-sample>
+            </div>
+          </div>
+        </div>
+      </div>
+    </lazy>
+
+    <!-- Feature: Two-Way Binding -->
+    <lazy>
+      <div class="feature-row reverse accent-indigo">
+        <div class="feature-copy">
+          <span class="feature-eyebrow">Two-Way Binding</span>
+          <h3 class="feature-title">
+            Form state, <span class="highlight">instantly in sync.</span>
+          </h3>
+          <p class="feature-description">
+            Connect any input to a variable with <code>$bind</code>. Edits flow
+            both ways — update the input and your state changes, update your
+            state and the input follows. No event handlers, no boilerplate.
+          </p>
+          <ul class="feature-points">
+            <li>
+              <svg viewBox="0 0 20 20" fill="currentColor" aria-hidden="true">
+                <path fill-rule="evenodd"
+                  d="M16.704 4.153a.75.75 0 01.143 1.052l-8 10.5a.75.75 0 01-1.127.075l-4.5-4.5a.75.75 0 011.06-1.06l3.894 3.893 7.48-9.817a.75.75 0 011.05-.143z"
+                  clip-rule="evenodd" />
+              </svg>
+              <span>Works with <code>text</code>, <code>email</code>, <code>checkbox</code>, and more</span>
+            </li>
+            <li>
+              <svg viewBox="0 0 20 20" fill="currentColor" aria-hidden="true">
+                <path fill-rule="evenodd"
+                  d="M16.704 4.153a.75.75 0 01.143 1.052l-8 10.5a.75.75 0 01-1.127.075l-4.5-4.5a.75.75 0 011.06-1.06l3.894 3.893 7.48-9.817a.75.75 0 011.05-.143z"
+                  clip-rule="evenodd" />
+              </svg>
+              <span>Automatic type coercion — booleans stay booleans</span>
+            </li>
+            <li>
+              <svg viewBox="0 0 20 20" fill="currentColor" aria-hidden="true">
+                <path fill-rule="evenodd"
+                  d="M16.704 4.153a.75.75 0 01.143 1.052l-8 10.5a.75.75 0 01-1.127.075l-4.5-4.5a.75.75 0 011.06-1.06l3.894 3.893 7.48-9.817a.75.75 0 011.05-.143z"
+                  clip-rule="evenodd" />
+              </svg>
+              <span>One attribute replaces <code>value</code> + <code>oninput</code> plumbing</span>
+            </li>
+          </ul>
+        </div>
+
+        <div class="feature-visual">
+          <code-block filename="form.html">
+            <template>
+              <div>
+                <h2>Hello, {name}!</h2>
+                <input type="text" $bind="name" placeholder="Your name" />
+
+                <p>Email: {email}</p>
+                <input type="email" $bind="email" placeholder="your@email.com" />
+
+                <label>
+                  <input type="checkbox" $bind="subscribe" />
+                  Subscribe: {subscribe}
+                </label>
+              </div>
+
+              <script>
+                let name = "World";
+                let email = "";
+                let subscribe = false;
+              </script>
+            </template>
+          </code-block>
+
+          <div class="feature-demo-wrapper">
+            <div class="feature-demo accent-indigo">
+              <form-sample></form-sample>
+            </div>
+          </div>
+        </div>
+      </div>
+    </lazy>
+
+    <!-- Feature: References -->
+    <lazy>
+      <div class="feature-row accent-emerald">
+        <div class="feature-copy">
+          <span class="feature-eyebrow">References</span>
+          <h3 class="feature-title">
+            Direct DOM access, <span class="highlight">when you need it.</span>
+          </h3>
+          <p class="feature-description">
+            Tag any element with <code>$ref</code> and reach it through
+            <code>$refs</code>. Perfect for focusing inputs, measuring layout,
+            integrating third-party libraries, or anything else that needs
+            the real DOM node.
+          </p>
+          <ul class="feature-points">
+            <li>
+              <svg viewBox="0 0 20 20" fill="currentColor" aria-hidden="true">
+                <path fill-rule="evenodd"
+                  d="M16.704 4.153a.75.75 0 01.143 1.052l-8 10.5a.75.75 0 01-1.127.075l-4.5-4.5a.75.75 0 011.06-1.06l3.894 3.893 7.48-9.817a.75.75 0 011.05-.143z"
+                  clip-rule="evenodd" />
+              </svg>
+              <span>One declarative attribute — no <code>querySelector</code> calls</span>
+            </li>
+            <li>
+              <svg viewBox="0 0 20 20" fill="currentColor" aria-hidden="true">
+                <path fill-rule="evenodd"
+                  d="M16.704 4.153a.75.75 0 01.143 1.052l-8 10.5a.75.75 0 01-1.127.075l-4.5-4.5a.75.75 0 011.06-1.06l3.894 3.893 7.48-9.817a.75.75 0 011.05-.143z"
+                  clip-rule="evenodd" />
+              </svg>
+              <span>Access the real DOM node for focus, scroll, measurements</span>
+            </li>
+            <li>
+              <svg viewBox="0 0 20 20" fill="currentColor" aria-hidden="true">
+                <path fill-rule="evenodd"
+                  d="M16.704 4.153a.75.75 0 01.143 1.052l-8 10.5a.75.75 0 01-1.127.075l-4.5-4.5a.75.75 0 011.06-1.06l3.894 3.893 7.48-9.817a.75.75 0 011.05-.143z"
+                  clip-rule="evenodd" />
+              </svg>
+              <span>Drop in any third-party library that needs an element</span>
+            </li>
+          </ul>
+        </div>
+
+        <div class="feature-visual">
+          <code-block filename="ref.html">
+            <template>
+              <input type="text" $ref="inputEl" placeholder="Click the button to focus me" />
+              <button onclick="focusInput()">Focus Input</button>
+
+              <script>
+                function focusInput() {
+                  $refs.inputEl.focus();
+                  $refs.inputEl.select();
                 }
               </script>
             </template>
           </code-block>
-        </div>
 
-        <div $show="{activeFile === 'listen.html'}">
-          <code-block filename="listen.html">
-            <template>
-              <ul>
-                <li $for="msg in messages">{msg}</li>
-              </ul>
-
-              <script>
-                let messages = [];
-
-                $listen("message-sent", (data) => {
-                  messages = [...messages, data];
-                });
-              </script>
-            </template>
-          </code-block>
-        </div>
-
-        <div class="feature-demo-wrapper">
-          <div class="feature-demo accent-violet">
-            <div class="comm-stack">
-              <emit-sample></emit-sample>
-              <div class="flow-connector">$emit → $listen</div>
-              <listen-sample></listen-sample>
+          <div class="feature-demo-wrapper">
+            <div class="feature-demo accent-emerald">
+              <ref-sample></ref-sample>
             </div>
           </div>
         </div>
       </div>
-    </div>
+    </lazy>
 
+    <!-- Feature: Control Flow -->
+    <lazy>
+      <div class="feature-row reverse accent-rose">
+        <div class="feature-copy">
+          <span class="feature-eyebrow">Control Flow</span>
+          <h3 class="feature-title">
+            Render what matters, <span class="highlight">when it matters.</span>
+          </h3>
+          <p class="feature-description">
+            Branch your UI with <code>&lt;if&gt;</code>, <code>&lt;else-if&gt;</code>, and
+            <code>&lt;else&gt;</code> — or toggle visibility without unmounting using
+            <code>&lt;show&gt;</code>. Declarative, readable, and exactly what you'd
+            expect from plain HTML.
+          </p>
+          <ul class="feature-points">
+            <li>
+              <svg viewBox="0 0 20 20" fill="currentColor" aria-hidden="true">
+                <path fill-rule="evenodd"
+                  d="M16.704 4.153a.75.75 0 01.143 1.052l-8 10.5a.75.75 0 01-1.127.075l-4.5-4.5a.75.75 0 011.06-1.06l3.894 3.893 7.48-9.817a.75.75 0 011.05-.143z"
+                  clip-rule="evenodd" />
+              </svg>
+              <span><code>&lt;if&gt;</code> / <code>&lt;else-if&gt;</code> / <code>&lt;else&gt;</code> mount and unmount
+                branches</span>
+            </li>
+            <li>
+              <svg viewBox="0 0 20 20" fill="currentColor" aria-hidden="true">
+                <path fill-rule="evenodd"
+                  d="M16.704 4.153a.75.75 0 01.143 1.052l-8 10.5a.75.75 0 01-1.127.075l-4.5-4.5a.75.75 0 011.06-1.06l3.894 3.893 7.48-9.817a.75.75 0 011.05-.143z"
+                  clip-rule="evenodd" />
+              </svg>
+              <span><code>&lt;show&gt;</code> keeps the element in the DOM — ideal for preserving state</span>
+            </li>
+            <li>
+              <svg viewBox="0 0 20 20" fill="currentColor" aria-hidden="true">
+                <path fill-rule="evenodd"
+                  d="M16.704 4.153a.75.75 0 01.143 1.052l-8 10.5a.75.75 0 01-1.127.075l-4.5-4.5a.75.75 0 011.06-1.06l3.894 3.893 7.48-9.817a.75.75 0 011.05-.143z"
+                  clip-rule="evenodd" />
+              </svg>
+              <span>Any JavaScript expression works — ternaries, method calls, the works</span>
+            </li>
+          </ul>
+        </div>
+
+        <div class="feature-visual">
+          <code-block filename="flow.html">
+            <template>
+              <select $bind="status">
+                <option value="">Select a deploy status…</option>
+                <option value="loading">Deploying</option>
+                <option value="success">Succeeded</option>
+                <option value="error">Failed</option>
+              </select>
+
+              <if condition="status === 'loading'">
+                <div>Deploying to production…</div>
+              </if>
+              <else-if condition="status === 'success'">
+                <div>Deploy successful</div>
+              </else-if>
+              <else-if condition="status === 'error'">
+                <div>Deploy failed — rolling back</div>
+              </else-if>
+              <else>
+                <div>Waiting for a status…</div>
+              </else>
+
+              <label>
+                <input type="checkbox" $bind="showHint" />
+                Show release notes
+              </label>
+
+              <show condition="showHint">
+                <div>Kept in the DOM — visibility toggled via CSS.</div>
+              </show>
+
+              <script>
+                let status = "";
+                let showHint = false;
+              </script>
+            </template>
+          </code-block>
+
+          <div class="feature-demo-wrapper">
+            <div class="feature-demo accent-rose">
+              <flow-sample></flow-sample>
+            </div>
+          </div>
+        </div>
+      </div>
+    </lazy>
+
+    <!-- Feature: List Rendering -->
+    <lazy>
+      <div class="feature-row accent-sky">
+        <div class="feature-copy">
+          <span class="feature-eyebrow">List Rendering</span>
+          <h3 class="feature-title">
+            Loops that <span class="highlight">just make sense.</span>
+          </h3>
+          <p class="feature-description">
+            Render any array with <code>$for</code>. Mutate the list and the
+            DOM keeps up — add items, remove them, reorder them — it all works
+            without lifecycle hooks, keys, or re-renders you have to think about.
+          </p>
+          <ul class="feature-points">
+            <li>
+              <svg viewBox="0 0 20 20" fill="currentColor" aria-hidden="true">
+                <path fill-rule="evenodd"
+                  d="M16.704 4.153a.75.75 0 01.143 1.052l-8 10.5a.75.75 0 01-1.127.075l-4.5-4.5a.75.75 0 011.06-1.06l3.894 3.893 7.48-9.817a.75.75 0 011.05-.143z"
+                  clip-rule="evenodd" />
+              </svg>
+              <span>Familiar <code>(item, i) in items</code> syntax — destructuring supported</span>
+            </li>
+            <li>
+              <svg viewBox="0 0 20 20" fill="currentColor" aria-hidden="true">
+                <path fill-rule="evenodd"
+                  d="M16.704 4.153a.75.75 0 01.143 1.052l-8 10.5a.75.75 0 01-1.127.075l-4.5-4.5a.75.75 0 011.06-1.06l3.894 3.893 7.48-9.817a.75.75 0 011.05-.143z"
+                  clip-rule="evenodd" />
+              </svg>
+              <span>Reassign the array and the list updates — no manual diffing</span>
+            </li>
+            <li>
+              <svg viewBox="0 0 20 20" fill="currentColor" aria-hidden="true">
+                <path fill-rule="evenodd"
+                  d="M16.704 4.153a.75.75 0 01.143 1.052l-8 10.5a.75.75 0 01-1.127.075l-4.5-4.5a.75.75 0 011.06-1.06l3.894 3.893 7.48-9.817a.75.75 0 011.05-.143z"
+                  clip-rule="evenodd" />
+              </svg>
+              <span>Pairs seamlessly with <code>$if</code> for empty states and filters</span>
+            </li>
+          </ul>
+        </div>
+
+        <div class="feature-visual">
+          <code-block filename="tasks.html">
+            <template>
+              <input type="text" $bind="newTask" placeholder="Add a task…" />
+              <button onclick="addTask()">Add</button>
+
+              <ul>
+                <li $for="(task, i) in tasks">
+                  {i + 1}: {task}
+                  <button onclick="removeTask(i)">×</button>
+                </li>
+              </ul>
+
+              <script>
+                let tasks = ["Ship the landing page", "Star the repo 🧱"];
+                let newTask = "";
+
+                function addTask() {
+                  if (!newTask.trim()) return;
+                  tasks = [...tasks, newTask.trim()];
+                  newTask = "";
+                }
+
+                function removeTask(i) {
+                  tasks = tasks.filter((_, idx) => idx !== i);
+                }
+              </script>
+            </template>
+          </code-block>
+
+          <div class="feature-demo-wrapper">
+            <div class="feature-demo accent-sky">
+              <list-sample></list-sample>
+            </div>
+          </div>
+        </div>
+      </div>
+    </lazy>
+
+    <!-- Feature Section: Cross-Component Communication -->
+    <lazy>
+      <div class="feature-row reverse accent-violet">
+        <div class="feature-copy">
+          <span class="feature-eyebrow">Cross-Component Comms</span>
+          <h3 class="feature-title">
+            Skip the prop drilling. <span class="highlight">Just send events.</span>
+          </h3>
+          <p class="feature-description">
+            Broadcast events from anywhere with <code>$emit</code>, and pick
+            them up with <code>$listen</code>. Siblings, cousins, deeply-nested
+            components — they all talk without touching a shared parent.
+          </p>
+          <ul class="feature-points">
+            <li>
+              <svg viewBox="0 0 20 20" fill="currentColor" aria-hidden="true">
+                <path fill-rule="evenodd"
+                  d="M16.704 4.153a.75.75 0 01.143 1.052l-8 10.5a.75.75 0 01-1.127.075l-4.5-4.5a.75.75 0 011.06-1.06l3.894 3.893 7.48-9.817a.75.75 0 011.05-.143z"
+                  clip-rule="evenodd" />
+              </svg>
+              <span><code>$emit(name, payload)</code> broadcasts to any listener</span>
+            </li>
+            <li>
+              <svg viewBox="0 0 20 20" fill="currentColor" aria-hidden="true">
+                <path fill-rule="evenodd"
+                  d="M16.704 4.153a.75.75 0 01.143 1.052l-8 10.5a.75.75 0 01-1.127.075l-4.5-4.5a.75.75 0 011.06-1.06l3.894 3.893 7.48-9.817a.75.75 0 011.05-.143z"
+                  clip-rule="evenodd" />
+              </svg>
+              <span><code>$listen(name, handler)</code> subscribes from anywhere in the tree</span>
+            </li>
+            <li>
+              <svg viewBox="0 0 20 20" fill="currentColor" aria-hidden="true">
+                <path fill-rule="evenodd"
+                  d="M16.704 4.153a.75.75 0 01.143 1.052l-8 10.5a.75.75 0 01-1.127.075l-4.5-4.5a.75.75 0 011.06-1.06l3.894 3.893 7.48-9.817a.75.75 0 011.05-.143z"
+                  clip-rule="evenodd" />
+              </svg>
+              <span>No stores, no context providers, no callback chains</span>
+            </li>
+          </ul>
+        </div>
+
+        <div class="feature-visual">
+          <!-- Tab switcher powered by $show -->
+          <div class="code-tabs">
+            <button onclick="activeFile = 'emit.html'" class="{activeFile === 'emit.html' ? 'active' : ''}">
+              emit.html
+            </button>
+            <button onclick="activeFile = 'listen.html'" class="{activeFile === 'listen.html' ? 'active' : ''}">
+              listen.html
+            </button>
+          </div>
+
+          <div $show="{activeFile === 'emit.html'}">
+            <code-block filename="emit.html">
+              <template>
+                <input $bind="message" type="text" placeholder="Type a message" />
+                <button onclick="sendMessage()">Send</button>
+
+                <script>
+                  let message = "";
+
+                  function sendMessage() {
+                    $emit("message-sent", message);
+                    message = "";
+                  }
+                </script>
+              </template>
+            </code-block>
+          </div>
+
+          <div $show="{activeFile === 'listen.html'}">
+            <code-block filename="listen.html">
+              <template>
+                <ul>
+                  <li $for="msg in messages">{msg}</li>
+                </ul>
+
+                <script>
+                  let messages = [];
+
+                  $listen("message-sent", (data) => {
+                    messages = [...messages, data];
+                  });
+                </script>
+              </template>
+            </code-block>
+          </div>
+
+          <div class="feature-demo-wrapper">
+            <div class="feature-demo accent-violet">
+              <div class="comm-stack">
+                <emit-sample></emit-sample>
+                <div class="flow-connector">$emit → $listen</div>
+                <listen-sample></listen-sample>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </lazy>
   </div>
 </section>
 
@@ -1017,13 +1028,13 @@
   import { registerComponents } from "ladrillosjs";
 
   await registerComponents([
-    { name: "code-block", path: "./code-block.html" },
-    { name: "counter-sample", path: "./samples/counter.html" },
-    { name: "form-sample", path: "./samples/form.html" },
-    { name: "ref-sample", path: "./samples/ref.html" },
-    { name: "flow-sample", path: "./samples/flow.html" },
-    { name: "list-sample", path: "./samples/loop.html" },
-    { name: "emit-sample", path: "./samples/emit.html" },
-    { name: "listen-sample", path: "./samples/listen.html" },
+    { name: "code-block", path: "./code-block.html", },
+    { name: "counter-sample", path: "./samples/counter.html", },
+    { name: "form-sample", path: "./samples/form.html", },
+    { name: "ref-sample", path: "./samples/ref.html", },
+    { name: "flow-sample", path: "./samples/flow.html", },
+    { name: "list-sample", path: "./samples/loop.html", },
+    { name: "emit-sample", path: "./samples/emit.html", },
+    { name: "listen-sample", path: "./samples/listen.html", },
   ]);
 </script>
