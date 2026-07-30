@@ -548,7 +548,7 @@
             <span class="highlight">Reactive by default.</span>
           </h3>
           <p class="feature-description">
-            Bind any JavaScript expression with <code>{curly braces}</code>.
+            Bind any JavaScript expression with <code $no:bind>{curly braces}</code>.
             When state changes, the DOM updates automatically — no virtual DOM,
             no diffing ceremony, no build step.
           </p>
@@ -559,7 +559,7 @@
                   d="M16.704 4.153a.75.75 0 01.143 1.052l-8 10.5a.75.75 0 01-1.127.075l-4.5-4.5a.75.75 0 011.06-1.06l3.894 3.893 7.48-9.817a.75.75 0 011.05-.143z"
                   clip-rule="evenodd" />
               </svg>
-              <span>Plain <code>{expression}</code> interpolation — no directives to memorize</span>
+              <span>Plain <code $no:bind>{expression}</code> interpolation — no directives to memorize</span>
             </li>
             <li>
               <svg viewBox="0 0 20 20" fill="currentColor" aria-hidden="true">
@@ -1025,19 +1025,4 @@
 
 <script>
   let activeFile = "emit.html";
-</script>
-
-<script type="module">
-  import { registerComponents } from "ladrillosjs";
-
-  await registerComponents([
-    { name: "code-block", path: "./code-block.html", },
-    { name: "counter-sample", path: "./samples/counter.html", },
-    { name: "form-sample", path: "./samples/form.html", },
-    { name: "ref-sample", path: "./samples/ref.html", },
-    { name: "flow-sample", path: "./samples/flow.html", },
-    { name: "list-sample", path: "./samples/loop.html", },
-    { name: "emit-sample", path: "./samples/emit.html", },
-    { name: "listen-sample", path: "./samples/listen.html", },
-  ]);
 </script>

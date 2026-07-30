@@ -4,6 +4,18 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <!-- No 'unsafe-eval': @ladrillosjs/vite-plugin precompiles every component at build time.
+       cdnjs is allowed because code-block.html loads highlight.js from it; the framework
+       fetches external stylesheets, so cdnjs must be in connect-src too. -->
+  <meta http-equiv="Content-Security-Policy" content="default-src 'self';
+    script-src 'self' https://cdnjs.cloudflare.com;
+    style-src 'self' 'unsafe-inline' https://cdnjs.cloudflare.com;
+    img-src 'self' data:;
+    font-src 'self';
+    connect-src 'self' https://cdnjs.cloudflare.com;
+    base-uri 'none';
+    object-src 'none';
+    form-action 'none'" />
   <title>LadrillosJS</title>
 
   <!-- Inline critical CSS for hero section -->
@@ -14,9 +26,9 @@
     }
   </style>
 
-  <script type="module" crossorigin src="/ladrillosjs-site/assets/main-DO2JAkKB.js"></script>
-  <link rel="modulepreload" crossorigin href="/ladrillosjs-site/assets/shared-CMbR-Hhy-DOOpY6Tg.js">
-  <link rel="stylesheet" crossorigin href="/ladrillosjs-site/assets/shared-CMbR-Hhy-DbL64p8V.css">
+  <script type="module" crossorigin src="/ladrillosjs-site/assets/main-DZ8BOwom.js"></script>
+  <link rel="modulepreload" crossorigin href="/ladrillosjs-site/assets/counter-CPJN52Wh.js">
+  <link rel="stylesheet" crossorigin href="/ladrillosjs-site/assets/counter-DbL64p8V.css">
 </head>
 
 <body class="loading">
