@@ -16,6 +16,6 @@
     "vite": "^7.1.9"
   },
   "dependencies": {
-    "ladrillosjs": "^2.1.2"
+    "ladrillosjs": "^2.1.3"
   }
 }
