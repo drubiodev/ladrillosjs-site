@@ -4,6 +4,17 @@
 <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <!-- No 'unsafe-eval': @ladrillosjs/vite-plugin precompiles every component at build time.
+         cdnjs is allowed because code-block.html loads highlight.js from it. -->
+    <meta http-equiv="Content-Security-Policy" content="default-src 'self';
+        script-src 'self' https://cdnjs.cloudflare.com;
+        style-src 'self' 'unsafe-inline' https://cdnjs.cloudflare.com;
+        img-src 'self' data:;
+        font-src 'self';
+        connect-src 'self' https://cdnjs.cloudflare.com;
+        base-uri 'none';
+        object-src 'none';
+        form-action 'none'" />
     <title>Getting Started · LadrillosJS</title>
     <meta name="description"
         content="Get started with LadrillosJS v2 — a lightweight, zero-dependency web component framework. Build reactive UIs with plain HTML files." />
@@ -425,21 +436,20 @@
     </style>
 
     <script type="module">
-        import { registerComponents } from "ladrillosjs";
+        import { registerComponents } from "ladrillosjs/csp";
 
         await registerComponents([
             { name: "site-header", path: "./components/site-header.html" },
             { name: "install-section", path: "./components/install.html" },
             { name: "code-block", path: "./components/code-block.html" },
+            // Not lazy: lazy registrations compile in the browser, which the page CSP forbids.
             {
                 name: "footer-section",
                 path: "./components/footer-section.html",
-                lazy: true,
             },
             {
                 name: "counter-sample",
                 path: "./components/samples/counter.html",
-                lazy: true,
             },
         ]);
         document.body.classList.remove("loading");

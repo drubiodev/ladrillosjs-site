@@ -4,6 +4,18 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <!-- No 'unsafe-eval': @ladrillosjs/vite-plugin precompiles every component at build time.
+       cdnjs is allowed because code-block.html loads highlight.js from it; the framework
+       fetches external stylesheets, so cdnjs must be in connect-src too. -->
+  <meta http-equiv="Content-Security-Policy" content="default-src 'self';
+    script-src 'self' https://cdnjs.cloudflare.com;
+    style-src 'self' 'unsafe-inline' https://cdnjs.cloudflare.com;
+    img-src 'self' data:;
+    font-src 'self';
+    connect-src 'self' https://cdnjs.cloudflare.com;
+    base-uri 'none';
+    object-src 'none';
+    form-action 'none'" />
   <title>LadrillosJS</title>
   <link rel="stylesheet" href="./styles/site.css" />
 
@@ -16,15 +28,25 @@
   </style>
 
   <script type="module">
-    import * as ladrillosjs from "ladrillosjs";
+    import { registerComponents } from "ladrillosjs/csp";
 
-    await ladrillosjs.registerComponents([
+    await registerComponents([
       // Eager: Above-the-fold & interactive
       { name: "site-header", path: "./components/site-header.html" },
       { name: "hero-section", path: "./components/hero-section.html" },
       { name: "install-section", path: "./components/install.html" },
       { name: "feature-section", path: "./components/feature-section.html", },
       { name: "footer-section", path: "./components/footer-section.html", },
+      // Used inside feature-section. Registered here because a bare specifier
+      // like "ladrillosjs" cannot be resolved from a component's module script.
+      { name: "code-block", path: "./components/code-block.html" },
+      { name: "counter-sample", path: "./components/samples/counter.html" },
+      { name: "form-sample", path: "./components/samples/form.html" },
+      { name: "ref-sample", path: "./components/samples/ref.html" },
+      { name: "flow-sample", path: "./components/samples/flow.html" },
+      { name: "list-sample", path: "./components/samples/loop.html" },
+      { name: "emit-sample", path: "./components/samples/emit.html" },
+      { name: "listen-sample", path: "./components/samples/listen.html" },
     ]);
     document.body.classList.remove("loading");
   </script>
