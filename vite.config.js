@@ -59,7 +59,7 @@ const copyStaticAssetsPlugin = {
 };
 
 export default defineConfig({
-  plugins: [ladrillos({ strict: true }), copyStaticAssetsPlugin],
+  plugins: [ladrillos({ strict: true, dev: true }), copyStaticAssetsPlugin],
   base: "/ladrillosjs-site/",
   build: {
     rollupOptions: {

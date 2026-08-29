@@ -161,6 +161,19 @@
         height: 14px;
     }
 
+    .playground-link {
+        color: var(--primary);
+        font-size: 0.875rem;
+        font-weight: 600;
+        text-decoration: none;
+        transition: color 0.2s ease;
+    }
+
+    .playground-link:hover {
+        color: var(--primary-dark);
+        text-decoration: none;
+    }
+
     /* Responsive */
     @media (max-width: 768px) {
         .install-picker {
@@ -230,6 +243,8 @@
                 </button>
             </div>
         </show>
+        <a class="playground-link" href="https://drubiodev.github.io/ladrillosjs-playground/" target="_blank"
+            rel="noopener">Skip setup and open the Playground →</a>
     </div>
 </div>
 
