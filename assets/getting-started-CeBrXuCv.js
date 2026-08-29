@@ -1,0 +1,1 @@
+import{d as e,a,b as d,c as i,e as s}from"./_ladrillos-artifact__2FUsers_2Fdanielrubio_2FRepos_2Fladrillosjs-site_2Fcomponents_2Fsamples_2Fcounter--xorFYGR.js";await(e(),a(),d(),i(),s(),{});document.body.classList.remove("loading");

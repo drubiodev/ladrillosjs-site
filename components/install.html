@@ -161,6 +161,19 @@
         height: 14px;
     }
 
+    .playground-link {
+        color: var(--primary);
+        font-size: 0.875rem;
+        font-weight: 600;
+        text-decoration: none;
+        transition: color 0.2s ease;
+    }
+
+    .playground-link:hover {
+        color: var(--primary-dark);
+        text-decoration: none;
+    }
+
     /* Responsive */
     @media (max-width: 768px) {
         .install-picker {
@@ -218,7 +231,7 @@
             <div class="install-box">
                 <code>&lt;<span class="tag">script</span>
                   <span class="attr">src</span>=<span class="string"
-                    >"https://unpkg.com/ladrillosjs@2.0.0/dist/index.js"</span
+                    >"{commands.cdn}"</span
                   >&gt;&lt;/<span class="tag">script</span>&gt;</code>
                 <button class="copy-btn" onclick="copyCommand('cdn')" $ref="cdnCopyBtn">
                     <svg fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -230,13 +243,15 @@
                 </button>
             </div>
         </show>
+        <a class="playground-link" href="https://drubiodev.github.io/ladrillosjs-playground/" target="_blank"
+            rel="noopener">Skip setup and open the Playground →</a>
     </div>
 </div>
 
 <script>
     const commands = {
         npm: "npm install ladrillosjs",
-        cdn: '<script src="https://cdn.jsdelivr.net/npm/ladrillosjs"><\/script>',
+        cdn: '<script src="https://unpkg.com/ladrillosjs@2.1.3/dist/index.js"><\/script>',
     };
     let tab = 'npm';
 

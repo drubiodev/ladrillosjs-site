@@ -1,4 +1,4 @@
-import{p,w as m,d as g,a as h,c as b,b as v,e as x}from"./counter-CPJN52Wh.js";const w={tagName:"hero-section",template:`<section class="hero">\r
+import{p,w as m,d as g,a as h,c as b,b as v,e as x}from"./_ladrillos-artifact__2FUsers_2Fdanielrubio_2FRepos_2Fladrillosjs-site_2Fcomponents_2Fsamples_2Fcounter--xorFYGR.js";const w={tagName:"hero-section",template:`<section class="hero">\r
   <div class="hero-card">\r
     <div class="hero-inner">\r
       <!-- Brick stacking animation - SVG Isometric (matches logo: 2 bottom + 1 top) -->\r
