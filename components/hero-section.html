@@ -145,7 +145,20 @@
   }
 
   .hero-subtitle {
-    display: none;
+    max-width: 42ch;
+    margin-bottom: 2rem;
+    color: var(--text-secondary);
+    font-size: 1.125rem;
+    line-height: 1.6;
+  }
+
+  .hero-tutorial-link {
+    display: inline-block;
+    margin-top: 1rem;
+    color: var(--primary-dark);
+    font-size: 0.875rem;
+    font-weight: 600;
+    text-underline-offset: 3px;
   }
 
   .hero-actions {
@@ -261,9 +274,9 @@
           Zero dependencies. <span>Pure JavaScript.</span>
         </p>
         <h1 class="hero-title">
-          Build Better,<br />
-          Build Simpler
+          LadrillosJS
         </h1>
+        <p class="hero-subtitle">Build reactive web components with plain HTML, CSS, and JavaScript.</p>
 
         <install-section></install-section>
       </div>
