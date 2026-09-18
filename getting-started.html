@@ -7,11 +7,11 @@
     <!-- No 'unsafe-eval': @ladrillosjs/vite-plugin precompiles every component at build time.
          cdnjs is allowed because code-block.html loads highlight.js from it. -->
     <meta http-equiv="Content-Security-Policy" content="default-src 'self';
-        script-src 'self' https://cdnjs.cloudflare.com;
+        script-src 'self' https://cdnjs.cloudflare.com https://*.clarity.ms;
         style-src 'self' 'unsafe-inline' https://cdnjs.cloudflare.com;
-        img-src 'self' data:;
+        img-src 'self' data: https://*.clarity.ms https://c.bing.com;
         font-src 'self';
-        connect-src 'self' https://cdnjs.cloudflare.com;
+        connect-src 'self' https://cdnjs.cloudflare.com https://*.clarity.ms https://c.bing.com;
         base-uri 'none';
         object-src 'none';
         form-action 'none'" />
@@ -436,6 +436,7 @@
     </style>
 
     <script type="module">
+        import "./clarity.js";
         import { registerComponents } from "ladrillosjs/csp";
 
         await registerComponents([
