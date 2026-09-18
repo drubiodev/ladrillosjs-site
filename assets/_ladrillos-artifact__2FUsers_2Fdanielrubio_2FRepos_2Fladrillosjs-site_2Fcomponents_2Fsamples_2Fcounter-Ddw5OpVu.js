@@ -1,4 +1,4 @@
-import{p as h,w as g}from"./clarity-MjDEtXiw.js";const f={tagName:"install-section",template:`<div class="hero-actions">
+import{p as h,w as g}from"./clarity-Bsl3QzF0.js";const f={tagName:"install-section",template:`<div class="hero-actions">
     <div class="install-picker">
         <div class="install-tabs">
             <button class="tab-btn {tab === 'npm' ? 'active' : ''}" onclick="tab = 'npm'">

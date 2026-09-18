@@ -17,7 +17,53 @@
     base-uri 'none';
     object-src 'none';
     form-action 'none'" />
-  <title>LadrillosJS</title>
+  <title>LadrillosJS | Reactive Web Components in Plain HTML</title>
+  <meta name="description"
+    content="Build reactive web components with plain HTML, CSS, and JavaScript. LadrillosJS is a zero-dependency framework with data binding, events, and reusable components." />
+  <link rel="canonical" href="https://drubiodev.github.io/ladrillosjs-site/" />
+  <meta property="og:type" content="website" />
+  <meta property="og:site_name" content="LadrillosJS" />
+  <meta property="og:locale" content="en_US" />
+  <meta property="og:url" content="https://drubiodev.github.io/ladrillosjs-site/" />
+  <meta property="og:title" content="LadrillosJS | Reactive Web Components in Plain HTML" />
+  <meta property="og:description"
+    content="Build reactive web components with plain HTML, CSS, and JavaScript. Zero dependencies, reactive data binding, and reusable components." />
+  <meta name="twitter:card" content="summary" />
+  <meta name="twitter:title" content="LadrillosJS | Reactive Web Components in Plain HTML" />
+  <meta name="twitter:description"
+    content="Build reactive web components with plain HTML, CSS, and JavaScript. Zero dependencies, reactive data binding, and reusable components." />
+  <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@graph": [
+        {
+          "@type": "WebSite",
+          "@id": "https://drubiodev.github.io/ladrillosjs-site/#website",
+          "url": "https://drubiodev.github.io/ladrillosjs-site/",
+          "name": "LadrillosJS",
+          "inLanguage": "en",
+          "about": { "@id": "https://drubiodev.github.io/ladrillosjs-site/#project" }
+        },
+        {
+          "@type": "SoftwareSourceCode",
+          "@id": "https://drubiodev.github.io/ladrillosjs-site/#project",
+          "name": "LadrillosJS",
+          "description": "A zero-dependency JavaScript framework for building reactive web components with plain HTML, CSS, and JavaScript.",
+          "url": "https://drubiodev.github.io/ladrillosjs-site/",
+          "codeRepository": "https://github.com/drubiodev/LadrillosJS",
+          "programmingLanguage": ["JavaScript", "HTML", "CSS"],
+          "runtimePlatform": "Web browser",
+          "license": "https://github.com/drubiodev/LadrillosJS/blob/main/LICENSE",
+          "author": {
+            "@type": "Person",
+            "name": "Daniel Rubio",
+            "url": "https://github.com/drubiodev"
+          },
+          "sameAs": ["https://www.npmjs.com/package/ladrillosjs"]
+        }
+      ]
+    }
+  </script>
 
   <!-- Inline critical CSS for hero section -->
   <style>
@@ -27,18 +73,35 @@
     }
   </style>
 
-  <script type="module" crossorigin src="/ladrillosjs-site/assets/main-CeauxNCV.js"></script>
-  <link rel="modulepreload" crossorigin href="/ladrillosjs-site/assets/clarity-MjDEtXiw.js">
-  <link rel="modulepreload" crossorigin href="/ladrillosjs-site/assets/_ladrillos-artifact__2FUsers_2Fdanielrubio_2FRepos_2Fladrillosjs-site_2Fcomponents_2Fsamples_2Fcounter-CJmO4Lun.js">
-  <link rel="stylesheet" crossorigin href="/ladrillosjs-site/assets/clarity-DbL64p8V.css">
+  <script type="module" crossorigin src="/ladrillosjs-site/assets/main-C-mhnbIy.js"></script>
+  <link rel="modulepreload" crossorigin href="/ladrillosjs-site/assets/clarity-Bsl3QzF0.js">
+  <link rel="modulepreload" crossorigin href="/ladrillosjs-site/assets/_ladrillos-artifact__2FUsers_2Fdanielrubio_2FRepos_2Fladrillosjs-site_2Fcomponents_2Fsamples_2Fcounter-Ddw5OpVu.js">
+  <link rel="stylesheet" crossorigin href="/ladrillosjs-site/assets/clarity-CHLMlVLL.css">
 </head>
 
-<body class="loading">
+<body>
   <site-header version="v2"></site-header>
-  <hero-section></hero-section>
-  <div id="features">
-    <feature-section></feature-section>
-  </div>
+  <main>
+    <hero-section>
+      <section class="hero static-intro">
+        <div class="container">
+          <h1>LadrillosJS</h1>
+          <p>Build reactive web components with plain HTML, CSS, and JavaScript.</p>
+          <p>A zero-dependency framework with reactive state, two-way data binding,
+            conditional rendering, lists, and events between components.</p>
+          <p><code>npm install ladrillosjs</code></p>
+          <nav aria-label="LadrillosJS resources">
+            <a href="./getting-started.html">Build your first web component</a>
+            <a href="https://github.com/drubiodev/LadrillosJS/tree/main/docs">Read the documentation</a>
+            <a href="https://drubiodev.github.io/ladrillosjs-playground/">Try the playground</a>
+          </nav>
+        </div>
+      </section>
+    </hero-section>
+    <div id="features">
+      <feature-section></feature-section>
+    </div>
+  </main>
   <footer-section></footer-section>
   <cookie-consent></cookie-consent>
 </body>

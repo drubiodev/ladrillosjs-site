@@ -1,4 +1,4 @@
-import{p,w as m,d as g,a as h,b}from"./clarity-MjDEtXiw.js";import{d as v,a as x,b as w}from"./_ladrillos-artifact__2FUsers_2Fdanielrubio_2FRepos_2Fladrillosjs-site_2Fcomponents_2Fsamples_2Fcounter-CJmO4Lun.js";const k={tagName:"hero-section",template:`<section class="hero">\r
+import{p,w as m,d as g,a as h,b}from"./clarity-Bsl3QzF0.js";import{d as v,a as x,b as w}from"./_ladrillos-artifact__2FUsers_2Fdanielrubio_2FRepos_2Fladrillosjs-site_2Fcomponents_2Fsamples_2Fcounter-Ddw5OpVu.js";const k={tagName:"hero-section",template:`<section class="hero">\r
   <div class="hero-card">\r
     <div class="hero-inner">\r
       <!-- Brick stacking animation - SVG Isometric (matches logo: 2 bottom + 1 top) -->\r
@@ -53,9 +53,9 @@ import{p,w as m,d as g,a as h,b}from"./clarity-MjDEtXiw.js";import{d as v,a as x
           Zero dependencies. <span>Pure JavaScript.</span>\r
         </p>\r
         <h1 class="hero-title">\r
-          Build Better,<br>\r
-          Build Simpler\r
+          LadrillosJS\r
         </h1>\r
+        <p class="hero-subtitle">Build reactive web components with plain HTML, CSS, and JavaScript.</p>\r
 \r
         <install-section></install-section>\r
       </div>\r
@@ -207,7 +207,20 @@ import{p,w as m,d as g,a as h,b}from"./clarity-MjDEtXiw.js";import{d as v,a as x
   }\r
 \r
   .hero-subtitle {\r
-    display: none;\r
+    max-width: 42ch;\r
+    margin-bottom: 2rem;\r
+    color: var(--text-secondary);\r
+    font-size: 1.125rem;\r
+    line-height: 1.6;\r
+  }\r
+\r
+  .hero-tutorial-link {\r
+    display: inline-block;\r
+    margin-top: 1rem;\r
+    color: var(--primary-dark);\r
+    font-size: 0.875rem;\r
+    font-weight: 600;\r
+    text-underline-offset: 3px;\r
   }\r
 \r
   .hero-actions {\r
@@ -1336,7 +1349,7 @@ import{p,w as m,d as g,a as h,b}from"./clarity-MjDEtXiw.js";import{d as v,a as x
     gap: 0.4rem;\r
     width: 100%;\r
     align-items: stretch;\r
-  }`,sourcePath:"components/samples/form.html",templateBindings:["name","email","subscribe"]};p({evaluators:{name:{deps:["name"],fn:n=>n},email:{deps:["email"],fn:n=>n},subscribe:{deps:["subscribe"],fn:n=>n}},handlers:{},setups:{'state:let name = "World";\r\n  let email = "";\r\n  let subscribe = false;':{deps:["__state__","$host","$refs","registerComponent","registerComponents","$use","$emit","$listen"],fn:(n,a,t,i,d,c,o,e)=>{n.name??="World",n.email??="",n.subscribe??=!1}}}});function B(n){m(z,n)}const T={tagName:"ref-sample",template:`<div class="ref-demo">\r
+  }`,sourcePath:"components/samples/form.html",templateBindings:["name","email","subscribe"]};p({evaluators:{name:{deps:["name"],fn:n=>n},email:{deps:["email"],fn:n=>n},subscribe:{deps:["subscribe"],fn:n=>n}},handlers:{},setups:{'state:let name = "World";\r\n  let email = "";\r\n  let subscribe = false;':{deps:["__state__","$host","$refs","registerComponent","registerComponents","$use","$emit","$listen"],fn:(n,a,t,i,d,c,o,e)=>{n.name??="World",n.email??="",n.subscribe??=!1}}}});function S(n){m(z,n)}const T={tagName:"ref-sample",template:`<div class="ref-demo">\r
   <input type="text" $ref="inputEl" placeholder="Click the button to focus me">\r
   <button onclick="focusInput()">\r
     <svg viewBox="0 0 20 20" fill="currentColor" aria-hidden="true">\r
@@ -1409,7 +1422,7 @@ import{p,w as m,d as g,a as h,b}from"./clarity-MjDEtXiw.js";import{d as v,a as x
   .ref-demo button svg {\r
     width: 16px;\r
     height: 16px;\r
-  }`,sourcePath:"components/samples/ref.html",templateBindings:[]};p({evaluators:{},handlers:{"handler:focusInput()":{deps:["__state__","$refs","$host","event","registerComponent","registerComponents","$use","$emit","$listen"],fn:(n,a,t,i,d,c,o,e,s)=>{function l(){a.inputEl.focus(),a.inputEl.select()}l()}}},setups:{"state:function focusInput() {\r\n    $refs.inputEl.focus();\r\n    $refs.inputEl.select();\r\n  }":{deps:["__state__","$host","$refs","registerComponent","registerComponents","$use","$emit","$listen"],fn:(n,a,t,i,d,c,o,e)=>{function s(){t.inputEl.focus(),t.inputEl.select()}n.focusInput??=s}}}});function S(n){m(T,n)}const M={tagName:"flow-sample",template:`<div class="flow-demo">
+  }`,sourcePath:"components/samples/ref.html",templateBindings:[]};p({evaluators:{},handlers:{"handler:focusInput()":{deps:["__state__","$refs","$host","event","registerComponent","registerComponents","$use","$emit","$listen"],fn:(n,a,t,i,d,c,o,e,s)=>{function l(){a.inputEl.focus(),a.inputEl.select()}l()}}},setups:{"state:function focusInput() {\r\n    $refs.inputEl.focus();\r\n    $refs.inputEl.select();\r\n  }":{deps:["__state__","$host","$refs","registerComponent","registerComponents","$use","$emit","$listen"],fn:(n,a,t,i,d,c,o,e)=>{function s(){t.inputEl.focus(),t.inputEl.select()}n.focusInput??=s}}}});function B(n){m(T,n)}const M={tagName:"flow-sample",template:`<div class="flow-demo">
     <select $bind="status">
         <option value="">Select a deploy status…</option>
         <option value="loading">Deploying</option>
@@ -1858,7 +1871,7 @@ import{p,w as m,d as g,a as h,b}from"./clarity-MjDEtXiw.js";import{d as v,a as x
     .emit-card button svg {
         width: 14px;
         height: 14px;
-    }`,sourcePath:"components/samples/emit.html",templateBindings:[]};p({evaluators:{message:{deps:["message"],fn:n=>n}},handlers:{"handler:if (event.key === 'Enter') sendMessage()":{deps:["__state__","$refs","$host","event","registerComponent","registerComponents","$use","$emit","$listen"],fn:(n,a,t,i,d,c,o,e,s)=>{function l(){const r=n.message.trim();r&&(e("message-sent",r),n.message="")}i.key==="Enter"&&l()}},"handler:sendMessage()":{deps:["__state__","$refs","$host","event","registerComponent","registerComponents","$use","$emit","$listen"],fn:(n,a,t,i,d,c,o,e,s)=>{function l(){const r=n.message.trim();r&&(e("message-sent",r),n.message="")}l()}}},setups:{'state:let message = "";\n\n    function sendMessage() {\n        const text = message.trim();\n        if (!text) return;\n        $emit("message-sent", text);\n        message = "";\n    }':{deps:["__state__","$host","$refs","registerComponent","registerComponents","$use","$emit","$listen"],fn:(n,a,t,i,d,c,o,e)=>{n.message??="";function s(){const l=n.message.trim();l&&(o("message-sent",l),n.message="")}n.sendMessage??=s}}}});function I(n){m(D,n)}const A={tagName:"listen-sample",template:`<div class="listen-card">
+    }`,sourcePath:"components/samples/emit.html",templateBindings:[]};p({evaluators:{message:{deps:["message"],fn:n=>n}},handlers:{"handler:if (event.key === 'Enter') sendMessage()":{deps:["__state__","$refs","$host","event","registerComponent","registerComponents","$use","$emit","$listen"],fn:(n,a,t,i,d,c,o,e,s)=>{function l(){const r=n.message.trim();r&&(e("message-sent",r),n.message="")}i.key==="Enter"&&l()}},"handler:sendMessage()":{deps:["__state__","$refs","$host","event","registerComponent","registerComponents","$use","$emit","$listen"],fn:(n,a,t,i,d,c,o,e,s)=>{function l(){const r=n.message.trim();r&&(e("message-sent",r),n.message="")}l()}}},setups:{'state:let message = "";\n\n    function sendMessage() {\n        const text = message.trim();\n        if (!text) return;\n        $emit("message-sent", text);\n        message = "";\n    }':{deps:["__state__","$host","$refs","registerComponent","registerComponents","$use","$emit","$listen"],fn:(n,a,t,i,d,c,o,e)=>{n.message??="";function s(){const l=n.message.trim();l&&(o("message-sent",l),n.message="")}n.sendMessage??=s}}}});function I(n){m(D,n)}const L={tagName:"listen-sample",template:`<div class="listen-card">
     <div class="label">
         <span class="count">{messages.length} received</span>
     </div>
@@ -1994,4 +2007,4 @@ import{p,w as m,d as g,a as h,b}from"./clarity-MjDEtXiw.js";import{d as v,a as x
             opacity: 0.7;
             box-shadow: 0 0 0 4px rgba(139, 92, 246, 0);
         }
-    }`,sourcePath:"components/samples/listen.html",templateBindings:["messages"]};p({evaluators:{messages:{deps:["messages"],fn:n=>n},"messages.length === 0":{deps:["messages"],fn:n=>n.length===0},"messages.length":{deps:["messages"],fn:n=>n.length},msg:{deps:["msg"],fn:n=>n}},handlers:{},setups:{'state:let messages = [];\n\n    $listen("message-sent", (data) => {\n        messages = [...messages, data];\n    });':{deps:["__state__","$host","$refs","registerComponent","registerComponents","$use","$emit","$listen"],fn:(n,a,t,i,d,c,o,e)=>{n.messages??=[],e("message-sent",s=>{n.messages=[...n.messages,s]})}}}});function L(n){m(A,n)}await(g(),y(),v(),C(),h(),b(),x(),w(),B(),S(),F(),R(),I(),L(),{});document.body.classList.remove("loading");
+    }`,sourcePath:"components/samples/listen.html",templateBindings:["messages"]};p({evaluators:{messages:{deps:["messages"],fn:n=>n},"messages.length === 0":{deps:["messages"],fn:n=>n.length===0},"messages.length":{deps:["messages"],fn:n=>n.length},msg:{deps:["msg"],fn:n=>n}},handlers:{},setups:{'state:let messages = [];\n\n    $listen("message-sent", (data) => {\n        messages = [...messages, data];\n    });':{deps:["__state__","$host","$refs","registerComponent","registerComponents","$use","$emit","$listen"],fn:(n,a,t,i,d,c,o,e)=>{n.messages??=[],e("message-sent",s=>{n.messages=[...n.messages,s]})}}}});function A(n){m(L,n)}await(g(),y(),v(),C(),h(),b(),x(),w(),S(),B(),F(),R(),I(),A(),{});document.querySelector(".static-intro")?.remove();
