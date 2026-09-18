@@ -13,6 +13,7 @@
     img-src 'self' data: https://*.clarity.ms https://c.bing.com;
     font-src 'self';
     connect-src 'self' https://cdnjs.cloudflare.com https://*.clarity.ms https://c.bing.com;
+    worker-src 'self' blob:;
     base-uri 'none';
     object-src 'none';
     form-action 'none'" />
@@ -38,6 +39,7 @@
       { name: "install-section", path: "./components/install.html" },
       { name: "feature-section", path: "./components/feature-section.html", },
       { name: "footer-section", path: "./components/footer-section.html", },
+      { name: "cookie-consent", path: "./components/cookie-consent.html" },
       // Used inside feature-section. Registered here because a bare specifier
       // like "ladrillosjs" cannot be resolved from a component's module script.
       { name: "code-block", path: "./components/code-block.html" },
@@ -56,8 +58,11 @@
 <body class="loading">
   <site-header version="v2"></site-header>
   <hero-section></hero-section>
-  <feature-section id="features"></feature-section>
+  <div id="features">
+    <feature-section></feature-section>
+  </div>
   <footer-section></footer-section>
+  <cookie-consent></cookie-consent>
 </body>
 
 </html>

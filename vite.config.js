@@ -66,6 +66,7 @@ export default defineConfig({
       input: {
         main: resolve(process.cwd(), "index.html"),
         "getting-started": resolve(process.cwd(), "getting-started.html"),
+        privacy: resolve(process.cwd(), "privacy.html"),
       },
     },
   },
