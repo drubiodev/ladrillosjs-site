@@ -8,28 +8,32 @@
 }
 
 :root {
-  --primary: #ff6b35;
-  --primary-dark: #e85a2a;
-  --primary-light: #ff8c5f;
-  --secondary: #f7931e;
+  --primary: #ff6947;
+  --primary-dark: #e84f2d;
+  --primary-light: #ff8a6f;
+  --secondary: #ffb29f;
 
   /* Light theme backgrounds */
-  --bg-main: #ffffff;
-  --bg-subtle: #f8fafc;
-  --bg-card: #ffffff;
-  --bg-code: #1e293b;
+  --bg-main: #f4f0eb;
+  --bg-subtle: #ebe5de;
+  --bg-card: #fbf8f4;
+  --bg-code: #161617;
+  --bg-dark: #161617;
+  --bg-darker: #111112;
 
   /* Text colors for light theme */
-  --text-primary: #232323;
-  --text-secondary: #6b7280;
-  --text-muted: #9ca3af;
+  --text-primary: #1f1c1b;
+  --text-secondary: #706a67;
+  --text-muted: #9a928d;
 
   /* Borders */
-  --border: #e5e7eb;
-  --border-light: #f3f4f6;
+  --border: rgba(31, 28, 27, 0.14);
+  --border-light: rgba(31, 28, 27, 0.08);
 
-  --gradient-bar: linear-gradient(90deg, #ff8c5f 0%, #ff6b35 50%, #f7931e 100%);
-  --gradient-accent: linear-gradient(135deg, #ff6b35 0%, #f7931e 100%);
+  --gradient-bar: linear-gradient(90deg, #ff9278 0%, #ff6947 55%, #ee4d2d 100%);
+  --gradient-accent: linear-gradient(135deg, #ff8a6f 0%, #ff6947 100%);
+  --ease-out: cubic-bezier(0.22, 1, 0.36, 1);
+  --shadow-soft: 0 30px 80px rgba(58, 36, 28, 0.12);
 
   /* Spacing */
   --container-max: 1100px;
@@ -63,16 +67,22 @@ body {
   -moz-osx-font-smoothing: grayscale;
 }
 
-body::before {
+body::after {
   content: "";
-  display: block;
-  height: 6px;
-  background: var(--gradient-bar);
   position: fixed;
-  top: 0;
-  left: 0;
-  right: 0;
-  z-index: 1000;
+  inset: 0;
+  z-index: -1;
+  pointer-events: none;
+  background-image:
+    linear-gradient(rgba(31, 28, 27, 0.035) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(31, 28, 27, 0.035) 1px, transparent 1px);
+  background-size: 96px 96px;
+  mask-image: linear-gradient(to bottom, #000 0%, transparent 95%);
+}
+
+::selection {
+  color: #fff;
+  background: var(--primary);
 }
 
 /* Container */
@@ -136,7 +146,7 @@ pre {
   background: var(--bg-code);
   color: #e2e8f0;
   padding: 1.5rem;
-  border-radius: 8px;
+  border-radius: 2px;
   overflow-x: auto;
 }
 
@@ -145,11 +155,15 @@ pre {
   align-items: center;
   gap: 0.5rem;
   padding: 0.75rem 1.5rem;
-  border-radius: 6px;
+  border-radius: 2px;
   font-weight: 500;
   font-size: 1rem;
   text-decoration: none;
-  transition: all 0.2s ease;
+  transition:
+    transform 0.35s var(--ease-out),
+    color 0.2s ease,
+    background 0.2s ease,
+    border-color 0.2s ease;
   border: none;
   cursor: pointer;
 }
@@ -162,7 +176,7 @@ pre {
 .btn-primary:hover {
   background: var(--primary-dark);
   text-decoration: none;
-  transform: translateY(-1px);
+  transform: translateY(-3px);
 }
 
 .btn-secondary {
@@ -204,6 +218,20 @@ pre {
 body {
   opacity: 1;
   transition: opacity 0.3s ease;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
 }
 
 /* Better tap targets on touch devices */

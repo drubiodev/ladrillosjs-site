@@ -10,7 +10,7 @@
   .hero-card {
     box-shadow: 1px 1px #eee;
     background: white;
-    border-radius: 24px;
+    border-radius: 0;
     width: 100%;
     margin: 0 auto;
     min-height: calc(100vh - 8rem);
@@ -183,7 +183,7 @@
       justify-content: center;
       padding: 7rem 1.5rem 4rem;
       min-height: auto;
-      border-radius: 20px;
+      border-radius: 0;
     }
 
     .hero-container {
@@ -203,7 +203,7 @@
   @media (max-width: 480px) {
     .hero-card {
       padding: 6rem 1.25rem 3rem;
-      border-radius: 16px;
+      border-radius: 0;
     }
 
     .hero-title {
@@ -214,6 +214,174 @@
     .hero-tagline {
       font-size: 0.85rem;
       margin-bottom: 1rem;
+    }
+  }
+
+  /* Commercial-inspired art direction */
+  .hero {
+    padding: 0;
+    background: transparent;
+  }
+
+  .hero-card {
+    min-height: 100dvh;
+    padding: 9.5rem 4rem 5rem;
+    border: none;
+    border-radius: 0;
+    background:
+      linear-gradient(rgba(31, 28, 27, 0.035) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(31, 28, 27, 0.035) 1px, transparent 1px),
+      radial-gradient(circle at 72% 44%, rgba(255, 105, 71, 0.16), transparent 30%),
+      var(--bg-card);
+    background-size: 92px 92px, 92px 92px, 100% 100%, 100% 100%;
+    box-shadow: var(--shadow-soft);
+  }
+
+  .hero-card::before,
+  .hero-card::after {
+    content: "";
+    position: absolute;
+    width: 52px;
+    height: 22px;
+    border: 1px solid rgba(255, 105, 71, 0.32);
+    border-radius: 0;
+    pointer-events: none;
+  }
+
+  .hero-card::before {
+    top: 20%;
+    left: 46%;
+    transform: rotate(14deg);
+    animation: floatBrick 8s ease-in-out infinite;
+  }
+
+  .hero-card::after {
+    right: 8%;
+    bottom: 13%;
+    transform: rotate(-16deg);
+    animation: floatBrick 10s ease-in-out -3s infinite reverse;
+  }
+
+  .hero-inner {
+    max-width: 1240px;
+  }
+
+  .hero-container {
+    max-width: 760px;
+  }
+
+  .hero-tagline {
+    display: flex;
+    align-items: center;
+    gap: 0.85rem;
+    margin-bottom: 2rem;
+    color: var(--primary);
+    font-family: var(--font-mono);
+    font-size: 0.75rem;
+    font-weight: 700;
+    letter-spacing: 0.16em;
+    text-transform: uppercase;
+  }
+
+  .hero-tagline::before {
+    content: "";
+    width: 42px;
+    height: 2px;
+    background: var(--primary);
+  }
+
+  .hero-tagline span {
+    color: var(--primary);
+    font-weight: 700;
+  }
+
+  .hero-title {
+    max-width: 11ch;
+    margin-bottom: 1.5rem;
+    font-size: clamp(4.5rem, 9vw, 8.5rem);
+    font-weight: 800;
+    line-height: 0.86;
+    letter-spacing: -0.075em;
+  }
+
+  .hero-title .title-accent {
+    display: block;
+    color: var(--primary);
+  }
+
+  .hero-subtitle {
+    max-width: 38ch;
+    font-size: clamp(1.1rem, 2vw, 1.35rem);
+  }
+
+  .brick-animation {
+    right: -3%;
+    width: min(44vw, 570px);
+    height: min(44vw, 570px);
+    filter: drop-shadow(0 36px 45px rgba(255, 105, 71, 0.2));
+    transition: transform 0.8s var(--ease-out);
+  }
+
+  .hero-card:hover .brick-animation {
+    transform: translateY(-52%) rotate(2deg) scale(1.02);
+  }
+
+  @keyframes floatBrick {
+    0%,
+    100% {
+      translate: 0 0;
+    }
+    50% {
+      translate: 0 -18px;
+    }
+  }
+
+  @media (max-width: 900px) {
+    .hero-card {
+      padding-inline: 2.5rem;
+    }
+
+    .hero-title {
+      font-size: clamp(4rem, 14vw, 7rem);
+    }
+  }
+
+  @media (max-width: 768px) {
+    .hero {
+      padding: 0;
+    }
+
+    .hero-card {
+      min-height: 100dvh;
+      padding: 8rem 1.4rem 4rem;
+      border-radius: 0;
+    }
+
+    .hero-container {
+      text-align: left;
+    }
+
+    .hero-title {
+      font-size: clamp(4rem, 21vw, 6rem);
+    }
+
+    .hero-actions {
+      align-items: flex-start;
+    }
+
+    .hero-tagline {
+      justify-content: flex-start;
+    }
+  }
+
+  @media (max-width: 480px) {
+    .hero-title {
+      font-size: clamp(3.5rem, 19vw, 5rem);
+    }
+
+    .hero-tagline {
+      font-size: 0.64rem;
+      letter-spacing: 0.12em;
     }
   }
 </style>
@@ -271,12 +439,13 @@
 
       <div class="hero-container">
         <p class="hero-tagline">
-          Zero dependencies. <span>Pure JavaScript.</span>
+          Web development, rebuilt
         </p>
         <h1 class="hero-title">
-          LadrillosJS
+          Build the web.
+          <span class="title-accent">Brick by brick.</span>
         </h1>
-        <p class="hero-subtitle">Build reactive web components with plain HTML, CSS, and JavaScript.</p>
+        <p class="hero-subtitle">Reactive web components with plain HTML, CSS, and JavaScript. Zero dependencies. No build maze.</p>
 
         <install-section></install-section>
       </div>
