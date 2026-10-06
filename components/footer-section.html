@@ -10,9 +10,20 @@
 
   /* Footer specific styles */
   .footer {
-    background: var(--bg-darker);
-    border-top: 1px solid var(--border);
-    padding: 3rem 2rem 2rem;
+    position: relative;
+    overflow: hidden;
+    background:
+      linear-gradient(rgba(255, 255, 255, 0.045) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(255, 255, 255, 0.045) 1px, transparent 1px),
+      var(--bg-darker);
+    background-size: 96px 96px;
+    border-top: 4px solid var(--primary);
+    padding: 6rem 2rem 2rem;
+    color: #f8f4ef;
+  }
+
+  .footer::before {
+    content: none;
   }
 
   @media (max-width: 768px) {
@@ -44,7 +55,11 @@
 
   .footer-section h4 {
     margin-bottom: 1rem;
-    color: var(--text-primary);
+    color: #fff;
+    font-family: var(--font-mono);
+    font-size: 0.75rem;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
   }
 
   .footer-section ul {
@@ -56,26 +71,28 @@
   }
 
   .footer-section a {
-    color: var(--text-secondary);
+    color: rgba(255, 255, 255, 0.58);
     text-decoration: none;
     transition: color 0.3s;
   }
 
   .footer-section a:hover {
-    color: var(--primary-light);
+    color: var(--primary);
+    padding-left: 0.25rem;
+    text-decoration: none;
   }
 
   .footer-bottom {
     text-align: center;
     padding-top: 2rem;
     border-top: 1px solid var(--border);
-    color: var(--text-secondary);
+    color: rgba(255, 255, 255, 0.48);
   }
 
   .privacy-disclosure {
     max-width: 72ch;
     margin: 0 auto 2rem;
-    color: var(--text-secondary);
+    color: rgba(255, 255, 255, 0.45);
     font-size: 0.8125rem;
     line-height: 1.6;
     text-align: center;

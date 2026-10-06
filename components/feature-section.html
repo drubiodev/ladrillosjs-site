@@ -515,7 +515,7 @@
   @media (max-width: 480px) {
     .feature-demo {
       padding: 1.25rem 0.75rem;
-      border-radius: 12px;
+      border-radius: 0;
     }
 
     .feature-points li {
@@ -527,12 +527,173 @@
       overflow-x: auto;
     }
   }
+
+  /* Commercial-inspired editorial treatment */
+  .features-section {
+    position: relative;
+    padding-block: 8rem;
+    background:
+      linear-gradient(rgba(31, 28, 27, 0.03) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(31, 28, 27, 0.03) 1px, transparent 1px),
+      var(--bg-main);
+    background-size: 96px 96px;
+  }
+
+  .features-header {
+    margin-bottom: 9rem;
+    text-align: left;
+  }
+
+  .features-header::before {
+    content: "EVERYTHING YOU NEED";
+    display: block;
+    margin-bottom: 1.35rem;
+    color: var(--primary);
+    font-family: var(--font-mono);
+    font-size: 0.75rem;
+    font-weight: 700;
+    letter-spacing: 0.18em;
+  }
+
+  .features-section .section-title {
+    max-width: 15ch;
+    margin: 0 0 1.5rem;
+    font-size: clamp(3.25rem, 7vw, 6.75rem);
+    line-height: 0.92;
+    letter-spacing: -0.065em;
+  }
+
+  .features-section .section-subtitle {
+    max-width: 40ch;
+    margin: 0;
+    font-size: 1.2rem;
+  }
+
+  .feature-row {
+    position: relative;
+    gap: clamp(3rem, 7vw, 7rem);
+    margin-bottom: 10rem;
+    opacity: 1;
+    transform: translateY(0);
+    animation: featureReveal 0.9s var(--ease-out) both;
+    animation-timeline: view();
+    animation-range: entry 8% cover 28%;
+  }
+
+  @keyframes featureReveal {
+    from {
+      opacity: 0;
+      transform: translateY(48px);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+
+  .feature-copy {
+    max-width: 35rem;
+  }
+
+  .feature-eyebrow {
+    font-family: var(--font-mono);
+    letter-spacing: 0.14em;
+  }
+
+  .feature-title {
+    font-size: clamp(2.4rem, 4vw, 4.5rem);
+    line-height: 0.98;
+    letter-spacing: -0.055em;
+  }
+
+  .feature-title .highlight {
+    background: none;
+    color: var(--primary);
+    -webkit-text-fill-color: currentColor;
+  }
+
+  .feature-row.accent-indigo .feature-title .highlight {
+    color: #6366f1;
+  }
+
+  .feature-row.accent-emerald .feature-title .highlight {
+    color: #059669;
+  }
+
+  .feature-row.accent-rose .feature-title .highlight {
+    color: #e11d48;
+  }
+
+  .feature-row.accent-sky .feature-title .highlight {
+    color: #0284c7;
+  }
+
+  .feature-row.accent-violet .feature-title .highlight {
+    color: #7c3aed;
+  }
+
+  .feature-visual {
+    perspective: 1200px;
+  }
+
+  .feature-visual > * {
+    transition: transform 0.5s var(--ease-out);
+  }
+
+  .feature-visual:hover > *:first-child {
+    transform: translateY(-5px) rotateX(1deg) rotateY(-1deg);
+  }
+
+  .feature-demo {
+    min-height: 250px;
+    border: 1px solid rgba(31, 28, 27, 0.1);
+    border-radius: 0;
+    box-shadow: 0 24px 55px rgba(58, 36, 28, 0.1);
+  }
+
+  .code-tabs,
+  .code-tabs button {
+    border-radius: 0;
+  }
+
+  @media (max-width: 900px) {
+    .features-header {
+      margin-bottom: 5rem;
+    }
+
+    .feature-row {
+      margin-bottom: 7rem;
+    }
+
+    .feature-copy {
+      text-align: left;
+    }
+
+    .feature-eyebrow {
+      justify-content: flex-start;
+    }
+
+    .feature-points {
+      margin: 0;
+    }
+  }
+
+  @media (max-width: 768px) {
+    .features-section {
+      padding-block: 6rem;
+    }
+
+    .features-section .section-title {
+      font-size: clamp(3.1rem, 15vw, 5rem);
+    }
+
+  }
 </style>
 
 <section class="features-section">
   <div class="container">
     <div class="features-header">
-      <h2 class="section-title">Everything You Need,<br />Nothing You Don't</h2>
+      <h2 class="section-title">Powerful by nature.<br />Light by design.</h2>
       <p class="section-subtitle">
         Built on web standards with modern features that just work.
       </p>

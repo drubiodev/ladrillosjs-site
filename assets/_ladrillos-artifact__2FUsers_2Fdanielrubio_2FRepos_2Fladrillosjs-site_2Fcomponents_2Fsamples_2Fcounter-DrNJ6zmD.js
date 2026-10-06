@@ -1,4 +1,4 @@
-import{p as h,w as g}from"./clarity-Bsl3QzF0.js";const f={tagName:"install-section",template:`<div class="hero-actions">
+import{p as h,w as g}from"./clarity-BYLdTQVP.js";const f={tagName:"install-section",template:`<div class="hero-actions">
     <div class="install-picker">
         <div class="install-tabs">
             <button class="tab-btn {tab === 'npm' ? 'active' : ''}" onclick="tab = 'npm'">
@@ -65,9 +65,9 @@ import{p as h,w as g}from"./clarity-Bsl3QzF0.js";const f={tagName:"install-secti
     /* Tab toggle - pill style */
     .install-tabs {
         display: inline-flex;
-        background: #f1f5f9;
-        padding: 3px;
-        border-radius: 6px;
+        background: rgba(31, 28, 27, 0.06);
+        padding: 4px;
+        border-radius: 0;
         gap: 0;
     }
 
@@ -80,7 +80,8 @@ import{p as h,w as g}from"./clarity-Bsl3QzF0.js";const f={tagName:"install-secti
         font-weight: 500;
         cursor: pointer;
         transition: all 0.2s ease;
-        border-radius: 4px;
+        border-radius: 0;
+        font-family: var(--font-mono);
     }
 
     .tab-btn:hover:not(.active) {
@@ -88,9 +89,9 @@ import{p as h,w as g}from"./clarity-Bsl3QzF0.js";const f={tagName:"install-secti
     }
 
     .tab-btn.active {
-        background: white;
+        background: var(--bg-card);
         color: var(--text-primary);
-        box-shadow: 0 1px 2px rgba(0, 0, 0, 0.08);
+        box-shadow: 0 4px 14px rgba(58, 36, 28, 0.1);
     }
 
     /* Install command box */
@@ -98,13 +99,21 @@ import{p as h,w as g}from"./clarity-Bsl3QzF0.js";const f={tagName:"install-secti
         display: flex;
         align-items: center;
         gap: 0.75rem;
-        background: var(--text-primary);
-        padding: 0.75rem 1rem;
-        border-radius: 8px;
+        background: #171718;
+        padding: 0.85rem 0.9rem 0.85rem 1.15rem;
+        border-radius: 0;
         font-family: var(--font-mono);
         font-size: 0.8rem;
         color: #e2e8f0;
         box-sizing: border-box;
+        border: 1px solid rgba(255, 255, 255, 0.08);
+        box-shadow: 0 18px 40px rgba(27, 20, 18, 0.2);
+        transition: transform 0.35s var(--ease-out), box-shadow 0.35s ease;
+    }
+
+    .install-box:hover {
+        transform: translateY(-3px);
+        box-shadow: 0 24px 48px rgba(27, 20, 18, 0.25);
     }
 
     .install-box code {
@@ -160,10 +169,10 @@ import{p as h,w as g}from"./clarity-Bsl3QzF0.js";const f={tagName:"install-secti
     }
 
     .copy-btn {
-        background: #334155;
+        background: rgba(255, 255, 255, 0.08);
         border: none;
         padding: 0.5rem 1rem;
-        border-radius: 6px;
+        border-radius: 0;
         cursor: pointer;
         color: #94a3b8;
         transition: all 0.2s ease;
@@ -188,10 +197,10 @@ import{p as h,w as g}from"./clarity-Bsl3QzF0.js";const f={tagName:"install-secti
     }
 
     .copy-btn {
-        background: #475569;
+        background: rgba(255, 255, 255, 0.08);
         border: none;
         padding: 0.4rem 0.75rem;
-        border-radius: 4px;
+        border-radius: 0;
         cursor: pointer;
         color: #94a3b8;
         transition: all 0.2s ease;
@@ -205,8 +214,8 @@ import{p as h,w as g}from"./clarity-Bsl3QzF0.js";const f={tagName:"install-secti
     }
 
     .copy-btn:hover {
-        background: #64748b;
-        color: #e2e8f0;
+        background: var(--primary);
+        color: #fff;
     }
 
     .copy-btn svg {
@@ -409,7 +418,7 @@ import{p as h,w as g}from"./clarity-Bsl3QzF0.js";const f={tagName:"install-secti
   .code-window {\r
     position: relative;\r
     background: #020617;\r
-    border-radius: 12px;\r
+    border-radius: 0;\r
     overflow: hidden;\r
     border: 1px solid #334155;\r
     box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);\r
@@ -489,7 +498,7 @@ import{p as h,w as g}from"./clarity-Bsl3QzF0.js";const f={tagName:"install-secti
     padding: 0.375rem 0.875rem;\r
     background: rgba(255, 255, 255, 0.06);\r
     border: 1px solid rgba(255, 255, 255, 0.1);\r
-    border-radius: 6px;\r
+    border-radius: 2px;\r
     color: rgba(226, 232, 240, 0.8);\r
     font-size: 0.8125rem;\r
     font-weight: 500;\r
@@ -529,7 +538,7 @@ import{p as h,w as g}from"./clarity-Bsl3QzF0.js";const f={tagName:"install-secti
     padding: 0.375rem 0.875rem;\r
     background: rgba(16, 185, 129, 0.1);\r
     border: 1px solid rgba(16, 185, 129, 0.3);\r
-    border-radius: 6px;\r
+    border-radius: 2px;\r
     color: rgba(16, 185, 129, 1);\r
     font-size: 0.8125rem;\r
     font-weight: 500;\r

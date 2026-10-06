@@ -1,4 +1,4 @@
-import{p,w as m,d as g,a as h,b}from"./clarity-Bsl3QzF0.js";import{d as v,a as x,b as w}from"./_ladrillos-artifact__2FUsers_2Fdanielrubio_2FRepos_2Fladrillosjs-site_2Fcomponents_2Fsamples_2Fcounter-Ddw5OpVu.js";const k={tagName:"hero-section",template:`<section class="hero">\r
+import{p,w as m,d as g,a as h,b}from"./clarity-BYLdTQVP.js";import{d as v,a as x,b as w}from"./_ladrillos-artifact__2FUsers_2Fdanielrubio_2FRepos_2Fladrillosjs-site_2Fcomponents_2Fsamples_2Fcounter-DrNJ6zmD.js";const k={tagName:"hero-section",template:`<section class="hero">\r
   <div class="hero-card">\r
     <div class="hero-inner">\r
       <!-- Brick stacking animation - SVG Isometric (matches logo: 2 bottom + 1 top) -->\r
@@ -50,12 +50,13 @@ import{p,w as m,d as g,a as h,b}from"./clarity-Bsl3QzF0.js";import{d as v,a as x
 \r
       <div class="hero-container">\r
         <p class="hero-tagline">\r
-          Zero dependencies. <span>Pure JavaScript.</span>\r
+          Web development, rebuilt\r
         </p>\r
         <h1 class="hero-title">\r
-          LadrillosJS\r
+          Build the web.\r
+          <span class="title-accent">Brick by brick.</span>\r
         </h1>\r
-        <p class="hero-subtitle">Build reactive web components with plain HTML, CSS, and JavaScript.</p>\r
+        <p class="hero-subtitle">Reactive web components with plain HTML, CSS, and JavaScript. Zero dependencies. No build maze.</p>\r
 \r
         <install-section></install-section>\r
       </div>\r
@@ -72,7 +73,7 @@ import{p,w as m,d as g,a as h,b}from"./clarity-Bsl3QzF0.js";import{d as v,a as x
   .hero-card {\r
     box-shadow: 1px 1px #eee;\r
     background: white;\r
-    border-radius: 24px;\r
+    border-radius: 0;\r
     width: 100%;\r
     margin: 0 auto;\r
     min-height: calc(100vh - 8rem);\r
@@ -245,7 +246,7 @@ import{p,w as m,d as g,a as h,b}from"./clarity-Bsl3QzF0.js";import{d as v,a as x
       justify-content: center;\r
       padding: 7rem 1.5rem 4rem;\r
       min-height: auto;\r
-      border-radius: 20px;\r
+      border-radius: 0;\r
     }\r
 \r
     .hero-container {\r
@@ -265,7 +266,7 @@ import{p,w as m,d as g,a as h,b}from"./clarity-Bsl3QzF0.js";import{d as v,a as x
   @media (max-width: 480px) {\r
     .hero-card {\r
       padding: 6rem 1.25rem 3rem;\r
-      border-radius: 16px;\r
+      border-radius: 0;\r
     }\r
 \r
     .hero-title {\r
@@ -277,10 +278,178 @@ import{p,w as m,d as g,a as h,b}from"./clarity-Bsl3QzF0.js";import{d as v,a as x
       font-size: 0.85rem;\r
       margin-bottom: 1rem;\r
     }\r
+  }\r
+\r
+  /* Commercial-inspired art direction */\r
+  .hero {\r
+    padding: 0;\r
+    background: transparent;\r
+  }\r
+\r
+  .hero-card {\r
+    min-height: 100dvh;\r
+    padding: 9.5rem 4rem 5rem;\r
+    border: none;\r
+    border-radius: 0;\r
+    background:\r
+      linear-gradient(rgba(31, 28, 27, 0.035) 1px, transparent 1px),\r
+      linear-gradient(90deg, rgba(31, 28, 27, 0.035) 1px, transparent 1px),\r
+      radial-gradient(circle at 72% 44%, rgba(255, 105, 71, 0.16), transparent 30%),\r
+      var(--bg-card);\r
+    background-size: 92px 92px, 92px 92px, 100% 100%, 100% 100%;\r
+    box-shadow: var(--shadow-soft);\r
+  }\r
+\r
+  .hero-card::before,\r
+  .hero-card::after {\r
+    content: "";\r
+    position: absolute;\r
+    width: 52px;\r
+    height: 22px;\r
+    border: 1px solid rgba(255, 105, 71, 0.32);\r
+    border-radius: 0;\r
+    pointer-events: none;\r
+  }\r
+\r
+  .hero-card::before {\r
+    top: 20%;\r
+    left: 46%;\r
+    transform: rotate(14deg);\r
+    animation: floatBrick 8s ease-in-out infinite;\r
+  }\r
+\r
+  .hero-card::after {\r
+    right: 8%;\r
+    bottom: 13%;\r
+    transform: rotate(-16deg);\r
+    animation: floatBrick 10s ease-in-out -3s infinite reverse;\r
+  }\r
+\r
+  .hero-inner {\r
+    max-width: 1240px;\r
+  }\r
+\r
+  .hero-container {\r
+    max-width: 760px;\r
+  }\r
+\r
+  .hero-tagline {\r
+    display: flex;\r
+    align-items: center;\r
+    gap: 0.85rem;\r
+    margin-bottom: 2rem;\r
+    color: var(--primary);\r
+    font-family: var(--font-mono);\r
+    font-size: 0.75rem;\r
+    font-weight: 700;\r
+    letter-spacing: 0.16em;\r
+    text-transform: uppercase;\r
+  }\r
+\r
+  .hero-tagline::before {\r
+    content: "";\r
+    width: 42px;\r
+    height: 2px;\r
+    background: var(--primary);\r
+  }\r
+\r
+  .hero-tagline span {\r
+    color: var(--primary);\r
+    font-weight: 700;\r
+  }\r
+\r
+  .hero-title {\r
+    max-width: 11ch;\r
+    margin-bottom: 1.5rem;\r
+    font-size: clamp(4.5rem, 9vw, 8.5rem);\r
+    font-weight: 800;\r
+    line-height: 0.86;\r
+    letter-spacing: -0.075em;\r
+  }\r
+\r
+  .hero-title .title-accent {\r
+    display: block;\r
+    color: var(--primary);\r
+  }\r
+\r
+  .hero-subtitle {\r
+    max-width: 38ch;\r
+    font-size: clamp(1.1rem, 2vw, 1.35rem);\r
+  }\r
+\r
+  .brick-animation {\r
+    right: -3%;\r
+    width: min(44vw, 570px);\r
+    height: min(44vw, 570px);\r
+    filter: drop-shadow(0 36px 45px rgba(255, 105, 71, 0.2));\r
+    transition: transform 0.8s var(--ease-out);\r
+  }\r
+\r
+  .hero-card:hover .brick-animation {\r
+    transform: translateY(-52%) rotate(2deg) scale(1.02);\r
+  }\r
+\r
+  @keyframes floatBrick {\r
+    0%,\r
+    100% {\r
+      translate: 0 0;\r
+    }\r
+    50% {\r
+      translate: 0 -18px;\r
+    }\r
+  }\r
+\r
+  @media (max-width: 900px) {\r
+    .hero-card {\r
+      padding-inline: 2.5rem;\r
+    }\r
+\r
+    .hero-title {\r
+      font-size: clamp(4rem, 14vw, 7rem);\r
+    }\r
+  }\r
+\r
+  @media (max-width: 768px) {\r
+    .hero {\r
+      padding: 0;\r
+    }\r
+\r
+    .hero-card {\r
+      min-height: 100dvh;\r
+      padding: 8rem 1.4rem 4rem;\r
+      border-radius: 0;\r
+    }\r
+\r
+    .hero-container {\r
+      text-align: left;\r
+    }\r
+\r
+    .hero-title {\r
+      font-size: clamp(4rem, 21vw, 6rem);\r
+    }\r
+\r
+    .hero-actions {\r
+      align-items: flex-start;\r
+    }\r
+\r
+    .hero-tagline {\r
+      justify-content: flex-start;\r
+    }\r
+  }\r
+\r
+  @media (max-width: 480px) {\r
+    .hero-title {\r
+      font-size: clamp(3.5rem, 19vw, 5rem);\r
+    }\r
+\r
+    .hero-tagline {\r
+      font-size: 0.64rem;\r
+      letter-spacing: 0.12em;\r
+    }\r
   }`,sourcePath:"components/hero-section.html",templateBindings:[]};p({evaluators:{},handlers:{},setups:{}});function y(n){m(k,n)}const $={tagName:"feature-section",template:`<section class="features-section">\r
   <div class="container">\r
     <div class="features-header">\r
-      <h2 class="section-title">Everything You Need,<br>Nothing You Don't</h2>\r
+      <h2 class="section-title">Powerful by nature.<br>Light by design.</h2>\r
       <p class="section-subtitle">\r
         Built on web standards with modern features that just work.\r
       </p>\r
@@ -1249,7 +1418,7 @@ import{p,w as m,d as g,a as h,b}from"./clarity-Bsl3QzF0.js";import{d as v,a as x
   @media (max-width: 480px) {\r
     .feature-demo {\r
       padding: 1.25rem 0.75rem;\r
-      border-radius: 12px;\r
+      border-radius: 0;\r
     }\r
 \r
     .feature-points li {\r
@@ -1260,7 +1429,168 @@ import{p,w as m,d as g,a as h,b}from"./clarity-Bsl3QzF0.js";import{d as v,a as x
       width: 100%;\r
       overflow-x: auto;\r
     }\r
-  }`,sourcePath:"components/feature-section.html",templateBindings:["curly","expression","count","name","email","subscribe","$refs","tasks","activeFile","$emit","messages"]};p({evaluators:{"activeFile === 'emit.html' ? 'active' : ''":{deps:["activeFile"],fn:n=>n==="emit.html"?"active":""},"activeFile === 'listen.html' ? 'active' : ''":{deps:["activeFile"],fn:n=>n==="listen.html"?"active":""},"activeFile === 'emit.html'":{deps:["activeFile"],fn:n=>n==="emit.html"},"activeFile === 'listen.html'":{deps:["activeFile"],fn:n=>n==="listen.html"}},handlers:{"handler:activeFile = 'emit.html'":{deps:["__state__","$refs","$host","event","registerComponent","registerComponents","$use","$emit","$listen"],fn:(n,a,t,i,d,c,o,e,s)=>{n.activeFile="emit.html"}},"handler:activeFile = 'listen.html'":{deps:["__state__","$refs","$host","event","registerComponent","registerComponents","$use","$emit","$listen"],fn:(n,a,t,i,d,c,o,e,s)=>{n.activeFile="listen.html"}}},setups:{'state:let activeFile = "emit.html";':{deps:["__state__","$host","$refs","registerComponent","registerComponents","$use","$emit","$listen"],fn:(n,a,t,i,d,c,o,e)=>{n.activeFile??="emit.html"}}}});function C(n){m($,n)}const z={tagName:"form-sample",template:`<div class="form-container">\r
+  }\r
+\r
+  /* Commercial-inspired editorial treatment */\r
+  .features-section {\r
+    position: relative;\r
+    padding-block: 8rem;\r
+    background:\r
+      linear-gradient(rgba(31, 28, 27, 0.03) 1px, transparent 1px),\r
+      linear-gradient(90deg, rgba(31, 28, 27, 0.03) 1px, transparent 1px),\r
+      var(--bg-main);\r
+    background-size: 96px 96px;\r
+  }\r
+\r
+  .features-header {\r
+    margin-bottom: 9rem;\r
+    text-align: left;\r
+  }\r
+\r
+  .features-header::before {\r
+    content: "EVERYTHING YOU NEED";\r
+    display: block;\r
+    margin-bottom: 1.35rem;\r
+    color: var(--primary);\r
+    font-family: var(--font-mono);\r
+    font-size: 0.75rem;\r
+    font-weight: 700;\r
+    letter-spacing: 0.18em;\r
+  }\r
+\r
+  .features-section .section-title {\r
+    max-width: 15ch;\r
+    margin: 0 0 1.5rem;\r
+    font-size: clamp(3.25rem, 7vw, 6.75rem);\r
+    line-height: 0.92;\r
+    letter-spacing: -0.065em;\r
+  }\r
+\r
+  .features-section .section-subtitle {\r
+    max-width: 40ch;\r
+    margin: 0;\r
+    font-size: 1.2rem;\r
+  }\r
+\r
+  .feature-row {\r
+    position: relative;\r
+    gap: clamp(3rem, 7vw, 7rem);\r
+    margin-bottom: 10rem;\r
+    opacity: 1;\r
+    transform: translateY(0);\r
+    animation: featureReveal 0.9s var(--ease-out) both;\r
+    animation-timeline: view();\r
+    animation-range: entry 8% cover 28%;\r
+  }\r
+\r
+  @keyframes featureReveal {\r
+    from {\r
+      opacity: 0;\r
+      transform: translateY(48px);\r
+    }\r
+    to {\r
+      opacity: 1;\r
+      transform: translateY(0);\r
+    }\r
+  }\r
+\r
+  .feature-copy {\r
+    max-width: 35rem;\r
+  }\r
+\r
+  .feature-eyebrow {\r
+    font-family: var(--font-mono);\r
+    letter-spacing: 0.14em;\r
+  }\r
+\r
+  .feature-title {\r
+    font-size: clamp(2.4rem, 4vw, 4.5rem);\r
+    line-height: 0.98;\r
+    letter-spacing: -0.055em;\r
+  }\r
+\r
+  .feature-title .highlight {\r
+    background: none;\r
+    color: var(--primary);\r
+    -webkit-text-fill-color: currentColor;\r
+  }\r
+\r
+  .feature-row.accent-indigo .feature-title .highlight {\r
+    color: #6366f1;\r
+  }\r
+\r
+  .feature-row.accent-emerald .feature-title .highlight {\r
+    color: #059669;\r
+  }\r
+\r
+  .feature-row.accent-rose .feature-title .highlight {\r
+    color: #e11d48;\r
+  }\r
+\r
+  .feature-row.accent-sky .feature-title .highlight {\r
+    color: #0284c7;\r
+  }\r
+\r
+  .feature-row.accent-violet .feature-title .highlight {\r
+    color: #7c3aed;\r
+  }\r
+\r
+  .feature-visual {\r
+    perspective: 1200px;\r
+  }\r
+\r
+  .feature-visual > * {\r
+    transition: transform 0.5s var(--ease-out);\r
+  }\r
+\r
+  .feature-visual:hover > *:first-child {\r
+    transform: translateY(-5px) rotateX(1deg) rotateY(-1deg);\r
+  }\r
+\r
+  .feature-demo {\r
+    min-height: 250px;\r
+    border: 1px solid rgba(31, 28, 27, 0.1);\r
+    border-radius: 0;\r
+    box-shadow: 0 24px 55px rgba(58, 36, 28, 0.1);\r
+  }\r
+\r
+  .code-tabs,\r
+  .code-tabs button {\r
+    border-radius: 0;\r
+  }\r
+\r
+  @media (max-width: 900px) {\r
+    .features-header {\r
+      margin-bottom: 5rem;\r
+    }\r
+\r
+    .feature-row {\r
+      margin-bottom: 7rem;\r
+    }\r
+\r
+    .feature-copy {\r
+      text-align: left;\r
+    }\r
+\r
+    .feature-eyebrow {\r
+      justify-content: flex-start;\r
+    }\r
+\r
+    .feature-points {\r
+      margin: 0;\r
+    }\r
+  }\r
+\r
+  @media (max-width: 768px) {\r
+    .features-section {\r
+      padding-block: 6rem;\r
+    }\r
+\r
+    .features-section .section-title {\r
+      font-size: clamp(3.1rem, 15vw, 5rem);\r
+    }\r
+\r
+  }`,sourcePath:"components/feature-section.html",templateBindings:["curly","expression","count","name","email","subscribe","$refs","tasks","activeFile","$emit","messages"]};p({evaluators:{"activeFile === 'emit.html' ? 'active' : ''":{deps:["activeFile"],fn:n=>n==="emit.html"?"active":""},"activeFile === 'listen.html' ? 'active' : ''":{deps:["activeFile"],fn:n=>n==="listen.html"?"active":""},"activeFile === 'emit.html'":{deps:["activeFile"],fn:n=>n==="emit.html"},"activeFile === 'listen.html'":{deps:["activeFile"],fn:n=>n==="listen.html"}},handlers:{"handler:activeFile = 'emit.html'":{deps:["__state__","$refs","$host","event","registerComponent","registerComponents","$use","$emit","$listen"],fn:(n,a,t,i,d,c,o,r,s)=>{n.activeFile="emit.html"}},"handler:activeFile = 'listen.html'":{deps:["__state__","$refs","$host","event","registerComponent","registerComponents","$use","$emit","$listen"],fn:(n,a,t,i,d,c,o,r,s)=>{n.activeFile="listen.html"}}},setups:{'state:let activeFile = "emit.html";':{deps:["__state__","$host","$refs","registerComponent","registerComponents","$use","$emit","$listen"],fn:(n,a,t,i,d,c,o,r)=>{n.activeFile??="emit.html"}}}});function z(n){m($,n)}const C={tagName:"form-sample",template:`<div class="form-container">\r
   <h2>Hello, {name}!</h2>\r
   <div class="form-group">\r
     <input type="text" $bind="name" placeholder="Your name">\r
@@ -1349,7 +1679,7 @@ import{p,w as m,d as g,a as h,b}from"./clarity-Bsl3QzF0.js";import{d as v,a as x
     gap: 0.4rem;\r
     width: 100%;\r
     align-items: stretch;\r
-  }`,sourcePath:"components/samples/form.html",templateBindings:["name","email","subscribe"]};p({evaluators:{name:{deps:["name"],fn:n=>n},email:{deps:["email"],fn:n=>n},subscribe:{deps:["subscribe"],fn:n=>n}},handlers:{},setups:{'state:let name = "World";\r\n  let email = "";\r\n  let subscribe = false;':{deps:["__state__","$host","$refs","registerComponent","registerComponents","$use","$emit","$listen"],fn:(n,a,t,i,d,c,o,e)=>{n.name??="World",n.email??="",n.subscribe??=!1}}}});function S(n){m(z,n)}const T={tagName:"ref-sample",template:`<div class="ref-demo">\r
+  }`,sourcePath:"components/samples/form.html",templateBindings:["name","email","subscribe"]};p({evaluators:{name:{deps:["name"],fn:n=>n},email:{deps:["email"],fn:n=>n},subscribe:{deps:["subscribe"],fn:n=>n}},handlers:{},setups:{'state:let name = "World";\r\n  let email = "";\r\n  let subscribe = false;':{deps:["__state__","$host","$refs","registerComponent","registerComponents","$use","$emit","$listen"],fn:(n,a,t,i,d,c,o,r)=>{n.name??="World",n.email??="",n.subscribe??=!1}}}});function B(n){m(C,n)}const T={tagName:"ref-sample",template:`<div class="ref-demo">\r
   <input type="text" $ref="inputEl" placeholder="Click the button to focus me">\r
   <button onclick="focusInput()">\r
     <svg viewBox="0 0 20 20" fill="currentColor" aria-hidden="true">\r
@@ -1422,7 +1752,7 @@ import{p,w as m,d as g,a as h,b}from"./clarity-Bsl3QzF0.js";import{d as v,a as x
   .ref-demo button svg {\r
     width: 16px;\r
     height: 16px;\r
-  }`,sourcePath:"components/samples/ref.html",templateBindings:[]};p({evaluators:{},handlers:{"handler:focusInput()":{deps:["__state__","$refs","$host","event","registerComponent","registerComponents","$use","$emit","$listen"],fn:(n,a,t,i,d,c,o,e,s)=>{function l(){a.inputEl.focus(),a.inputEl.select()}l()}}},setups:{"state:function focusInput() {\r\n    $refs.inputEl.focus();\r\n    $refs.inputEl.select();\r\n  }":{deps:["__state__","$host","$refs","registerComponent","registerComponents","$use","$emit","$listen"],fn:(n,a,t,i,d,c,o,e)=>{function s(){t.inputEl.focus(),t.inputEl.select()}n.focusInput??=s}}}});function B(n){m(T,n)}const M={tagName:"flow-sample",template:`<div class="flow-demo">
+  }`,sourcePath:"components/samples/ref.html",templateBindings:[]};p({evaluators:{},handlers:{"handler:focusInput()":{deps:["__state__","$refs","$host","event","registerComponent","registerComponents","$use","$emit","$listen"],fn:(n,a,t,i,d,c,o,r,s)=>{function l(){a.inputEl.focus(),a.inputEl.select()}l()}}},setups:{"state:function focusInput() {\r\n    $refs.inputEl.focus();\r\n    $refs.inputEl.select();\r\n  }":{deps:["__state__","$host","$refs","registerComponent","registerComponents","$use","$emit","$listen"],fn:(n,a,t,i,d,c,o,r)=>{function s(){t.inputEl.focus(),t.inputEl.select()}n.focusInput??=s}}}});function S(n){m(T,n)}const M={tagName:"flow-sample",template:`<div class="flow-demo">
     <select $bind="status">
         <option value="">Select a deploy status…</option>
         <option value="loading">Deploying</option>
@@ -1609,7 +1939,7 @@ import{p,w as m,d as g,a as h,b}from"./clarity-Bsl3QzF0.js";import{d as v,a as x
         font-size: 0.8125rem;
         color: #9f1239;
         line-height: 1.4;
-    }`,sourcePath:"components/samples/flow.html",templateBindings:[]};p({evaluators:{status:{deps:["status"],fn:n=>n},"status === 'loading'":{deps:["status"],fn:n=>n==="loading"},"status === 'success'":{deps:["status"],fn:n=>n==="success"},"status === 'error'":{deps:["status"],fn:n=>n==="error"},showHint:{deps:["showHint"],fn:n=>n}},handlers:{},setups:{'state:let status = "";\n    let showHint = false;':{deps:["__state__","$host","$refs","registerComponent","registerComponents","$use","$emit","$listen"],fn:(n,a,t,i,d,c,o,e)=>{n.status??="",n.showHint??=!1}}}});function F(n){m(M,n)}const E={tagName:"list-sample",template:`<div class="loop-demo">
+    }`,sourcePath:"components/samples/flow.html",templateBindings:[]};p({evaluators:{status:{deps:["status"],fn:n=>n},"status === 'loading'":{deps:["status"],fn:n=>n==="loading"},"status === 'success'":{deps:["status"],fn:n=>n==="success"},"status === 'error'":{deps:["status"],fn:n=>n==="error"},showHint:{deps:["showHint"],fn:n=>n}},handlers:{},setups:{'state:let status = "";\n    let showHint = false;':{deps:["__state__","$host","$refs","registerComponent","registerComponents","$use","$emit","$listen"],fn:(n,a,t,i,d,c,o,r)=>{n.status??="",n.showHint??=!1}}}});function F(n){m(M,n)}const E={tagName:"list-sample",template:`<div class="loop-demo">
     <div class="add-row">
         <input type="text" $bind="newTask" placeholder="Add a task…" onkeydown="if (event.key === 'Enter') addTask()">
         <button class="add-btn" onclick="addTask()">Add</button>
@@ -1785,7 +2115,7 @@ import{p,w as m,d as g,a as h,b}from"./clarity-Bsl3QzF0.js";import{d as v,a as x
             opacity: 1;
             transform: translateY(0);
         }
-    }`,sourcePath:"components/samples/loop.html",templateBindings:["tasks"]};p({evaluators:{newTask:{deps:["newTask"],fn:n=>n},tasks:{deps:["tasks"],fn:n=>n},"tasks.length === 0":{deps:["tasks"],fn:n=>n.length===0},"i + 1":{deps:["i"],fn:n=>n+1},task:{deps:["task"],fn:n=>n}},handlers:{"handler:if (event.key === 'Enter') addTask()":{deps:["__state__","$refs","$host","event","registerComponent","registerComponents","$use","$emit","$listen"],fn:(n,a,t,i,d,c,o,e,s)=>{function l(){const r=n.newTask.trim();r&&(n.tasks=[...n.tasks,r],n.newTask="")}i.key==="Enter"&&l()}},"handler:addTask()":{deps:["__state__","$refs","$host","event","registerComponent","registerComponents","$use","$emit","$listen"],fn:(n,a,t,i,d,c,o,e,s)=>{function l(){const r=n.newTask.trim();r&&(n.tasks=[...n.tasks,r],n.newTask="")}l()}},"handler:removeTask(i)":{deps:["event","context","reactiveState","$emit","$listen"],fn:(n,a,t,i,d)=>{const{task:c,i:o}=a;let{tasks:e,newTask:s}=t;function l(r){console.log("Removing task",r),e=e.filter((u,f)=>f!==r)}l(o),t.tasks=e,t.newTask=s}}},setups:{'state:let tasks = ["Ship the landing page", "Star the repo 🧱"];\n    let newTask = "";\n\n    function addTask() {\n        const t = newTask.trim();\n        if (!t) return;\n        tasks = [...tasks, t];\n        newTask = "";\n    }\n\n    function removeTask(i) {\n        console.log("Removing task", i);\n        tasks = tasks.filter((_, idx) => idx !== i);\n    }':{deps:["__state__","$host","$refs","registerComponent","registerComponents","$use","$emit","$listen"],fn:(n,a,t,i,d,c,o,e)=>{n.tasks??=["Ship the landing page","Star the repo 🧱"],n.newTask??="";function s(){const r=n.newTask.trim();r&&(n.tasks=[...n.tasks,r],n.newTask="")}function l(r){console.log("Removing task",r),n.tasks=n.tasks.filter((u,f)=>f!==r)}n.addTask??=s,n.removeTask??=l}}}});function R(n){m(E,n)}const D={tagName:"emit-sample",template:`<div class="emit-card">
+    }`,sourcePath:"components/samples/loop.html",templateBindings:["tasks"]};p({evaluators:{newTask:{deps:["newTask"],fn:n=>n},tasks:{deps:["tasks"],fn:n=>n},"tasks.length === 0":{deps:["tasks"],fn:n=>n.length===0},"i + 1":{deps:["i"],fn:n=>n+1},task:{deps:["task"],fn:n=>n}},handlers:{"handler:if (event.key === 'Enter') addTask()":{deps:["__state__","$refs","$host","event","registerComponent","registerComponents","$use","$emit","$listen"],fn:(n,a,t,i,d,c,o,r,s)=>{function l(){const e=n.newTask.trim();e&&(n.tasks=[...n.tasks,e],n.newTask="")}i.key==="Enter"&&l()}},"handler:addTask()":{deps:["__state__","$refs","$host","event","registerComponent","registerComponents","$use","$emit","$listen"],fn:(n,a,t,i,d,c,o,r,s)=>{function l(){const e=n.newTask.trim();e&&(n.tasks=[...n.tasks,e],n.newTask="")}l()}},"handler:removeTask(i)":{deps:["event","context","reactiveState","$emit","$listen"],fn:(n,a,t,i,d)=>{const{task:c,i:o}=a;let{tasks:r,newTask:s}=t;function l(e){console.log("Removing task",e),r=r.filter((u,f)=>f!==e)}l(o),t.tasks=r,t.newTask=s}}},setups:{'state:let tasks = ["Ship the landing page", "Star the repo 🧱"];\n    let newTask = "";\n\n    function addTask() {\n        const t = newTask.trim();\n        if (!t) return;\n        tasks = [...tasks, t];\n        newTask = "";\n    }\n\n    function removeTask(i) {\n        console.log("Removing task", i);\n        tasks = tasks.filter((_, idx) => idx !== i);\n    }':{deps:["__state__","$host","$refs","registerComponent","registerComponents","$use","$emit","$listen"],fn:(n,a,t,i,d,c,o,r)=>{n.tasks??=["Ship the landing page","Star the repo 🧱"],n.newTask??="";function s(){const e=n.newTask.trim();e&&(n.tasks=[...n.tasks,e],n.newTask="")}function l(e){console.log("Removing task",e),n.tasks=n.tasks.filter((u,f)=>f!==e)}n.addTask??=s,n.removeTask??=l}}}});function R(n){m(E,n)}const D={tagName:"emit-sample",template:`<div class="emit-card">
     <div class="row">
         <input $bind="message" type="text" placeholder="Type a message…" onkeydown="if (event.key === 'Enter') sendMessage()">
         <button onclick="sendMessage()">
@@ -1871,7 +2201,7 @@ import{p,w as m,d as g,a as h,b}from"./clarity-Bsl3QzF0.js";import{d as v,a as x
     .emit-card button svg {
         width: 14px;
         height: 14px;
-    }`,sourcePath:"components/samples/emit.html",templateBindings:[]};p({evaluators:{message:{deps:["message"],fn:n=>n}},handlers:{"handler:if (event.key === 'Enter') sendMessage()":{deps:["__state__","$refs","$host","event","registerComponent","registerComponents","$use","$emit","$listen"],fn:(n,a,t,i,d,c,o,e,s)=>{function l(){const r=n.message.trim();r&&(e("message-sent",r),n.message="")}i.key==="Enter"&&l()}},"handler:sendMessage()":{deps:["__state__","$refs","$host","event","registerComponent","registerComponents","$use","$emit","$listen"],fn:(n,a,t,i,d,c,o,e,s)=>{function l(){const r=n.message.trim();r&&(e("message-sent",r),n.message="")}l()}}},setups:{'state:let message = "";\n\n    function sendMessage() {\n        const text = message.trim();\n        if (!text) return;\n        $emit("message-sent", text);\n        message = "";\n    }':{deps:["__state__","$host","$refs","registerComponent","registerComponents","$use","$emit","$listen"],fn:(n,a,t,i,d,c,o,e)=>{n.message??="";function s(){const l=n.message.trim();l&&(o("message-sent",l),n.message="")}n.sendMessage??=s}}}});function I(n){m(D,n)}const L={tagName:"listen-sample",template:`<div class="listen-card">
+    }`,sourcePath:"components/samples/emit.html",templateBindings:[]};p({evaluators:{message:{deps:["message"],fn:n=>n}},handlers:{"handler:if (event.key === 'Enter') sendMessage()":{deps:["__state__","$refs","$host","event","registerComponent","registerComponents","$use","$emit","$listen"],fn:(n,a,t,i,d,c,o,r,s)=>{function l(){const e=n.message.trim();e&&(r("message-sent",e),n.message="")}i.key==="Enter"&&l()}},"handler:sendMessage()":{deps:["__state__","$refs","$host","event","registerComponent","registerComponents","$use","$emit","$listen"],fn:(n,a,t,i,d,c,o,r,s)=>{function l(){const e=n.message.trim();e&&(r("message-sent",e),n.message="")}l()}}},setups:{'state:let message = "";\n\n    function sendMessage() {\n        const text = message.trim();\n        if (!text) return;\n        $emit("message-sent", text);\n        message = "";\n    }':{deps:["__state__","$host","$refs","registerComponent","registerComponents","$use","$emit","$listen"],fn:(n,a,t,i,d,c,o,r)=>{n.message??="";function s(){const l=n.message.trim();l&&(o("message-sent",l),n.message="")}n.sendMessage??=s}}}});function I(n){m(D,n)}const Y={tagName:"listen-sample",template:`<div class="listen-card">
     <div class="label">
         <span class="count">{messages.length} received</span>
     </div>
@@ -2007,4 +2337,4 @@ import{p,w as m,d as g,a as h,b}from"./clarity-Bsl3QzF0.js";import{d as v,a as x
             opacity: 0.7;
             box-shadow: 0 0 0 4px rgba(139, 92, 246, 0);
         }
-    }`,sourcePath:"components/samples/listen.html",templateBindings:["messages"]};p({evaluators:{messages:{deps:["messages"],fn:n=>n},"messages.length === 0":{deps:["messages"],fn:n=>n.length===0},"messages.length":{deps:["messages"],fn:n=>n.length},msg:{deps:["msg"],fn:n=>n}},handlers:{},setups:{'state:let messages = [];\n\n    $listen("message-sent", (data) => {\n        messages = [...messages, data];\n    });':{deps:["__state__","$host","$refs","registerComponent","registerComponents","$use","$emit","$listen"],fn:(n,a,t,i,d,c,o,e)=>{n.messages??=[],e("message-sent",s=>{n.messages=[...n.messages,s]})}}}});function A(n){m(L,n)}await(g(),y(),v(),C(),h(),b(),x(),w(),S(),B(),F(),R(),I(),A(),{});document.querySelector(".static-intro")?.remove();
+    }`,sourcePath:"components/samples/listen.html",templateBindings:["messages"]};p({evaluators:{messages:{deps:["messages"],fn:n=>n},"messages.length === 0":{deps:["messages"],fn:n=>n.length===0},"messages.length":{deps:["messages"],fn:n=>n.length},msg:{deps:["msg"],fn:n=>n}},handlers:{},setups:{'state:let messages = [];\n\n    $listen("message-sent", (data) => {\n        messages = [...messages, data];\n    });':{deps:["__state__","$host","$refs","registerComponent","registerComponents","$use","$emit","$listen"],fn:(n,a,t,i,d,c,o,r)=>{n.messages??=[],r("message-sent",s=>{n.messages=[...n.messages,s]})}}}});function L(n){m(Y,n)}await(g(),y(),v(),z(),h(),b(),x(),w(),B(),S(),F(),R(),I(),L(),{});document.querySelector(".static-intro")?.remove();
