@@ -225,7 +225,8 @@
 
   .hero-card {
     min-height: 100dvh;
-    padding: 9.5rem 4rem 5rem;
+    align-items: flex-start;
+    padding: 7.5rem 4rem 5rem;
     border: none;
     border-radius: 0;
     background:
@@ -353,7 +354,7 @@
 
     .hero-card {
       min-height: 100dvh;
-      padding: 8rem 1.4rem 4rem;
+      padding: 6rem 1.4rem 4rem;
       border-radius: 0;
     }
 
@@ -375,6 +376,10 @@
   }
 
   @media (max-width: 480px) {
+    .hero-card {
+      padding-top: 5.5rem;
+    }
+
     .hero-title {
       font-size: clamp(3.5rem, 19vw, 5rem);
     }

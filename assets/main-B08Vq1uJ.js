@@ -1,4 +1,4 @@
-import{p,w as m,d as g,a as h,b}from"./clarity-BYLdTQVP.js";import{d as v,a as x,b as w}from"./_ladrillos-artifact__2FUsers_2Fdanielrubio_2FRepos_2Fladrillosjs-site_2Fcomponents_2Fsamples_2Fcounter-DrNJ6zmD.js";const k={tagName:"hero-section",template:`<section class="hero">\r
+import{p,w as m,d as g,a as h,b}from"./clarity-D49EVfGx.js";import{d as v,a as x,b as w}from"./_ladrillos-artifact__2FUsers_2Fdanielrubio_2FRepos_2Fladrillosjs-site_2Fcomponents_2Fsamples_2Fcounter-CM65mIcx.js";const k={tagName:"hero-section",template:`<section class="hero">\r
   <div class="hero-card">\r
     <div class="hero-inner">\r
       <!-- Brick stacking animation - SVG Isometric (matches logo: 2 bottom + 1 top) -->\r
@@ -288,7 +288,8 @@ import{p,w as m,d as g,a as h,b}from"./clarity-BYLdTQVP.js";import{d as v,a as x
 \r
   .hero-card {\r
     min-height: 100dvh;\r
-    padding: 9.5rem 4rem 5rem;\r
+    align-items: flex-start;\r
+    padding: 7.5rem 4rem 5rem;\r
     border: none;\r
     border-radius: 0;\r
     background:\r
@@ -416,7 +417,7 @@ import{p,w as m,d as g,a as h,b}from"./clarity-BYLdTQVP.js";import{d as v,a as x
 \r
     .hero-card {\r
       min-height: 100dvh;\r
-      padding: 8rem 1.4rem 4rem;\r
+      padding: 6rem 1.4rem 4rem;\r
       border-radius: 0;\r
     }\r
 \r
@@ -438,6 +439,10 @@ import{p,w as m,d as g,a as h,b}from"./clarity-BYLdTQVP.js";import{d as v,a as x
   }\r
 \r
   @media (max-width: 480px) {\r
+    .hero-card {\r
+      padding-top: 5.5rem;\r
+    }\r
+\r
     .hero-title {\r
       font-size: clamp(3.5rem, 19vw, 5rem);\r
     }\r
