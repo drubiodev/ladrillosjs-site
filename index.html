@@ -101,6 +101,24 @@
   <script type="module">
     import "./clarity.js";
     import { registerComponents } from "ladrillosjs/csp";
+    import { $listen } from "ladrillosjs/events";
+
+    // Hero easter egg: the brick-smash effect is code-split and only fetched once someone
+    // plays with the hero bricks (hero-section.html emits these events).
+    let brickSmash;
+    const loadBrickSmash = () =>
+      (brickSmash ??= import("./brick-smash/index.js").catch((err) => {
+        brickSmash = null;
+        throw err;
+      }));
+    $listen("bricks:warmup", () => loadBrickSmash().then((m) => m.warmup()).catch(() => {}));
+    $listen("bricks:smash", (detail) => {
+      detail.accepted = true;
+      loadBrickSmash()
+        .then((m) => m.smash(detail))
+        .catch((err) => console.error("[LadrillosJS] Brick smash failed.", err))
+        .finally(() => detail.done());
+    });
 
     await registerComponents([
       // Eager: Above-the-fold & interactive

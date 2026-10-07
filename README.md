@@ -12,6 +12,14 @@ npm run dev
 `npm run build` builds all three pages and copies the sitemap from `public/`.
 `npm run deploy` builds and publishes to GitHub Pages.
 
+## Hero Easter Egg
+
+Click the hero bricks (or focus them and press Enter). Hovering and pressing are handled
+in `components/hero-section.html`. A click emits `bricks:smash` on the LadrillosJS event
+bus, and `index.html` answers by lazy-loading `brick-smash/`, so none of the effect code
+ships until someone plays with the bricks. The debris renders with WebGPU and falls back
+to Canvas 2D. With `prefers-reduced-motion`, it shows a glow and a message instead.
+
 ## Search Discovery
 
 Each page has a unique title, description, and canonical URL. The homepage

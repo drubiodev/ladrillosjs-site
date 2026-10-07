@@ -67,6 +67,11 @@
     transform: translateY(-3px) rotate(-5deg) scale(1.05);
   }
 
+  .brick-logo g {
+    transform-box: fill-box;
+    transform-origin: 50% 50%;
+  }
+
   .brand-name {
     font-weight: 800;
     font-size: 1rem;
@@ -240,7 +245,7 @@
   <div class="nav-content">
     <div class="nav-left">
       <a href="./" class="nav-brand">
-        <span class="brick-logo" aria-hidden="true">
+        <span class="brick-logo" aria-hidden="true" $ref="brandLogo">
           <svg viewBox="0 0 64 64" xmlns="http://www.w3.org/2000/svg">
             <defs>
               <linearGradient id="logoTop" x1="0" y1="0" x2="1" y2="1">
@@ -337,4 +342,44 @@
   );
 
   syncHeaderGlass();
+
+  // Hero easter egg: the logo's bricks shake loose when the hero bricks blow up and snap
+  // back together when they're rebuilt.
+  (() => {
+    const parts = [...$refs.brandLogo.querySelectorAll("g")];
+    const calm = matchMedia("(prefers-reduced-motion: reduce)");
+    const loose = [
+      "translate(-9px, 7px) rotate(-38deg)",
+      "translate(10px, 6px) rotate(32deg)",
+      "translate(1px, -12px) rotate(-160deg)",
+    ];
+    let held = [];
+
+    $listen("bricks:blast", () => {
+      if (calm.matches) return;
+      held.forEach((a) => a.cancel());
+      held = parts.map((g, i) =>
+        g.animate([{ transform: "none" }, { transform: loose[i] }], {
+          duration: 420,
+          delay: 120 + i * 40,
+          easing: "cubic-bezier(.2,1.6,.4,1)",
+          fill: "both",
+        }),
+      );
+    });
+
+    $listen("bricks:rebuilt", () => {
+      if (!held.length) return;
+      parts.forEach((g, i) => {
+        g.animate([{ transform: loose[i] }, { transform: "translate(0, -6px)", offset: 0.6 }, { transform: "none" }], {
+          duration: 520,
+          delay: i * 70,
+          easing: "cubic-bezier(.3,.7,.2,1)",
+          fill: "backwards",
+        });
+      });
+      held.forEach((a) => a.cancel());
+      held = [];
+    });
+  })();
 </script>
