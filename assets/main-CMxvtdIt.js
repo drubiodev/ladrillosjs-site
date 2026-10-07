@@ -1,8 +1,24 @@
-import{p,w as m,d as g,a as h,b}from"./clarity-D49EVfGx.js";import{d as v,a as x,b as w}from"./_ladrillos-artifact__2FUsers_2Fdanielrubio_2FRepos_2Fladrillosjs-site_2Fcomponents_2Fsamples_2Fcounter-CM65mIcx.js";const k={tagName:"hero-section",template:`<section class="hero">\r
-  <div class="hero-card">\r
-    <div class="hero-inner">\r
-      <!-- Brick stacking animation - SVG Isometric (matches logo: 2 bottom + 1 top) -->\r
-      <div class="brick-animation">\r
+const __vite__mapDeps=(i,m=__vite__mapDeps,d=(m.f||(m.f=["assets/index-CtQCAA7F.js","assets/shared-Bh23cUBg-CQcZmyMA.js"])))=>i.map(i=>d[i]);
+import{p as w,w as k,d as rn,a as en,b as tn,_ as an}from"./clarity-CKgcF3Kt.js";import{d as sn,a as on,b as ln}from"./_ladrillos-artifact__2FUsers_2Fdanielrubio_2FRepos_2Fladrillosjs-site_2Fcomponents_2Fsamples_2Fcounter-CXUfJGBU.js";import{o as Z}from"./shared-Bh23cUBg-CQcZmyMA.js";const cn={tagName:"hero-section",template:`<section class="hero">\r
+  <div class="hero-card" $ref="heroCard">\r
+    <div class="hero-inner" $ref="heroInner">\r
+      <div class="hero-container" $ref="heroCopy">\r
+        <p class="hero-tagline">\r
+          Web development, rebuilt\r
+        </p>\r
+        <h1 class="hero-title" $ref="heroTitle">\r
+          Build the web.\r
+          <span class="title-accent">Brick by brick.</span>\r
+        </h1>\r
+        <p class="hero-subtitle">Reactive web components with plain HTML, CSS, and JavaScript. Zero dependencies. No build maze.</p>\r
+\r
+        <install-section></install-section>\r
+      </div>\r
+\r
+      <!-- Brick stacking animation - SVG Isometric (matches logo: 2 bottom + 1 top).\r
+           Also an easter egg: click it (or focus it and press Enter). It comes after the\r
+           copy so its keyboard stop follows the hero's main content. -->\r
+      <div class="brick-animation" $ref="brickStage">\r
         <svg viewBox="-20 40 488 400" xmlns="http://www.w3.org/2000/svg">\r
           <defs>\r
             <linearGradient id="heroBrickTop" x1="0" y1="0" x2="1" y2="1">\r
@@ -48,21 +64,253 @@ import{p,w as m,d as g,a as h,b}from"./clarity-D49EVfGx.js";import{d as v,a as x
         </svg>\r
       </div>\r
 \r
-      <div class="hero-container">\r
-        <p class="hero-tagline">\r
-          Web development, rebuilt\r
-        </p>\r
-        <h1 class="hero-title">\r
-          Build the web.\r
-          <span class="title-accent">Brick by brick.</span>\r
-        </h1>\r
-        <p class="hero-subtitle">Reactive web components with plain HTML, CSS, and JavaScript. Zero dependencies. No build maze.</p>\r
-\r
-        <install-section></install-section>\r
-      </div>\r
+      <div class="brick-toast" $ref="brickToast" aria-hidden="true"></div>\r
+      <p class="sr-only" role="status" $ref="brickStatus"></p>\r
     </div>\r
   </div>\r
-</section>`,scripts:[],externalScripts:[],externalStyles:[],styles:`.hero {\r
+</section>`,scripts:[{content:`// Easter egg. Hovering and pressing the bricks gives springy feedback; a click emits\r
+  // "bricks:smash", which index.html answers by lazy-loading the effect from /brick-smash/.\r
+  // It all lives in this closure so none of it becomes reactive component state.\r
+  (() => {\r
+    const stage = $refs.brickStage;\r
+    const svg = stage.querySelector("svg");\r
+    const bricks = [...svg.querySelectorAll(".cube-group")];\r
+    const card = $refs.heroCard;\r
+    const wide = matchMedia("(min-width: 901px)");\r
+    const calm = matchMedia("(prefers-reduced-motion: reduce)");\r
+    // Brick outlines in SVG user units: bottom-left, bottom-right, top. Hit-testing them\r
+    // geometrically works even where the copy's box overlaps the stack.\r
+    const OUTLINES = [\r
+      [112, 210, 224, 266, 224, 336, 112, 392, 0, 336, 0, 266],\r
+      [336, 210, 448, 266, 448, 336, 336, 392, 224, 336, 224, 266],\r
+      [224, 56, 336, 112, 336, 182, 224, 238, 112, 182, 112, 112],\r
+    ];\r
+    const rest = () => ({ x: 0, y: 0, vx: 0, vy: 0, sx: 1, sy: 1, vsx: 0, vsy: 0 });\r
+    const springs = bricks.map(rest);\r
+    let hovered = -1;\r
+    let pressed = -1;\r
+    let pressing = false;\r
+    let busy = false;\r
+    let warmed = false;\r
+    let pointer = null;\r
+    let down = null;\r
+    let hoverSince = 0;\r
+    let lastHop = 0;\r
+    let frame = 0;\r
+    let last = 0;\r
+\r
+    const clamp = (v, a, b) => Math.min(b, Math.max(a, v));\r
+\r
+    const toUser = (x, y) => {\r
+      const m = svg.getScreenCTM();\r
+      return m ? new DOMPoint(x, y).matrixTransform(m.inverse()) : null;\r
+    };\r
+\r
+    const inside = (poly, x, y) => {\r
+      for (let i = 0; i < poly.length; i += 2) {\r
+        const x1 = poly[i];\r
+        const y1 = poly[i + 1];\r
+        const x2 = poly[(i + 2) % poly.length];\r
+        const y2 = poly[(i + 3) % poly.length];\r
+        if ((x2 - x1) * (y - y1) - (y2 - y1) * (x - x1) < 0) return false;\r
+      }\r
+      return true;\r
+    };\r
+\r
+    const hitAt = (p) => {\r
+      if (!p) return -1;\r
+      for (const i of [2, 0, 1]) {\r
+        if (inside(OUTLINES[i], p.x - springs[i].x, p.y - springs[i].y)) return i;\r
+      }\r
+      return -1;\r
+    };\r
+\r
+    const warm = () => {\r
+      if (warmed) return;\r
+      warmed = true;\r
+      $emit("bricks:warmup");\r
+    };\r
+\r
+    const setHover = (i) => {\r
+      if (i === hovered) return;\r
+      hovered = i;\r
+      hoverSince = performance.now();\r
+      card.style.cursor = i >= 0 ? "pointer" : "";\r
+      if (i >= 0) warm();\r
+    };\r
+\r
+    // Springs: hovered brick lifts, the stack leans toward the pointer (the floating top\r
+    // brick more, for depth), pressing squashes, and lingering earns a little "click me" hop.\r
+    const tick = (now) => {\r
+      frame = 0;\r
+      const dt = Math.min(0.032, last ? (now - last) / 1000 : 1 / 60);\r
+      last = now;\r
+      let moving = false;\r
+      springs.forEach((s, i) => {\r
+        let tx = 0;\r
+        let ty = 0;\r
+        let tsx = 1;\r
+        let tsy = 1;\r
+        if (pointer) {\r
+          const f = i === 2 ? 0.035 : 0.018;\r
+          tx = clamp((pointer.x - 224) * f, -9, 9);\r
+          ty = clamp((pointer.y - 250) * f, -9, 9);\r
+        }\r
+        if (i === hovered) {\r
+          const squish = pressing && pressed === i;\r
+          ty -= squish ? 3 : 10;\r
+          if (squish) {\r
+            tsx = 1.035;\r
+            tsy = 0.93;\r
+          } else if (now - hoverSince > 1100 && now - lastHop > 2400) {\r
+            s.vy -= 170;\r
+            lastHop = now;\r
+          }\r
+        }\r
+        s.vx += (-(s.x - tx) * 300 - s.vx * 18) * dt;\r
+        s.vy += (-(s.y - ty) * 300 - s.vy * 18) * dt;\r
+        s.vsx += (-(s.sx - tsx) * 520 - s.vsx * 24) * dt;\r
+        s.vsy += (-(s.sy - tsy) * 520 - s.vsy * 24) * dt;\r
+        s.x += s.vx * dt;\r
+        s.y += s.vy * dt;\r
+        s.sx += s.vsx * dt;\r
+        s.sy += s.vsy * dt;\r
+        const settled =\r
+          Math.abs(s.x - tx) + Math.abs(s.y - ty) < 0.05 &&\r
+          Math.abs(s.vx) + Math.abs(s.vy) < 0.5 &&\r
+          Math.abs(s.sx - tsx) + Math.abs(s.sy - tsy) < 0.001 &&\r
+          Math.abs(s.vsx) + Math.abs(s.vsy) < 0.01;\r
+        if (!settled) moving = true;\r
+        const g = bricks[i];\r
+        if (settled && !pointer && i !== hovered) {\r
+          Object.assign(s, rest());\r
+          g.style.translate = "";\r
+          g.style.scale = "";\r
+        } else {\r
+          g.style.translate = \`\${s.x.toFixed(2)}px \${s.y.toFixed(2)}px\`;\r
+          g.style.scale = \`\${s.sx.toFixed(4)} \${s.sy.toFixed(4)}\`;\r
+        }\r
+      });\r
+      if (!busy && (moving || hovered >= 0)) frame = requestAnimationFrame(tick);\r
+      else last = 0;\r
+    };\r
+\r
+    const kick = () => {\r
+      if (!frame && !busy && !calm.matches) frame = requestAnimationFrame(tick);\r
+    };\r
+\r
+    const smash = (i, x, y) => {\r
+      if (busy || bricks.some((g) => g.getAnimations().some((a) => a.playState === "running"))) return;\r
+      const detail = {\r
+        brick: i,\r
+        x,\r
+        y,\r
+        reducedMotion: calm.matches,\r
+        offsets: springs.map((s) => ({ x: s.x, y: s.y, sx: s.sx, sy: s.sy })),\r
+        el: {\r
+          stage,\r
+          svg,\r
+          bricks,\r
+          card,\r
+          ground: svg.querySelector(".shadow-el"),\r
+          inner: $refs.heroInner,\r
+          copy: $refs.heroCopy,\r
+          title: $refs.heroTitle,\r
+          toast: $refs.brickToast,\r
+          status: $refs.brickStatus,\r
+        },\r
+        done: () => {\r
+          busy = false;\r
+        },\r
+      };\r
+      $emit("bricks:smash", detail);\r
+      if (!detail.accepted) return;\r
+      busy = true;\r
+      cancelAnimationFrame(frame);\r
+      frame = 0;\r
+      last = 0;\r
+      pressing = false;\r
+      pressed = -1;\r
+      pointer = null;\r
+      setHover(-1);\r
+      springs.forEach((s) => Object.assign(s, rest()));\r
+    };\r
+\r
+    card.addEventListener("pointermove", (e) => {\r
+      if (busy || !wide.matches) return;\r
+      pointer = toUser(e.clientX, e.clientY);\r
+      setHover(hitAt(pointer));\r
+      kick();\r
+    });\r
+\r
+    card.addEventListener("pointerleave", () => {\r
+      pointer = null;\r
+      pressing = false;\r
+      setHover(-1);\r
+      kick();\r
+    });\r
+\r
+    card.addEventListener("pointerdown", (e) => {\r
+      if (busy || !wide.matches || e.button !== 0) return;\r
+      const p = toUser(e.clientX, e.clientY);\r
+      const i = hitAt(p);\r
+      if (i < 0) return;\r
+      pointer = p;\r
+      setHover(i);\r
+      pressed = i;\r
+      pressing = true;\r
+      down = { x: e.clientX, y: e.clientY };\r
+      addEventListener(\r
+        "pointerup",\r
+        () => {\r
+          pressing = false;\r
+          kick();\r
+        },\r
+        { once: true },\r
+      );\r
+      kick();\r
+    });\r
+\r
+    card.addEventListener("click", (e) => {\r
+      const i = pressed;\r
+      pressed = -1;\r
+      if (i < 0 || busy || !down) return;\r
+      if (Math.hypot(e.clientX - down.x, e.clientY - down.y) > 8) return;\r
+      if (hitAt(toUser(e.clientX, e.clientY)) !== i) return;\r
+      const interactive = "a, button, input, textarea, select, install-section";\r
+      if (e.composedPath().some((n) => n instanceof Element && n.matches(interactive))) return;\r
+      smash(i, e.clientX, e.clientY);\r
+    });\r
+\r
+    svg.addEventListener("focus", warm);\r
+    // Real pointers never target the SVG (the stage is pointer-events: none), so a click\r
+    // here is a screen reader, Voice Control or Switch Control pressing the button.\r
+    svg.addEventListener("click", () => {\r
+      if (wide.matches) smash(2, null, null);\r
+    });\r
+    svg.addEventListener("keydown", (e) => {\r
+      if ((e.key !== "Enter" && e.key !== " ") || e.repeat) return;\r
+      e.preventDefault();\r
+      smash(2, null, null);\r
+    });\r
+\r
+    // Only a button where the stack is actually shown at full strength.\r
+    const syncRole = () => {\r
+      if (wide.matches) {\r
+        svg.setAttribute("role", "button");\r
+        svg.setAttribute("tabindex", "0");\r
+        svg.setAttribute("aria-label", "Smash the bricks");\r
+        svg.removeAttribute("aria-hidden");\r
+      } else {\r
+        svg.removeAttribute("role");\r
+        svg.removeAttribute("tabindex");\r
+        svg.removeAttribute("aria-label");\r
+        svg.setAttribute("aria-hidden", "true");\r
+      }\r
+    };\r
+    wide.addEventListener("change", syncRole);\r
+    syncRole();\r
+  })();`,type:null}],externalScripts:[],externalStyles:[],styles:`.hero {\r
     min-height: 100vh;\r
     min-height: 100dvh;\r
     display: flex;\r
@@ -119,7 +367,7 @@ import{p,w as m,d as g,a as h,b}from"./clarity-D49EVfGx.js";import{d as v,a as x
   .brick-animation .cube-group {\r
     opacity: 0;\r
     transform-box: fill-box;\r
-    transform-origin: center;\r
+    transform-origin: 50% 100%;\r
     animation: cubeDropIn 0.7s cubic-bezier(0.22, 1, 0.36, 1) forwards;\r
   }\r
 \r
@@ -451,7 +699,75 @@ import{p,w as m,d as g,a as h,b}from"./clarity-D49EVfGx.js";import{d as v,a as x
       font-size: 0.64rem;\r
       letter-spacing: 0.12em;\r
     }\r
-  }`,sourcePath:"components/hero-section.html",templateBindings:[]};p({evaluators:{},handlers:{},setups:{}});function y(n){m(k,n)}const $={tagName:"feature-section",template:`<section class="features-section">\r
+  }\r
+\r
+  /* Easter egg: smashable bricks (see the script below and /brick-smash/) */\r
+  install-section {\r
+    display: block;\r
+  }\r
+\r
+  .brick-animation svg:focus {\r
+    outline: none;\r
+  }\r
+\r
+  .brick-animation svg:focus-visible {\r
+    filter: drop-shadow(0 0 1.5px var(--primary)) drop-shadow(0 0 14px rgba(255, 105, 71, 0.55));\r
+  }\r
+\r
+  .brick-toast {\r
+    position: absolute;\r
+    z-index: 3;\r
+    display: flex;\r
+    align-items: center;\r
+    gap: 0.7rem;\r
+    padding: 0.6rem 0.9rem;\r
+    color: var(--primary-dark);\r
+    font-family: var(--font-mono);\r
+    font-size: 0.72rem;\r
+    font-weight: 700;\r
+    letter-spacing: 0.14em;\r
+    text-transform: uppercase;\r
+    white-space: nowrap;\r
+    background: rgba(251, 248, 244, 0.86);\r
+    border: 1px solid rgba(255, 105, 71, 0.28);\r
+    box-shadow: 0 14px 34px rgba(58, 36, 28, 0.12);\r
+    -webkit-backdrop-filter: blur(8px);\r
+    backdrop-filter: blur(8px);\r
+    pointer-events: none;\r
+    opacity: 0;\r
+    transform: translate(-50%, 10px) scale(0.96);\r
+    transition:\r
+      opacity 0.35s var(--ease-out),\r
+      transform 0.5s var(--ease-out);\r
+  }\r
+\r
+  .brick-toast.is-visible {\r
+    opacity: 1;\r
+    transform: translate(-50%, 0) scale(1);\r
+  }\r
+\r
+  .brick-toast-rule {\r
+    width: 18px;\r
+    height: 2px;\r
+    background: var(--primary);\r
+  }\r
+\r
+  .brick-toast-count {\r
+    color: var(--text-muted);\r
+    letter-spacing: 0.06em;\r
+  }\r
+\r
+  .sr-only {\r
+    position: absolute;\r
+    width: 1px;\r
+    height: 1px;\r
+    margin: -1px;\r
+    padding: 0;\r
+    overflow: hidden;\r
+    clip: rect(0 0 0 0);\r
+    white-space: nowrap;\r
+    border: 0;\r
+  }`,sourcePath:"components/hero-section.html",templateBindings:[]};w({evaluators:{},handlers:{},setups:{'state:// Easter egg. Hovering and pressing the bricks gives springy feedback; a click emits\r\n  // "bricks:smash", which index.html answers by lazy-loading the effect from /brick-smash/.\r\n  // It all lives in this closure so none of it becomes reactive component state.\r\n  (() => {\r\n    const stage = $refs.brickStage;\r\n    const svg = stage.querySelector("svg");\r\n    const bricks = [...svg.querySelectorAll(".cube-group")];\r\n    const card = $refs.heroCard;\r\n    const wide = matchMedia("(min-width: 901px)");\r\n    const calm = matchMedia("(prefers-reduced-motion: reduce)");\r\n    // Brick outlines in SVG user units: bottom-left, bottom-right, top. Hit-testing them\r\n    // geometrically works even where the copy\'s box overlaps the stack.\r\n    const OUTLINES = [\r\n      [112, 210, 224, 266, 224, 336, 112, 392, 0, 336, 0, 266],\r\n      [336, 210, 448, 266, 448, 336, 336, 392, 224, 336, 224, 266],\r\n      [224, 56, 336, 112, 336, 182, 224, 238, 112, 182, 112, 112],\r\n    ];\r\n    const rest = () => ({ x: 0, y: 0, vx: 0, vy: 0, sx: 1, sy: 1, vsx: 0, vsy: 0 });\r\n    const springs = bricks.map(rest);\r\n    let hovered = -1;\r\n    let pressed = -1;\r\n    let pressing = false;\r\n    let busy = false;\r\n    let warmed = false;\r\n    let pointer = null;\r\n    let down = null;\r\n    let hoverSince = 0;\r\n    let lastHop = 0;\r\n    let frame = 0;\r\n    let last = 0;\r\n\r\n    const clamp = (v, a, b) => Math.min(b, Math.max(a, v));\r\n\r\n    const toUser = (x, y) => {\r\n      const m = svg.getScreenCTM();\r\n      return m ? new DOMPoint(x, y).matrixTransform(m.inverse()) : null;\r\n    };\r\n\r\n    const inside = (poly, x, y) => {\r\n      for (let i = 0; i < poly.length; i += 2) {\r\n        const x1 = poly[i];\r\n        const y1 = poly[i + 1];\r\n        const x2 = poly[(i + 2) % poly.length];\r\n        const y2 = poly[(i + 3) % poly.length];\r\n        if ((x2 - x1) * (y - y1) - (y2 - y1) * (x - x1) < 0) return false;\r\n      }\r\n      return true;\r\n    };\r\n\r\n    const hitAt = (p) => {\r\n      if (!p) return -1;\r\n      for (const i of [2, 0, 1]) {\r\n        if (inside(OUTLINES[i], p.x - springs[i].x, p.y - springs[i].y)) return i;\r\n      }\r\n      return -1;\r\n    };\r\n\r\n    const warm = () => {\r\n      if (warmed) return;\r\n      warmed = true;\r\n      $emit("bricks:warmup");\r\n    };\r\n\r\n    const setHover = (i) => {\r\n      if (i === hovered) return;\r\n      hovered = i;\r\n      hoverSince = performance.now();\r\n      card.style.cursor = i >= 0 ? "pointer" : "";\r\n      if (i >= 0) warm();\r\n    };\r\n\r\n    // Springs: hovered brick lifts, the stack leans toward the pointer (the floating top\r\n    // brick more, for depth), pressing squashes, and lingering earns a little "click me" hop.\r\n    const tick = (now) => {\r\n      frame = 0;\r\n      const dt = Math.min(0.032, last ? (now - last) / 1000 : 1 / 60);\r\n      last = now;\r\n      let moving = false;\r\n      springs.forEach((s, i) => {\r\n        let tx = 0;\r\n        let ty = 0;\r\n        let tsx = 1;\r\n        let tsy = 1;\r\n        if (pointer) {\r\n          const f = i === 2 ? 0.035 : 0.018;\r\n          tx = clamp((pointer.x - 224) * f, -9, 9);\r\n          ty = clamp((pointer.y - 250) * f, -9, 9);\r\n        }\r\n        if (i === hovered) {\r\n          const squish = pressing && pressed === i;\r\n          ty -= squish ? 3 : 10;\r\n          if (squish) {\r\n            tsx = 1.035;\r\n            tsy = 0.93;\r\n          } else if (now - hoverSince > 1100 && now - lastHop > 2400) {\r\n            s.vy -= 170;\r\n            lastHop = now;\r\n          }\r\n        }\r\n        s.vx += (-(s.x - tx) * 300 - s.vx * 18) * dt;\r\n        s.vy += (-(s.y - ty) * 300 - s.vy * 18) * dt;\r\n        s.vsx += (-(s.sx - tsx) * 520 - s.vsx * 24) * dt;\r\n        s.vsy += (-(s.sy - tsy) * 520 - s.vsy * 24) * dt;\r\n        s.x += s.vx * dt;\r\n        s.y += s.vy * dt;\r\n        s.sx += s.vsx * dt;\r\n        s.sy += s.vsy * dt;\r\n        const settled =\r\n          Math.abs(s.x - tx) + Math.abs(s.y - ty) < 0.05 &&\r\n          Math.abs(s.vx) + Math.abs(s.vy) < 0.5 &&\r\n          Math.abs(s.sx - tsx) + Math.abs(s.sy - tsy) < 0.001 &&\r\n          Math.abs(s.vsx) + Math.abs(s.vsy) < 0.01;\r\n        if (!settled) moving = true;\r\n        const g = bricks[i];\r\n        if (settled && !pointer && i !== hovered) {\r\n          Object.assign(s, rest());\r\n          g.style.translate = "";\r\n          g.style.scale = "";\r\n        } else {\r\n          g.style.translate = `${s.x.toFixed(2)}px ${s.y.toFixed(2)}px`;\r\n          g.style.scale = `${s.sx.toFixed(4)} ${s.sy.toFixed(4)}`;\r\n        }\r\n      });\r\n      if (!busy && (moving || hovered >= 0)) frame = requestAnimationFrame(tick);\r\n      else last = 0;\r\n    };\r\n\r\n    const kick = () => {\r\n      if (!frame && !busy && !calm.matches) frame = requestAnimationFrame(tick);\r\n    };\r\n\r\n    const smash = (i, x, y) => {\r\n      if (busy || bricks.some((g) => g.getAnimations().some((a) => a.playState === "running"))) return;\r\n      const detail = {\r\n        brick: i,\r\n        x,\r\n        y,\r\n        reducedMotion: calm.matches,\r\n        offsets: springs.map((s) => ({ x: s.x, y: s.y, sx: s.sx, sy: s.sy })),\r\n        el: {\r\n          stage,\r\n          svg,\r\n          bricks,\r\n          card,\r\n          ground: svg.querySelector(".shadow-el"),\r\n          inner: $refs.heroInner,\r\n          copy: $refs.heroCopy,\r\n          title: $refs.heroTitle,\r\n          toast: $refs.brickToast,\r\n          status: $refs.brickStatus,\r\n        },\r\n        done: () => {\r\n          busy = false;\r\n        },\r\n      };\r\n      $emit("bricks:smash", detail);\r\n      if (!detail.accepted) return;\r\n      busy = true;\r\n      cancelAnimationFrame(frame);\r\n      frame = 0;\r\n      last = 0;\r\n      pressing = false;\r\n      pressed = -1;\r\n      pointer = null;\r\n      setHover(-1);\r\n      springs.forEach((s) => Object.assign(s, rest()));\r\n    };\r\n\r\n    card.addEventListener("pointermove", (e) => {\r\n      if (busy || !wide.matches) return;\r\n      pointer = toUser(e.clientX, e.clientY);\r\n      setHover(hitAt(pointer));\r\n      kick();\r\n    });\r\n\r\n    card.addEventListener("pointerleave", () => {\r\n      pointer = null;\r\n      pressing = false;\r\n      setHover(-1);\r\n      kick();\r\n    });\r\n\r\n    card.addEventListener("pointerdown", (e) => {\r\n      if (busy || !wide.matches || e.button !== 0) return;\r\n      const p = toUser(e.clientX, e.clientY);\r\n      const i = hitAt(p);\r\n      if (i < 0) return;\r\n      pointer = p;\r\n      setHover(i);\r\n      pressed = i;\r\n      pressing = true;\r\n      down = { x: e.clientX, y: e.clientY };\r\n      addEventListener(\r\n        "pointerup",\r\n        () => {\r\n          pressing = false;\r\n          kick();\r\n        },\r\n        { once: true },\r\n      );\r\n      kick();\r\n    });\r\n\r\n    card.addEventListener("click", (e) => {\r\n      const i = pressed;\r\n      pressed = -1;\r\n      if (i < 0 || busy || !down) return;\r\n      if (Math.hypot(e.clientX - down.x, e.clientY - down.y) > 8) return;\r\n      if (hitAt(toUser(e.clientX, e.clientY)) !== i) return;\r\n      const interactive = "a, button, input, textarea, select, install-section";\r\n      if (e.composedPath().some((n) => n instanceof Element && n.matches(interactive))) return;\r\n      smash(i, e.clientX, e.clientY);\r\n    });\r\n\r\n    svg.addEventListener("focus", warm);\r\n    // Real pointers never target the SVG (the stage is pointer-events: none), so a click\r\n    // here is a screen reader, Voice Control or Switch Control pressing the button.\r\n    svg.addEventListener("click", () => {\r\n      if (wide.matches) smash(2, null, null);\r\n    });\r\n    svg.addEventListener("keydown", (e) => {\r\n      if ((e.key !== "Enter" && e.key !== " ") || e.repeat) return;\r\n      e.preventDefault();\r\n      smash(2, null, null);\r\n    });\r\n\r\n    // Only a button where the stack is actually shown at full strength.\r\n    const syncRole = () => {\r\n      if (wide.matches) {\r\n        svg.setAttribute("role", "button");\r\n        svg.setAttribute("tabindex", "0");\r\n        svg.setAttribute("aria-label", "Smash the bricks");\r\n        svg.removeAttribute("aria-hidden");\r\n      } else {\r\n        svg.removeAttribute("role");\r\n        svg.removeAttribute("tabindex");\r\n        svg.removeAttribute("aria-label");\r\n        svg.setAttribute("aria-hidden", "true");\r\n      }\r\n    };\r\n    wide.addEventListener("change", syncRole);\r\n    syncRole();\r\n  })();':{deps:["__state__","$host","$refs","registerComponent","registerComponents","$use","$emit","$listen"],fn:(n,o,s,p,u,g,c,l)=>{(()=>{const d=s.brickStage,t=d.querySelector("svg"),i=[...t.querySelectorAll(".cube-group")],v=s.heroCard,h=matchMedia("(min-width: 901px)"),P=matchMedia("(prefers-reduced-motion: reduce)"),_=[[112,210,224,266,224,336,112,392,0,336,0,266],[336,210,448,266,448,336,336,392,224,336,224,266],[224,56,336,112,336,182,224,238,112,182,112,112]],H=()=>({x:0,y:0,vx:0,vy:0,sx:1,sy:1,vsx:0,vsy:0}),z=i.map(H);let S=-1,M=-1,T=!1,x=!1,j=!1,b=null,F=null,X=0,N=0,$=0,E=0;const G=(r,a,m)=>Math.min(m,Math.max(a,r)),I=(r,a)=>{const m=t.getScreenCTM();return m?new DOMPoint(r,a).matrixTransform(m.inverse()):null},nn=(r,a,m)=>{for(let e=0;e<r.length;e+=2){const f=r[e],y=r[e+1],C=r[(e+2)%r.length],A=r[(e+3)%r.length];if((C-f)*(m-y)-(A-y)*(a-f)<0)return!1}return!0},D=r=>{if(!r)return-1;for(const a of[2,0,1])if(nn(_[a],r.x-z[a].x,r.y-z[a].y))return a;return-1},U=()=>{j||(j=!0,c("bricks:warmup"))},L=r=>{r!==S&&(S=r,X=performance.now(),v.style.cursor=r>=0?"pointer":"",r>=0&&U())},V=r=>{$=0;const a=Math.min(.032,E?(r-E)/1e3:1/60);E=r;let m=!1;z.forEach((e,f)=>{let y=0,C=0,A=1,q=1;if(b){const B=f===2?.035:.018;y=G((b.x-224)*B,-9,9),C=G((b.y-250)*B,-9,9)}if(f===S){const B=T&&M===f;C-=B?3:10,B?(A=1.035,q=.93):r-X>1100&&r-N>2400&&(e.vy-=170,N=r)}e.vx+=(-(e.x-y)*300-e.vx*18)*a,e.vy+=(-(e.y-C)*300-e.vy*18)*a,e.vsx+=(-(e.sx-A)*520-e.vsx*24)*a,e.vsy+=(-(e.sy-q)*520-e.vsy*24)*a,e.x+=e.vx*a,e.y+=e.vy*a,e.sx+=e.vsx*a,e.sy+=e.vsy*a;const J=Math.abs(e.x-y)+Math.abs(e.y-C)<.05&&Math.abs(e.vx)+Math.abs(e.vy)<.5&&Math.abs(e.sx-A)+Math.abs(e.sy-q)<.001&&Math.abs(e.vsx)+Math.abs(e.vsy)<.01;J||(m=!0);const Y=i[f];J&&!b&&f!==S?(Object.assign(e,H()),Y.style.translate="",Y.style.scale=""):(Y.style.translate=`${e.x.toFixed(2)}px ${e.y.toFixed(2)}px`,Y.style.scale=`${e.sx.toFixed(4)} ${e.sy.toFixed(4)}`)}),!x&&(m||S>=0)?$=requestAnimationFrame(V):E=0},R=()=>{!$&&!x&&!P.matches&&($=requestAnimationFrame(V))},O=(r,a,m)=>{if(x||i.some(f=>f.getAnimations().some(y=>y.playState==="running")))return;const e={brick:r,x:a,y:m,reducedMotion:P.matches,offsets:z.map(f=>({x:f.x,y:f.y,sx:f.sx,sy:f.sy})),el:{stage:d,svg:t,bricks:i,card:v,ground:t.querySelector(".shadow-el"),inner:s.heroInner,copy:s.heroCopy,title:s.heroTitle,toast:s.brickToast,status:s.brickStatus},done:()=>{x=!1}};c("bricks:smash",e),e.accepted&&(x=!0,cancelAnimationFrame($),$=0,E=0,T=!1,M=-1,b=null,L(-1),z.forEach(f=>Object.assign(f,H())))};v.addEventListener("pointermove",r=>{x||!h.matches||(b=I(r.clientX,r.clientY),L(D(b)),R())}),v.addEventListener("pointerleave",()=>{b=null,T=!1,L(-1),R()}),v.addEventListener("pointerdown",r=>{if(x||!h.matches||r.button!==0)return;const a=I(r.clientX,r.clientY),m=D(a);m<0||(b=a,L(m),M=m,T=!0,F={x:r.clientX,y:r.clientY},addEventListener("pointerup",()=>{T=!1,R()},{once:!0}),R())}),v.addEventListener("click",r=>{const a=M;if(M=-1,a<0||x||!F||Math.hypot(r.clientX-F.x,r.clientY-F.y)>8||D(I(r.clientX,r.clientY))!==a)return;const m="a, button, input, textarea, select, install-section";r.composedPath().some(e=>e instanceof Element&&e.matches(m))||O(a,r.clientX,r.clientY)}),t.addEventListener("focus",U),t.addEventListener("click",()=>{h.matches&&O(2,null,null)}),t.addEventListener("keydown",r=>{r.key!=="Enter"&&r.key!==" "||r.repeat||(r.preventDefault(),O(2,null,null))});const W=()=>{h.matches?(t.setAttribute("role","button"),t.setAttribute("tabindex","0"),t.setAttribute("aria-label","Smash the bricks"),t.removeAttribute("aria-hidden")):(t.removeAttribute("role"),t.removeAttribute("tabindex"),t.removeAttribute("aria-label"),t.setAttribute("aria-hidden","true"))};h.addEventListener("change",W),W()})()}}}});function dn(n){k(cn,n)}const pn={tagName:"feature-section",template:`<section class="features-section">\r
   <div class="container">\r
     <div class="features-header">\r
       <h2 class="section-title">Powerful by nature.<br>Light by design.</h2>\r
@@ -1595,7 +1911,7 @@ import{p,w as m,d as g,a as h,b}from"./clarity-D49EVfGx.js";import{d as v,a as x
       font-size: clamp(3.1rem, 15vw, 5rem);\r
     }\r
 \r
-  }`,sourcePath:"components/feature-section.html",templateBindings:["curly","expression","count","name","email","subscribe","$refs","tasks","activeFile","$emit","messages"]};p({evaluators:{"activeFile === 'emit.html' ? 'active' : ''":{deps:["activeFile"],fn:n=>n==="emit.html"?"active":""},"activeFile === 'listen.html' ? 'active' : ''":{deps:["activeFile"],fn:n=>n==="listen.html"?"active":""},"activeFile === 'emit.html'":{deps:["activeFile"],fn:n=>n==="emit.html"},"activeFile === 'listen.html'":{deps:["activeFile"],fn:n=>n==="listen.html"}},handlers:{"handler:activeFile = 'emit.html'":{deps:["__state__","$refs","$host","event","registerComponent","registerComponents","$use","$emit","$listen"],fn:(n,a,t,i,d,c,o,r,s)=>{n.activeFile="emit.html"}},"handler:activeFile = 'listen.html'":{deps:["__state__","$refs","$host","event","registerComponent","registerComponents","$use","$emit","$listen"],fn:(n,a,t,i,d,c,o,r,s)=>{n.activeFile="listen.html"}}},setups:{'state:let activeFile = "emit.html";':{deps:["__state__","$host","$refs","registerComponent","registerComponents","$use","$emit","$listen"],fn:(n,a,t,i,d,c,o,r)=>{n.activeFile??="emit.html"}}}});function z(n){m($,n)}const C={tagName:"form-sample",template:`<div class="form-container">\r
+  }`,sourcePath:"components/feature-section.html",templateBindings:["curly","expression","count","name","email","subscribe","$refs","tasks","activeFile","$emit","messages"]};w({evaluators:{"activeFile === 'emit.html' ? 'active' : ''":{deps:["activeFile"],fn:n=>n==="emit.html"?"active":""},"activeFile === 'listen.html' ? 'active' : ''":{deps:["activeFile"],fn:n=>n==="listen.html"?"active":""},"activeFile === 'emit.html'":{deps:["activeFile"],fn:n=>n==="emit.html"},"activeFile === 'listen.html'":{deps:["activeFile"],fn:n=>n==="listen.html"}},handlers:{"handler:activeFile = 'emit.html'":{deps:["__state__","$refs","$host","event","registerComponent","registerComponents","$use","$emit","$listen"],fn:(n,o,s,p,u,g,c,l,d)=>{n.activeFile="emit.html"}},"handler:activeFile = 'listen.html'":{deps:["__state__","$refs","$host","event","registerComponent","registerComponents","$use","$emit","$listen"],fn:(n,o,s,p,u,g,c,l,d)=>{n.activeFile="listen.html"}}},setups:{'state:let activeFile = "emit.html";':{deps:["__state__","$host","$refs","registerComponent","registerComponents","$use","$emit","$listen"],fn:(n,o,s,p,u,g,c,l)=>{n.activeFile??="emit.html"}}}});function mn(n){k(pn,n)}const fn={tagName:"form-sample",template:`<div class="form-container">\r
   <h2>Hello, {name}!</h2>\r
   <div class="form-group">\r
     <input type="text" $bind="name" placeholder="Your name">\r
@@ -1684,7 +2000,7 @@ import{p,w as m,d as g,a as h,b}from"./clarity-D49EVfGx.js";import{d as v,a as x
     gap: 0.4rem;\r
     width: 100%;\r
     align-items: stretch;\r
-  }`,sourcePath:"components/samples/form.html",templateBindings:["name","email","subscribe"]};p({evaluators:{name:{deps:["name"],fn:n=>n},email:{deps:["email"],fn:n=>n},subscribe:{deps:["subscribe"],fn:n=>n}},handlers:{},setups:{'state:let name = "World";\r\n  let email = "";\r\n  let subscribe = false;':{deps:["__state__","$host","$refs","registerComponent","registerComponents","$use","$emit","$listen"],fn:(n,a,t,i,d,c,o,r)=>{n.name??="World",n.email??="",n.subscribe??=!1}}}});function B(n){m(C,n)}const T={tagName:"ref-sample",template:`<div class="ref-demo">\r
+  }`,sourcePath:"components/samples/form.html",templateBindings:["name","email","subscribe"]};w({evaluators:{name:{deps:["name"],fn:n=>n},email:{deps:["email"],fn:n=>n},subscribe:{deps:["subscribe"],fn:n=>n}},handlers:{},setups:{'state:let name = "World";\r\n  let email = "";\r\n  let subscribe = false;':{deps:["__state__","$host","$refs","registerComponent","registerComponents","$use","$emit","$listen"],fn:(n,o,s,p,u,g,c,l)=>{n.name??="World",n.email??="",n.subscribe??=!1}}}});function un(n){k(fn,n)}const gn={tagName:"ref-sample",template:`<div class="ref-demo">\r
   <input type="text" $ref="inputEl" placeholder="Click the button to focus me">\r
   <button onclick="focusInput()">\r
     <svg viewBox="0 0 20 20" fill="currentColor" aria-hidden="true">\r
@@ -1757,7 +2073,7 @@ import{p,w as m,d as g,a as h,b}from"./clarity-D49EVfGx.js";import{d as v,a as x
   .ref-demo button svg {\r
     width: 16px;\r
     height: 16px;\r
-  }`,sourcePath:"components/samples/ref.html",templateBindings:[]};p({evaluators:{},handlers:{"handler:focusInput()":{deps:["__state__","$refs","$host","event","registerComponent","registerComponents","$use","$emit","$listen"],fn:(n,a,t,i,d,c,o,r,s)=>{function l(){a.inputEl.focus(),a.inputEl.select()}l()}}},setups:{"state:function focusInput() {\r\n    $refs.inputEl.focus();\r\n    $refs.inputEl.select();\r\n  }":{deps:["__state__","$host","$refs","registerComponent","registerComponents","$use","$emit","$listen"],fn:(n,a,t,i,d,c,o,r)=>{function s(){t.inputEl.focus(),t.inputEl.select()}n.focusInput??=s}}}});function S(n){m(T,n)}const M={tagName:"flow-sample",template:`<div class="flow-demo">
+  }`,sourcePath:"components/samples/ref.html",templateBindings:[]};w({evaluators:{},handlers:{"handler:focusInput()":{deps:["__state__","$refs","$host","event","registerComponent","registerComponents","$use","$emit","$listen"],fn:(n,o,s,p,u,g,c,l,d)=>{function t(){o.inputEl.focus(),o.inputEl.select()}t()}}},setups:{"state:function focusInput() {\r\n    $refs.inputEl.focus();\r\n    $refs.inputEl.select();\r\n  }":{deps:["__state__","$host","$refs","registerComponent","registerComponents","$use","$emit","$listen"],fn:(n,o,s,p,u,g,c,l)=>{function d(){s.inputEl.focus(),s.inputEl.select()}n.focusInput??=d}}}});function hn(n){k(gn,n)}const bn={tagName:"flow-sample",template:`<div class="flow-demo">
     <select $bind="status">
         <option value="">Select a deploy status…</option>
         <option value="loading">Deploying</option>
@@ -1944,7 +2260,7 @@ import{p,w as m,d as g,a as h,b}from"./clarity-D49EVfGx.js";import{d as v,a as x
         font-size: 0.8125rem;
         color: #9f1239;
         line-height: 1.4;
-    }`,sourcePath:"components/samples/flow.html",templateBindings:[]};p({evaluators:{status:{deps:["status"],fn:n=>n},"status === 'loading'":{deps:["status"],fn:n=>n==="loading"},"status === 'success'":{deps:["status"],fn:n=>n==="success"},"status === 'error'":{deps:["status"],fn:n=>n==="error"},showHint:{deps:["showHint"],fn:n=>n}},handlers:{},setups:{'state:let status = "";\n    let showHint = false;':{deps:["__state__","$host","$refs","registerComponent","registerComponents","$use","$emit","$listen"],fn:(n,a,t,i,d,c,o,r)=>{n.status??="",n.showHint??=!1}}}});function F(n){m(M,n)}const E={tagName:"list-sample",template:`<div class="loop-demo">
+    }`,sourcePath:"components/samples/flow.html",templateBindings:[]};w({evaluators:{status:{deps:["status"],fn:n=>n},"status === 'loading'":{deps:["status"],fn:n=>n==="loading"},"status === 'success'":{deps:["status"],fn:n=>n==="success"},"status === 'error'":{deps:["status"],fn:n=>n==="error"},showHint:{deps:["showHint"],fn:n=>n}},handlers:{},setups:{'state:let status = "";\n    let showHint = false;':{deps:["__state__","$host","$refs","registerComponent","registerComponents","$use","$emit","$listen"],fn:(n,o,s,p,u,g,c,l)=>{n.status??="",n.showHint??=!1}}}});function vn(n){k(bn,n)}const xn={tagName:"list-sample",template:`<div class="loop-demo">
     <div class="add-row">
         <input type="text" $bind="newTask" placeholder="Add a task…" onkeydown="if (event.key === 'Enter') addTask()">
         <button class="add-btn" onclick="addTask()">Add</button>
@@ -2120,7 +2436,7 @@ import{p,w as m,d as g,a as h,b}from"./clarity-D49EVfGx.js";import{d as v,a as x
             opacity: 1;
             transform: translateY(0);
         }
-    }`,sourcePath:"components/samples/loop.html",templateBindings:["tasks"]};p({evaluators:{newTask:{deps:["newTask"],fn:n=>n},tasks:{deps:["tasks"],fn:n=>n},"tasks.length === 0":{deps:["tasks"],fn:n=>n.length===0},"i + 1":{deps:["i"],fn:n=>n+1},task:{deps:["task"],fn:n=>n}},handlers:{"handler:if (event.key === 'Enter') addTask()":{deps:["__state__","$refs","$host","event","registerComponent","registerComponents","$use","$emit","$listen"],fn:(n,a,t,i,d,c,o,r,s)=>{function l(){const e=n.newTask.trim();e&&(n.tasks=[...n.tasks,e],n.newTask="")}i.key==="Enter"&&l()}},"handler:addTask()":{deps:["__state__","$refs","$host","event","registerComponent","registerComponents","$use","$emit","$listen"],fn:(n,a,t,i,d,c,o,r,s)=>{function l(){const e=n.newTask.trim();e&&(n.tasks=[...n.tasks,e],n.newTask="")}l()}},"handler:removeTask(i)":{deps:["event","context","reactiveState","$emit","$listen"],fn:(n,a,t,i,d)=>{const{task:c,i:o}=a;let{tasks:r,newTask:s}=t;function l(e){console.log("Removing task",e),r=r.filter((u,f)=>f!==e)}l(o),t.tasks=r,t.newTask=s}}},setups:{'state:let tasks = ["Ship the landing page", "Star the repo 🧱"];\n    let newTask = "";\n\n    function addTask() {\n        const t = newTask.trim();\n        if (!t) return;\n        tasks = [...tasks, t];\n        newTask = "";\n    }\n\n    function removeTask(i) {\n        console.log("Removing task", i);\n        tasks = tasks.filter((_, idx) => idx !== i);\n    }':{deps:["__state__","$host","$refs","registerComponent","registerComponents","$use","$emit","$listen"],fn:(n,a,t,i,d,c,o,r)=>{n.tasks??=["Ship the landing page","Star the repo 🧱"],n.newTask??="";function s(){const e=n.newTask.trim();e&&(n.tasks=[...n.tasks,e],n.newTask="")}function l(e){console.log("Removing task",e),n.tasks=n.tasks.filter((u,f)=>f!==e)}n.addTask??=s,n.removeTask??=l}}}});function R(n){m(E,n)}const D={tagName:"emit-sample",template:`<div class="emit-card">
+    }`,sourcePath:"components/samples/loop.html",templateBindings:["tasks"]};w({evaluators:{newTask:{deps:["newTask"],fn:n=>n},tasks:{deps:["tasks"],fn:n=>n},"tasks.length === 0":{deps:["tasks"],fn:n=>n.length===0},"i + 1":{deps:["i"],fn:n=>n+1},task:{deps:["task"],fn:n=>n}},handlers:{"handler:if (event.key === 'Enter') addTask()":{deps:["__state__","$refs","$host","event","registerComponent","registerComponents","$use","$emit","$listen"],fn:(n,o,s,p,u,g,c,l,d)=>{function t(){const i=n.newTask.trim();i&&(n.tasks=[...n.tasks,i],n.newTask="")}p.key==="Enter"&&t()}},"handler:addTask()":{deps:["__state__","$refs","$host","event","registerComponent","registerComponents","$use","$emit","$listen"],fn:(n,o,s,p,u,g,c,l,d)=>{function t(){const i=n.newTask.trim();i&&(n.tasks=[...n.tasks,i],n.newTask="")}t()}},"handler:removeTask(i)":{deps:["event","context","reactiveState","$emit","$listen"],fn:(n,o,s,p,u)=>{const{task:g,i:c}=o;let{tasks:l,newTask:d}=s;function t(i){console.log("Removing task",i),l=l.filter((v,h)=>h!==i)}t(c),s.tasks=l,s.newTask=d}}},setups:{'state:let tasks = ["Ship the landing page", "Star the repo 🧱"];\n    let newTask = "";\n\n    function addTask() {\n        const t = newTask.trim();\n        if (!t) return;\n        tasks = [...tasks, t];\n        newTask = "";\n    }\n\n    function removeTask(i) {\n        console.log("Removing task", i);\n        tasks = tasks.filter((_, idx) => idx !== i);\n    }':{deps:["__state__","$host","$refs","registerComponent","registerComponents","$use","$emit","$listen"],fn:(n,o,s,p,u,g,c,l)=>{n.tasks??=["Ship the landing page","Star the repo 🧱"],n.newTask??="";function d(){const i=n.newTask.trim();i&&(n.tasks=[...n.tasks,i],n.newTask="")}function t(i){console.log("Removing task",i),n.tasks=n.tasks.filter((v,h)=>h!==i)}n.addTask??=d,n.removeTask??=t}}}});function yn(n){k(xn,n)}const wn={tagName:"emit-sample",template:`<div class="emit-card">
     <div class="row">
         <input $bind="message" type="text" placeholder="Type a message…" onkeydown="if (event.key === 'Enter') sendMessage()">
         <button onclick="sendMessage()">
@@ -2206,7 +2522,7 @@ import{p,w as m,d as g,a as h,b}from"./clarity-D49EVfGx.js";import{d as v,a as x
     .emit-card button svg {
         width: 14px;
         height: 14px;
-    }`,sourcePath:"components/samples/emit.html",templateBindings:[]};p({evaluators:{message:{deps:["message"],fn:n=>n}},handlers:{"handler:if (event.key === 'Enter') sendMessage()":{deps:["__state__","$refs","$host","event","registerComponent","registerComponents","$use","$emit","$listen"],fn:(n,a,t,i,d,c,o,r,s)=>{function l(){const e=n.message.trim();e&&(r("message-sent",e),n.message="")}i.key==="Enter"&&l()}},"handler:sendMessage()":{deps:["__state__","$refs","$host","event","registerComponent","registerComponents","$use","$emit","$listen"],fn:(n,a,t,i,d,c,o,r,s)=>{function l(){const e=n.message.trim();e&&(r("message-sent",e),n.message="")}l()}}},setups:{'state:let message = "";\n\n    function sendMessage() {\n        const text = message.trim();\n        if (!text) return;\n        $emit("message-sent", text);\n        message = "";\n    }':{deps:["__state__","$host","$refs","registerComponent","registerComponents","$use","$emit","$listen"],fn:(n,a,t,i,d,c,o,r)=>{n.message??="";function s(){const l=n.message.trim();l&&(o("message-sent",l),n.message="")}n.sendMessage??=s}}}});function I(n){m(D,n)}const Y={tagName:"listen-sample",template:`<div class="listen-card">
+    }`,sourcePath:"components/samples/emit.html",templateBindings:[]};w({evaluators:{message:{deps:["message"],fn:n=>n}},handlers:{"handler:if (event.key === 'Enter') sendMessage()":{deps:["__state__","$refs","$host","event","registerComponent","registerComponents","$use","$emit","$listen"],fn:(n,o,s,p,u,g,c,l,d)=>{function t(){const i=n.message.trim();i&&(l("message-sent",i),n.message="")}p.key==="Enter"&&t()}},"handler:sendMessage()":{deps:["__state__","$refs","$host","event","registerComponent","registerComponents","$use","$emit","$listen"],fn:(n,o,s,p,u,g,c,l,d)=>{function t(){const i=n.message.trim();i&&(l("message-sent",i),n.message="")}t()}}},setups:{'state:let message = "";\n\n    function sendMessage() {\n        const text = message.trim();\n        if (!text) return;\n        $emit("message-sent", text);\n        message = "";\n    }':{deps:["__state__","$host","$refs","registerComponent","registerComponents","$use","$emit","$listen"],fn:(n,o,s,p,u,g,c,l)=>{n.message??="";function d(){const t=n.message.trim();t&&(c("message-sent",t),n.message="")}n.sendMessage??=d}}}});function kn(n){k(wn,n)}const $n={tagName:"listen-sample",template:`<div class="listen-card">
     <div class="label">
         <span class="count">{messages.length} received</span>
     </div>
@@ -2342,4 +2658,4 @@ import{p,w as m,d as g,a as h,b}from"./clarity-D49EVfGx.js";import{d as v,a as x
             opacity: 0.7;
             box-shadow: 0 0 0 4px rgba(139, 92, 246, 0);
         }
-    }`,sourcePath:"components/samples/listen.html",templateBindings:["messages"]};p({evaluators:{messages:{deps:["messages"],fn:n=>n},"messages.length === 0":{deps:["messages"],fn:n=>n.length===0},"messages.length":{deps:["messages"],fn:n=>n.length},msg:{deps:["msg"],fn:n=>n}},handlers:{},setups:{'state:let messages = [];\n\n    $listen("message-sent", (data) => {\n        messages = [...messages, data];\n    });':{deps:["__state__","$host","$refs","registerComponent","registerComponents","$use","$emit","$listen"],fn:(n,a,t,i,d,c,o,r)=>{n.messages??=[],r("message-sent",s=>{n.messages=[...n.messages,s]})}}}});function L(n){m(Y,n)}await(g(),y(),v(),z(),h(),b(),x(),w(),B(),S(),F(),R(),I(),L(),{});document.querySelector(".static-intro")?.remove();
+    }`,sourcePath:"components/samples/listen.html",templateBindings:["messages"]};w({evaluators:{messages:{deps:["messages"],fn:n=>n},"messages.length === 0":{deps:["messages"],fn:n=>n.length===0},"messages.length":{deps:["messages"],fn:n=>n.length},msg:{deps:["msg"],fn:n=>n}},handlers:{},setups:{'state:let messages = [];\n\n    $listen("message-sent", (data) => {\n        messages = [...messages, data];\n    });':{deps:["__state__","$host","$refs","registerComponent","registerComponents","$use","$emit","$listen"],fn:(n,o,s,p,u,g,c,l)=>{n.messages??=[],l("message-sent",d=>{n.messages=[...n.messages,d]})}}}});function Cn(n){k($n,n)}let K;const Q=()=>K??=an(()=>import("./index-CtQCAA7F.js"),__vite__mapDeps([0,1])).catch(n=>{throw K=null,n});Z("bricks:warmup",()=>Q().then(n=>n.warmup()).catch(()=>{}));Z("bricks:smash",n=>{n.accepted=!0,Q().then(o=>o.smash(n)).catch(o=>console.error("[LadrillosJS] Brick smash failed.",o)).finally(()=>n.done())});await(rn(),dn(),sn(),mn(),en(),tn(),on(),ln(),un(),hn(),vn(),yn(),kn(),Cn(),{});document.querySelector(".static-intro")?.remove();
