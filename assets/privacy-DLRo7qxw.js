@@ -1,0 +1,1 @@
+import{d as e,a as n,b as o}from"./clarity-DAHLXPhd.js";import{n as t}from"./shared-Bh23cUBg-CQcZmyMA.js";await(e(),n(),o(),{});document.querySelector("[data-open-consent]").addEventListener("click",()=>{t("open-consent-preferences")});

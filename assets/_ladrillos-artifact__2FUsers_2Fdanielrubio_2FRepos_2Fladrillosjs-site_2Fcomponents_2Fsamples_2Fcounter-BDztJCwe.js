@@ -1,4 +1,4 @@
-import{p as h,w as g}from"./clarity-CKgcF3Kt.js";const f={tagName:"install-section",template:`<div class="hero-actions">
+import{p as h,w as g}from"./clarity-DAHLXPhd.js";const f={tagName:"install-section",template:`<div class="hero-actions">
     <div class="install-picker">
         <div class="install-tabs">
             <button class="tab-btn {tab === 'npm' ? 'active' : ''}" onclick="tab = 'npm'">
@@ -52,7 +52,12 @@ import{p as h,w as g}from"./clarity-CKgcF3Kt.js";const f={tagName:"install-secti
         setTimeout(() => {
             btn.innerHTML = originalHTML;
         }, 2000);
-    };`,type:null}],externalScripts:[],externalStyles:[],styles:`/* Install picker */
+    };`,type:null}],externalScripts:[],externalStyles:[],styles:`/* Quick repeat taps shouldn't zoom on mobile; iOS needs this per shadow root (see styles/site.css). */
+    * {
+        touch-action: manipulation;
+    }
+
+    /* Install picker */
     .install-picker {
         display: flex;
         flex-direction: column;
@@ -402,7 +407,12 @@ import{p as h,w as g}from"./clarity-CKgcF3Kt.js";const f={tagName:"install-secti
     }\r
 \r
     document.body.removeChild(textarea);\r
-  };`,type:null}],externalScripts:[{src:"https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/highlight.min.js",type:null,external:!0}],externalStyles:[{href:"https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/atom-one-dark.min.css",rel:"stylesheet"}],styles:`.hljs {\r
+  };`,type:null}],externalScripts:[{src:"https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/highlight.min.js",type:null,external:!0}],externalStyles:[{href:"https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/atom-one-dark.min.css",rel:"stylesheet"}],styles:`/* Quick repeat taps shouldn't zoom on mobile; iOS needs this per shadow root (see styles/site.css). */\r
+  * {\r
+    touch-action: manipulation;\r
+  }\r
+\r
+  .hljs {\r
     background: transparent !important;\r
   }\r
 \r
@@ -625,7 +635,12 @@ import{p as h,w as g}from"./clarity-CKgcF3Kt.js";const f={tagName:"install-secti
     <button onclick="count++">Add</button>\r
     <button onclick="count=0">Reset</button>\r
   </div>\r
-</div>`,scripts:[{content:"let count = 0;",type:null}],externalScripts:[],externalStyles:[],styles:`.counter {\r
+</div>`,scripts:[{content:"let count = 0;",type:null}],externalScripts:[],externalStyles:[],styles:`/* Quick repeat taps shouldn't zoom on mobile; iOS needs this per shadow root (see styles/site.css). */\r
+  * {\r
+    touch-action: manipulation;\r
+  }\r
+\r
+  .counter {\r
     text-align: center;\r
     display: flex;\r
     flex-direction: column;\r
