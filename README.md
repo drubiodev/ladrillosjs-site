@@ -20,6 +20,14 @@ bus, and `index.html` answers by lazy-loading `brick-smash/`, so none of the eff
 ships until someone plays with the bricks. The debris renders with WebGPU and falls back
 to Canvas 2D. With `prefers-reduced-motion`, it shows a glow and a message instead.
 
+## Mobile Taps
+
+Quick repeat taps (like the counter's Add button) shouldn't trigger double-tap-to-zoom.
+`styles/site.css` sets `touch-action: manipulation` on `html`, but iOS Safari doesn't
+apply that inside Shadow DOM. So every component with buttons, links, inputs, or click
+handlers starts its `<style>` with `* { touch-action: manipulation; }`; include it when
+adding one. Pinch-zoom still works.
+
 ## Search Discovery
 
 Each page has a unique title, description, and canonical URL. The homepage

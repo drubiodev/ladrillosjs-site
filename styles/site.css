@@ -49,6 +49,10 @@
 
 html {
   scroll-behavior: smooth;
+  /* Turn off double-tap-to-zoom so quick repeat taps on mobile count as clicks; pinch-zoom
+     still works. iOS Safari only checks the tapped element and its ancestors up to its
+     shadow root, so each component with tappable elements repeats this in its own <style>. */
+  touch-action: manipulation;
 }
 
 html,

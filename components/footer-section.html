@@ -1,4 +1,9 @@
 <style>
+  /* Quick repeat taps shouldn't zoom on mobile; iOS needs this per shadow root (see styles/site.css). */
+  * {
+    touch-action: manipulation;
+  }
+
   /* ============================================
    Footer
    ============================================ */
