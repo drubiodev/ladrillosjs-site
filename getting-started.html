@@ -556,8 +556,9 @@
                 <section id="first-component" class="gs-section">
                     <h2>2. Your first component</h2>
                     <p class="gs-subhead">
-                        A LadrillosJS component is a single <code>.html</code> file with markup, a
-                        <code>&lt;script&gt;</code>, and optional <code>&lt;style&gt;</code>. Let's build a counter.
+                        All it takes is one <code>.html</code> file — a bit of markup, a short
+                        <code>&lt;script&gt;</code>, and optional <code>&lt;style&gt;</code>. By the end
+                        of this section you'll have a working counter on the page.
                     </p>
 
                     <div class="gs-step">
@@ -587,7 +588,7 @@
                         <div class="gs-step-num">2</div>
                         <div class="gs-step-body">
                             <h3>Register it</h3>
-                            <p>Tell LadrillosJS which custom-element tag maps to which file.</p>
+                            <p>Now connect your tag to its file so the browser knows what to render when it sees it.</p>
                             <code-block filename="index.html">
                                 <template>
                                     registerComponent("my-counter", "./counter.html");
